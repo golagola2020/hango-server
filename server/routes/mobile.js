@@ -14,7 +14,7 @@ router.post('/login', (req, res) => {
     };
     
     // DB 검사 => 요청 아이디와 패스워드가 일치하는 데이터를 찾아 검사한다.
-    db.query(`SELECT * FROM users WHERE id LIKE ?`, [user.id], (err, userDB) => {
+    db.query(`SELECT * FROM users WHERE user_id LIKE ?`, [user.id], (err, userDB) => {
         // 에러시 실행
         if (err) {
             console.log(err);
@@ -42,7 +42,7 @@ router.post('/signup', (req, res) => {
         };
 
     // DB 등록
-    db.query(`INSERT INTO users(user_name, user_id, user_passwd, in_date) VALUES('${user.name}', '${user.id}', '${user.passwd}', NOW())`, (err, result) => {
+    db.query(`INSERT INTO users(user_id, user_name, user_passwd, user_in_date) VALUES('${user.id}', '${user.name}', '${user.passwd}')`, (err, result) => {
         if (err) {
             console.log(err);
             res.json( { success : false } );
@@ -50,6 +50,10 @@ router.post('/signup', (req, res) => {
         // 성공시 True 응답
         res.json( {success : true} );
     });
+});
+
+router.post('/vending/read', (req, res) => {
+    console.log(req.body)
 });
 
 // 모듈 내보내기
