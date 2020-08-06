@@ -42,18 +42,44 @@ router.post('/signup', (req, res) => {
         };
 
     // DB 등록
-    db.query(`INSERT INTO users(user_id, user_name, user_passwd, user_in_date) VALUES('${user.id}', '${user.name}', '${user.passwd}')`, (err, result) => {
+    db.query(`INSERT INTO users(user_id, user_name, user_passwd) VALUES(?, ?, ?)`, [user.id, user.name, user.passwd], (err, result) => {
+        // 실패시 "false" 응답
         if (err) {
             console.log(err);
             res.json( { success : false } );
         }
         // 성공시 True 응답
-        res.json( {success : true} );
+        res.json( { success : true } );
     });
 });
 
+// 모바일 메인화면 로딩시 요청 경로 => 자판기 정보 응답
 router.post('/vending/read', (req, res) => {
+    const userId = req.body.userId;
     console.log(req.body)
+
+    // 유저 아이디에 따른 자판기 정보 검색 후 응답
+    db.query(`SELECT user_id, serial_number, vending_name, vending_description, vending_full_size 
+        FROM vendings WHERE user_id = ?;`, 
+        [userId], (err, result) => {
+            // 실패시 "False" 응답
+            if (err) {
+                console.log(err);
+                res.json( { response : false } )
+            }
+
+            // 성공시 자판기 정보를 Object로 선언
+            const response = {
+                userId = result.user_id,
+                serialNumber = result.serial_number,
+                vendingName = result.vending_name,
+                vendingDescription = result.vending_description,
+                vendingFullSize = result.vending_full_size
+            };
+
+            // 자판기 정보를 JSON 형태로 응답
+            res.json(response);
+    });
 });
 
 // 모듈 내보내기
