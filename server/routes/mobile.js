@@ -80,13 +80,11 @@ router.post('/vending/read', (req, res) => {
             let rest = {};
             for (let result of results) {
                 // DB 데이터를 Object로 초기화
-                rest = {
-                    userId : result.user_id,
-                    serialNumber : result.serial_number,
-                    vendingName : result.user_id,
-                    vendingDescription : result.vending_name,
-                    vendingFullSize : result.vending_full_size
-                };
+                rest.userId = result.user_id,
+                rest.serialNumber = result.serial_number,
+                rest.name = result.user_id,
+                rest.description = result.vending_name,
+                rest.fullSize = result.vending_full_size
 
                 // 자판기별 데이터를 Array에 삽입
                 response.vendings.push(rest);
@@ -99,7 +97,19 @@ router.post('/vending/read', (req, res) => {
 
 // 자판기 수정 요청
 router.post('/vending/update', (req, res) => {
+    const vending = req.body.vending;
     
+    db.query(`UPDATE vendings SET vending_name=?, vending_description=?, vending_full_size=? WHERE serial_number=?;`, 
+        [vending.name, vending.description, vending.fullSize, vending.serialNumber], (err, result) => {
+            // 실패시 false 응답
+            if (err) {
+                console.log(err);
+                res.json( { success : false });
+            }
+
+            // 성공시 true 응답
+            res.json( { success : true });
+    });
 });
 
 // 자판기 삭제 요청
