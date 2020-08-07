@@ -58,33 +58,53 @@ router.post('/signup', (req, res) => {
 // 모바일 메인화면 로딩시 요청 경로 => 자판기 정보 응답
 router.post('/vending/read', (req, res) => {
     const userId = req.body.userId;
-    console.log(req.body)
+    console.log(req.body);
 
     // 유저 아이디에 따른 자판기 정보 검색 후 응답
     db.query(`SELECT user_id, serial_number, vending_name, vending_description, vending_full_size 
         FROM vendings WHERE user_id = ?;`, 
-        [userId], (err, result) => {
+        [userId], (err, results) => {
             // 실패시 "False" 응답
             if (err) {
                 console.log(err);
-                res.json( { success : false } )
+                res.json( { success : false } );
             }
 
             // 성공시 자판기 정보를 Object로 선언
             const response = {
-                success : true,
-                response : {
+              success : true,
+              vendings : []
+            };
+            
+            // DB에서 받아온 데이터 전체 삽입
+            let rest = {};
+            for (let result of results) {
+                // DB 데이터를 Object로 초기화
+                rest = {
                     userId : result.user_id,
                     serialNumber : result.serial_number,
-                    vendingName : result.vending_name,
-                    vendingDescription : result.vending_description,
+                    vendingName : result.user_id,
+                    vendingDescription : result.vending_name,
                     vendingFullSize : result.vending_full_size
-                }
-            };
+                };
+
+                // 자판기별 데이터를 Array에 삽입
+                response.vendings.push(rest);
+            }
 
             // 자판기 정보를 JSON 형태로 응답
             res.json(response);
     });
+});
+
+// 자판기 수정 요청
+router.post('/vending/update', (req, res) => {
+    
+});
+
+// 자판기 삭제 요청
+router.post('/vending/delete', (req, res) => {
+
 });
 
 // 모듈 내보내기
