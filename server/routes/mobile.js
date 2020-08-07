@@ -104,17 +104,28 @@ router.post('/vending/update', (req, res) => {
             // 실패시 false 응답
             if (err) {
                 console.log(err);
-                res.json( { success : false });
+                res.json({ success : false });
             }
 
             // 성공시 true 응답
-            res.json( { success : true });
+            res.json({ success : true });
     });
 });
 
 // 자판기 삭제 요청
 router.post('/vending/delete', (req, res) => {
+    const serialNumber = req.body.serialNumber;
 
+    db.query(`DELETE FROM vendings WHERE serial_number=?;`, [serialNumber], (err, result) => {
+        // 실패시 false 응답
+        if (err) {
+            console.log(err);
+            res.json({ success : false });
+        }
+
+        // 성공시 true 응답
+        res.json({ success : true });
+    })
 });
 
 // 모듈 내보내기
