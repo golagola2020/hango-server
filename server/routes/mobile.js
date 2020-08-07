@@ -1,5 +1,7 @@
 /* routes/mobile.js */
 
+const { json } = require('body-parser');
+
 // 라우팅을 위한 기본 모듈 포함
 const express = require('express'),
   router = express.Router(),
@@ -65,16 +67,19 @@ router.post('/vending/read', (req, res) => {
             // 실패시 "False" 응답
             if (err) {
                 console.log(err);
-                res.json( { response : false } )
+                res.json( { success : false } )
             }
 
             // 성공시 자판기 정보를 Object로 선언
             const response = {
-                userId = result.user_id,
-                serialNumber = result.serial_number,
-                vendingName = result.vending_name,
-                vendingDescription = result.vending_description,
-                vendingFullSize = result.vending_full_size
+                success : true,
+                response : {
+                    userId : result.user_id,
+                    serialNumber : result.serial_number,
+                    vendingName : result.vending_name,
+                    vendingDescription : result.vending_description,
+                    vendingFullSize : result.vending_full_size
+                }
             };
 
             // 자판기 정보를 JSON 형태로 응답
