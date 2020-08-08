@@ -79,7 +79,7 @@ router.post('/signup', (req, res) => {
                 console.log(err);
                 res.json({ 
                     success : false,
-                    msg, err
+                    msg : err
                 });
             }
             // 성공시 True 응답
