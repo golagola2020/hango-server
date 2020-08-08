@@ -39,23 +39,35 @@ router.post('/login', (req, res) => {
 
 // 회원가입 요청 및 응답
 router.post('/signup', (req, res) => {
-    // 모바일 요청 데이터
+    // 클라이언트가 요청한 데이터 저장
     const user = {
             name : req.body.userName,
             id : req.body.userId,
             passwd : req.body.userPasswd
         };
 
-    // DB 등록
-    db.query(`INSERT INTO users(user_id, user_name, user_passwd) VALUES(?, ?, ?)`, [user.id, user.name, user.passwd], (err, result) => {
-        // 실패시 "false" 응답
-        if (err) {
-            console.log(err);
-            res.json( { success : false } );
-        }
-        // 성공시 True 응답
-        res.json( { success : true } );
-    });
+    // 클라이언트가 요청한 데이터가 있는지 검사
+    if (!String.isEmpty(user.id)) {
+        // 클라이언트가 전송한 "userId" 가 있다면, DB 등록
+        db.query(`INSERT INTO users(user_id, user_name, user_passwd) VALUES(?, ?, ?)`, [user.id, user.name, user.passwd], (err, result) => {
+            // 실패시 "false" 응답
+            if (err) {
+                console.log(err);
+                res.json({ 
+                    success : false,
+                    msg, err
+                });
+            }
+            // 성공시 True 응답
+            res.json({ success : true });
+        });
+    } else {
+        // 클라이언트가 전송한 데이터가 없다면 false 반환
+        res.json({
+            success : false,
+            msg : "The user datas of the server is empty."
+        });
+    }
 });
 
 // 모바일 메인화면 로딩시 요청 경로 => 자판기 정보 응답
