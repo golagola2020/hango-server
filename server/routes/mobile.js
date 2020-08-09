@@ -213,5 +213,10 @@ router.post('/vending/delete', (req, res) => {
     }
 });
 
+// 음료 등록 및 수정
+router.post('/drink/update', (req, res) => {
+
+});
+
 // 모듈 내보내기
 module.exports = router;
