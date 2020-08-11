@@ -5,10 +5,10 @@ const { json } = require('body-parser');
 // 라우팅을 위한 기본 모듈 포함
 const express = require('express'),
     router = express.Router(),
-    db = require('../../../database/db.js');
+    db = require('./../../database/db.js');
 
 // 외부 클래스 포함
-const String = require('../../../class/String.js');
+const String = require('./../../class/String.js');
 
 // 로그인 요청 및 응답
 router.post('/login', (req, res) => {

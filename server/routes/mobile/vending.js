@@ -6,10 +6,10 @@ const { json } = require('body-parser');
 const express = require('express'),
     app = express(),
     router = express.Router(),
-    db = require('../../../database/db.js');
+    db = require('./../../database/db.js');
 
 // 외부 클래스 포함
-const String = require('../../../class/String.js');
+const String = require('./../../class/String.js');
 
 // 모바일 메인화면 로딩시 요청 경로 => 자판기 정보 응답
 router.post('/read', (req, res) => {
