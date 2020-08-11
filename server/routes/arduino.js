@@ -39,7 +39,7 @@ router.post('/drink/read', (req, res) => {
   if (!String.isEmpty(serialNumber)) {
     // 시리얼 넘버가 있다면 DB에서 음료수 정보를 불러온다.
     db.query(`SELECT serial_number, drink_position, drink_name FROM drinks WHERE serial_number = ?;`, 
-      [serialNumber], (err, drinks) => {
+      [serialNumber], (err, results) => {
         // 실패시 false 응답
         if (err) {
           console.log(err);
@@ -56,17 +56,28 @@ router.post('/drink/read', (req, res) => {
         };
 
         // DB에서 불러온 음료 정보들을 reponse Object에 담아 JSON 형태로 응답
-        let rest = [];
-        for (let drink of drinks) {
+        let drink = [];
+        for (let result of results) {
+          // 음료 이름을 16진수 문자열로 변경 => 아두이노에서 TTS로 활용됨
+          let drinkName = result.drink_name;
+          hexas = Buffer.from(drinkName, 'utf8').toString('hex').toUpperCase();
+
+          // 16진수 문자열을 2개씩 끊어 헥사값으로 변환
+          convertedName = []
+          for (let i = 0; i < hexas.length; i += 2) {
+            hexa = '0x' + hexas.substr(i, 2);
+            convertedName.push(hexa);
+          }
+          
           // 음료 정보 초기화
-          rest = {
-            serialNumber : drink.serial_number,
-            drinkPosition : drink.drink_position,
-            drinkName : drink.drink_name
+          drink = {
+            serialNumber : result.serial_number,
+            drinkPosition : result.drink_position,
+            drinkName : convertedName
           }
 
           // 음료 정보 삽입
-          response.drinks.push(rest);
+          response.drinks.push(drink);
         }
 
         // 응답
