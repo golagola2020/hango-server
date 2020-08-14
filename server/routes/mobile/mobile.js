@@ -95,6 +95,78 @@ router.post('/signup', (req, res) => {
     }
 });
 
+// 회원정보 조회 요청 및 응답
+router.post('/user/read', (req, res) => {
+    // 클라이언트가 요청한 데이터 저장
+    const userId = req.body.userId;
+
+    // 클라이언트가 요청한 데이터가 있는지 검사
+    if (!String.isEmpty(userId)) {
+        // 클라이언트가 전송한 "userId" 가 있다면, DB에서 제거
+        db.query(`SELECT * FROM users WHERE user_id=?`, [userId], (err, result) => {
+            // 실패시 "false" 응답
+            if (err) {
+                console.log(err);
+                res.json({ 
+                    success : false,
+                    msg : err
+                });
+            }
+
+            // 응답 데이터 생성
+            const response = { 
+                success : true,
+                userId : result[0].user_id,
+                userName : result[0].user_name,
+                userEmail : result[0].user_email,
+            };
+
+            // 성공시 True 응답
+            res.json(response);
+        });
+    } else {
+        // 클라이언트가 전송한 데이터가 없다면 false 반환
+        res.json({
+            success : false,
+            msg : "The userId of the server is empty."
+        });
+    }
+});
+
+// 회원정보 수정 요청 및 응답
+router.post('/user/update', (req, res) => {
+    // 클라이언트가 요청한 데이터 저장
+    const userId = req.body.userId,
+        userNewId = req.body.userNewId,
+        userName = req.body.userName,
+        userEmail = req.body.userEmail,
+        userNewPasswd = req.body.userNewPasswd;
+
+    // 클라이언트가 요청한 데이터가 있는지 검사
+    if (!String.isEmpty(userId)) {
+        // 클라이언트가 전송한 "userId" 가 있다면, DB에서 제거
+        db.query(`UPDATE users SET user_id=?, user_name=?, user_email=?, user_passwd=? WHERE user_id=?`, 
+            [userNewId, userName, userEmail, userNewPasswd, userId], (err, result) => {
+                // 실패시 "false" 응답
+                if (err) {
+                    console.log(err);
+                    res.json({ 
+                        success : false,
+                        msg : err
+                    });
+                }
+                // 성공시 True 응답
+                res.json({ success : true });
+        });
+    } else {
+        // 클라이언트가 전송한 데이터가 없다면 false 반환
+        res.json({
+            success : false,
+            msg : "The userId of the server is empty."
+        });
+    }
+});
+
 // 회원탈퇴 요청 및 응답
 router.post('/user/delete', (req, res) => {
     // 클라이언트가 요청한 데이터 저장
