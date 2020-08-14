@@ -112,13 +112,17 @@ router.post('/user/read', (req, res) => {
                     msg : err
                 });
             }
-            // 성공시 True 응답
-            res.json({ 
+
+            // 응답 데이터 생성
+            const response = { 
                 success : true,
                 userId : result[0].user_id,
-                userName : result[0].userName,
-                userEmail : result[0].userEmail,
-            });
+                userName : result[0].user_name,
+                userEmail : result[0].user_email,
+            };
+
+            // 성공시 True 응답
+            res.json(response);
         });
     } else {
         // 클라이언트가 전송한 데이터가 없다면 false 반환
