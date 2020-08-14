@@ -67,13 +67,14 @@ router.post('/signup', (req, res) => {
     const user = {
             name : req.body.userName,
             id : req.body.userId,
+            email : req.body.userEmail,
             passwd : req.body.userPasswd
         };
 
     // 클라이언트가 요청한 데이터가 있는지 검사
     if (!String.isEmpty(user.id)) {
         // 클라이언트가 전송한 "userId" 가 있다면, DB 등록
-        db.query(`INSERT INTO users(user_id, user_name, user_passwd) VALUES(?, ?, ?)`, [user.id, user.name, user.passwd], (err, result) => {
+        db.query(`INSERT INTO users(user_id, user_name, user_email, user_passwd) VALUES(?, ?, ?, ?)`, [user.id, user.name, user.email, user.passwd], (err, result) => {
             // 실패시 "false" 응답
             if (err) {
                 console.log(err);
