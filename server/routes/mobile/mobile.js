@@ -116,9 +116,11 @@ router.post('/user/read', (req, res) => {
             // 응답 데이터 생성
             const response = { 
                 success : true,
-                userId : result[0].user_id,
-                userName : result[0].user_name,
-                userEmail : result[0].user_email,
+                user : {
+                    id : result[0].user_id,
+                    name : result[0].user_name,
+                    email : result[0].user_email,
+                }
             };
 
             // 성공시 True 응답
