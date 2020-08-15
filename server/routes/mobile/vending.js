@@ -68,13 +68,14 @@ router.post('/read', (req, res) => {
 // 자판기 수정 요청
 router.post('/update', (req, res) => {
   // 클라이언트가 요청한 데이터 저장
-  const vending = req.body.vending;
+  const serialNumber = req.body.serialNumber,
+    vending = req.body.vending;
 
   // 클라이언트가 요청한 데이터가 있는지 검사
   if (!String.isEmpty(vending)) {
       // 클라이언트가 전송한 "vending" 이 있다면, 자판기 정보 수정
       db.query(`UPDATE vendings SET vending_name=?, vending_description=?, vending_full_size=? WHERE serial_number=?;`, 
-          [vending.name, vending.description, vending.fullSize, vending.serialNumber], (err, result) => {
+          [vending.name, vending.description, vending.fullSize, serialNumber], (err, result) => {
               // 실패시 false 응답
               if (err) {
                   console.log(err);
