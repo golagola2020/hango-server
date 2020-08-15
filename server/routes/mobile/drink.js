@@ -14,10 +14,9 @@ const String = require('./../../class/String.js');
 // 자판기 상세 혹은 음료수 조회화면 로딩시 요청 경로 => 자판기 정보 응답
 router.post('/read', (req, res) => {
     // 클라이언트가 요청한 데이터 저장
-    const serialNumber = req.body.serialNumber.slice(7,);
+    const serialNumber = req.body.serialNumber;
     console.log('클라이언트 요청 데이터 : ');
     console.log(req.body);
-    console.log(serialNumber)
 
     // 클라이언트가 요청한 데이터가 있는지 검사
     if (!String.isEmpty(serialNumber)) {
@@ -61,6 +60,7 @@ router.post('/read', (req, res) => {
                     response.drinks.push(drink);
                 }
 
+                // 서버 응답 데이터 출력
                 console.log('서버 응답 데이터 : ');
                 console.log(response);
                 // 자판기 정보를 JSON 형태로 응답
