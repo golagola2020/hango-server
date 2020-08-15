@@ -19,7 +19,7 @@ router.post('/read', (req, res) => {
   // 클라이언트가 요청한 데이터가 있는지 검사
   if (!String.isEmpty(userId)) {
       // 클라이언트가 전송한 "userId" 가 있다면, 유저 아이디에 따른 자판기 정보 검색 후 응답
-      db.query(`SELECT user_id, serial_number, vending_name, vending_description, vending_full_size 
+      db.query(`SELECT serial_number, vending_name, vending_description, vending_full_size 
           FROM vendings WHERE user_id = ?;`, 
           [userId], (err, results) => {
               // 실패시 "False" 응답
@@ -33,25 +33,26 @@ router.post('/read', (req, res) => {
 
               // 성공시 자판기 정보를 Object로 선언
               const response = {
-              success : true,
-              vendings : []
+                success : true,
+                userId : userId,
+                vendings : []
               };
               
               // DB에서 받아온 데이터 전체 삽입
-              let rest = {};
+              let vending = {};
               for (let result of results) {
                   // DB 데이터를 Object로 초기화
-                  rest = {
-                      userId : result.user_id,
+                  vending = {
                       serialNumber : result.serial_number,
-                      name : result.user_id,
-                      description : result.vending_name,
+                      name : result.vending_name,
+                      description : result.vending_description,
                       fullSize : result.vending_full_size,
                   }
 
                   // 자판기별 데이터를 Array에 삽입
-                  response.vendings.push(rest);
+                  response.vendings.push(vending);
               }
+              console.log(response)
 
               // 자판기 정보를 JSON 형태로 응답
               res.json(response);
