@@ -44,8 +44,8 @@ router.post('/read', (req, res) => {
                   // DB 데이터를 Object로 초기화
                   vending = {
                       serialNumber : result.serial_number,
-                      name : result.user_name,
-                      description : result.vending_name,
+                      name : result.vending_name,
+                      description : result.vending_description,
                       fullSize : result.vending_full_size,
                   }
 
