@@ -43,6 +43,7 @@ router.post('/read', (req, res) => {
                         success: false,
                         msg: "Drinks isn't exist in the vending machine right now."
                     });
+                    
                 }
 
                 //  음료 정보 삽입
@@ -64,7 +65,9 @@ router.post('/read', (req, res) => {
                 console.log('서버 응답 데이터 : ');
                 console.log(response);
                 // 자판기 정보를 JSON 형태로 응답
-                res.json(response);
+                if (!String.isEmpty(response.drinks)) {
+                    res.json(response);
+                }
             });
     } else {
         // 클라이언트가 전송한 데이터가 없다면 false 반환
