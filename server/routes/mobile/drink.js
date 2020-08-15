@@ -14,9 +14,10 @@ const String = require('./../../class/String.js');
 // 자판기 상세 혹은 음료수 조회화면 로딩시 요청 경로 => 자판기 정보 응답
 router.post('/read', (req, res) => {
     // 클라이언트가 요청한 데이터 저장
-    const serialNumber = req.body.serialNumber;
+    const serialNumber = req.body.serialNumber.slice(7,);
     console.log('클라이언트 요청 데이터 : ');
     console.log(req.body);
+    console.log(serialNumber)
 
     // 클라이언트가 요청한 데이터가 있는지 검사
     if (!String.isEmpty(serialNumber)) {
@@ -26,7 +27,7 @@ router.post('/read', (req, res) => {
             drinks: [],
         };
         // 음료 정보 조회
-        db.query(`SELECT drink_position, drink_name, exist_flag, drink_count FROM drinks WHERE serial_number = ?;`,
+        db.query(`SELECT drink_position, drink_name, drink_price, exist_flag, drink_count FROM drinks WHERE serial_number = ?;`,
             [serialNumber], (err, results) => {
                 // 실패시 "False" 응답
                 if (err) {
@@ -52,14 +53,16 @@ router.post('/read', (req, res) => {
                     drink = {
                         position: result.drink_position,
                         name: result.drink_name,
+                        price: result.drink_price,
                         isExist: result.exist_flag,
                         count: result.drink_count
                     }
-
                     // 자판기별 데이터를 Array에 삽입
                     response.drinks.push(drink);
                 }
 
+                console.log('서버 응답 데이터 : ');
+                console.log(response);
                 // 자판기 정보를 JSON 형태로 응답
                 res.json(response);
             });
