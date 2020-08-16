@@ -37,15 +37,6 @@ router.post('/read', (req, res) => {
                     });
                 }
 
-                // DB를 조회 결과 값이 없을 경우
-                if (String.isEmpty(results)) {
-                    res.json({
-                        success: false,
-                        msg: "Drinks isn't exist in the vending machine right now."
-                    });
-                    
-                }
-
                 //  음료 정보 삽입
                 let drink = {};
                 for (let result of results) {
@@ -67,6 +58,11 @@ router.post('/read', (req, res) => {
                 // 자판기 정보를 JSON 형태로 응답
                 if (!String.isEmpty(response.drinks)) {
                     res.json(response);
+                } else {
+                    res.json({
+                        success: false,
+                        msg: "Drinks isn't exist in the vending machine right now."
+                    });
                 }
             });
     } else {
