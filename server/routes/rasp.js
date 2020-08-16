@@ -11,11 +11,11 @@ const String = require('../class/String.js');
 // 라즈베리파이 음료 정보 요청 및 응답 경로
 router.get('/drink/read', (req, res) => {
   // 시리얼 넘버를 받아온다.
-  const serialNumber = "20200813112516295";
+  const serialNumber = req.body.serialNumber;
 
   // 클라이언트의 요청 데이터를 터미널에 출력
   console.log('클라이언트 요청 데이터 : ');
-  console.log( { "serialNumber" : "20200813112516295" } );
+  console.log(req.body);
   console.log(`고유번호 : ${serialNumber}`);
 
   // 시리얼 넘버 존재 여부 검사
@@ -44,9 +44,9 @@ router.get('/drink/read', (req, res) => {
         for (let result of results) {          
           // 음료 정보 초기화
           drink = {
-            drinkPosition : result.drink_position,
-            drinkName : result.drink_name,
-            drinkPrice : result.drink_price
+            position : result.drink_position,
+            name : result.drink_name,
+            price : result.drink_price
           }
 
           // 음료 정보 삽입

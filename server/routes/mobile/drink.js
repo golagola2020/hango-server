@@ -15,6 +15,8 @@ const String = require('./../../class/String.js');
 router.post('/read', (req, res) => {
     // 클라이언트가 요청한 데이터 저장
     const serialNumber = req.body.serialNumber;
+
+    // 클라이언트의 요청 데이터를 터미널에 출력
     console.log('클라이언트 요청 데이터 : ');
     console.log(req.body);
 
@@ -84,6 +86,10 @@ router.post('/create', (req, res) => {
             price: req.body.drink.price
         };
 
+    // 클라이언트의 요청 데이터를 터미널에 출력
+    console.log('클라이언트 요청 데이터 : ');
+    console.log(req.body);
+
     // 클라이언트가 요청한 데이터가 있는지 검사
     if (!String.isEmpty(serialNumber)) {
         // 클라이언트가 전송한 "serialNumber" 가 있다면, DB 등록
@@ -122,6 +128,10 @@ router.post('/update', (req, res) => {
             name: req.body.drink.name,
             price: req.body.drink.price
         };
+
+    // 클라이언트의 요청 데이터를 터미널에 출력
+    console.log('클라이언트 요청 데이터 : ');
+    console.log(req.body);
 
     // 클라이언트가 요청한 데이터가 있는지 검사
     if (!String.isEmpty(serialNumber)) {

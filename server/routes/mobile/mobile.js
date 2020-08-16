@@ -17,6 +17,10 @@ router.post('/login', (req, res) => {
         id : req.body.userId,
         passwd : req.body.userPasswd
     };
+
+    // 클라이언트의 요청 데이터를 터미널에 출력
+    console.log('클라이언트 요청 데이터 : ');
+    console.log(req.body);
     
     // 클라이언트가 요청한 데이터가 있는지 검사
     if (!String.isEmpty(user.id)) {
@@ -70,6 +74,10 @@ router.post('/signup', (req, res) => {
             email : req.body.userEmail,
             passwd : req.body.userPasswd
         };
+    
+    // 클라이언트의 요청 데이터를 터미널에 출력
+    console.log('클라이언트 요청 데이터 : ');
+    console.log(req.body);
 
     // 클라이언트가 요청한 데이터가 있는지 검사
     if (!String.isEmpty(user.id)) {
@@ -100,6 +108,10 @@ router.post('/user/read', (req, res) => {
     // 클라이언트가 요청한 데이터 저장
     const userId = req.body.userId;
 
+    // 클라이언트의 요청 데이터를 터미널에 출력
+    console.log('클라이언트 요청 데이터 : ');
+    console.log(req.body);
+
     // 클라이언트가 요청한 데이터가 있는지 검사
     if (!String.isEmpty(userId)) {
         // 클라이언트가 전송한 "userId" 가 있다면, DB에서 제거
@@ -123,8 +135,18 @@ router.post('/user/read', (req, res) => {
                 }
             };
 
-            // 성공시 True 응답
-            res.json(response);
+            // 서버 응답 데이터 출력
+            console.log('서버 응답 데이터 : ');
+            console.log(response);
+            // 자판기 정보를 JSON 형태로 응답
+            if (!String.isEmpty(response.user.id)) {
+                res.json(response);
+            } else {
+                res.json({
+                    success: false,
+                    msg: "userId isn't exist in the DataBase right now."
+                });
+            }
         });
     } else {
         // 클라이언트가 전송한 데이터가 없다면 false 반환
@@ -139,6 +161,10 @@ router.post('/user/read', (req, res) => {
 router.post('/user/update', (req, res) => {
     // 클라이언트가 요청한 데이터 저장
     const user = req.body.user;
+
+    // 클라이언트의 요청 데이터를 터미널에 출력
+    console.log('클라이언트 요청 데이터 : ');
+    console.log(req.body);
 
     // 클라이언트가 요청한 데이터가 있는지 검사
     if (!String.isEmpty(user)) {
@@ -169,6 +195,10 @@ router.post('/user/update', (req, res) => {
 router.post('/user/delete', (req, res) => {
     // 클라이언트가 요청한 데이터 저장
     const userId = req.body.userId;
+
+    // 클라이언트의 요청 데이터를 터미널에 출력
+    console.log('클라이언트 요청 데이터 : ');
+    console.log(req.body);
 
     // 클라이언트가 요청한 데이터가 있는지 검사
     if (!String.isEmpty(userId)) {
