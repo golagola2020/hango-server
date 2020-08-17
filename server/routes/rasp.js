@@ -9,7 +9,7 @@ const express = require('express'),
 const String = require('../class/String.js');
 
 // 라즈베리파이 음료 정보 요청 및 응답 경로
-router.get('/drink/read', (req, res) => {
+router.post('/drink/read', (req, res) => {
   // 시리얼 넘버를 받아온다.
   const serialNumber = req.body.serialNumber;
 
