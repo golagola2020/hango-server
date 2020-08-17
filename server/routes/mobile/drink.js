@@ -28,7 +28,7 @@ router.post('/read', (req, res) => {
             drinks: [],
         };
         // 음료 정보 조회
-        db.query(`SELECT drink_position, drink_name, drink_price, exist_flag, drink_count FROM drinks WHERE serial_number = ?;`,
+        db.query(`SELECT drink_position, drink_name, drink_price, drink_count FROM drinks WHERE serial_number = ?;`,
             [serialNumber], (err, results) => {
                 // 실패시 "False" 응답
                 if (err) {
@@ -47,7 +47,6 @@ router.post('/read', (req, res) => {
                         position: result.drink_position,
                         name: result.drink_name,
                         price: result.drink_price,
-                        isExist: result.exist_flag,
                         count: result.drink_count
                     }
                     // 자판기별 데이터를 Array에 삽입
