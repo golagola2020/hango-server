@@ -8,30 +8,10 @@ const express = require('express'),
 // 외부 클래스 포함
 const String = require('../class/String.js');
 
-router.get('/test', (req, res) => {
-  // 클라이언트의 요청 데이터를 터미널에 출력
-  console.log('클라이언트 요청 데이터 : ');
-  console.log(req.body);
-
-  res.json({
-    success : true
-  });
-});
-
-router.post('/test', (req, res) => {
-  // 클라이언트의 요청 데이터를 터미널에 출력
-  console.log('클라이언트 요청 데이터 : ');
-  console.log(req.body);
-
-  res.json({
-    success : true
-  });
-});
-
 // 라즈베리파이 음료 정보 요청 및 응답 경로
 router.post('/drink/read', (req, res) => {
   // 시리얼 넘버를 받아온다.
-  const serialNumber = req.body.serialNumber;
+  const serialNumber = req.body.serial_number;
 
   // 클라이언트의 요청 데이터를 터미널에 출력
   console.log('클라이언트 요청 데이터 : ');
