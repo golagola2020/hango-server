@@ -93,7 +93,7 @@ router.post('/create', (req, res) => {
     // 클라이언트가 요청한 데이터가 있는지 검사
     if (!String.isEmpty(serialNumber)) {
         // 클라이언트가 전송한 "serialNumber" 가 있다면, DB 등록
-        db.query(`INSERT INTO drinks(serialNumber, drink_position, drink_name, drink_price) VALUES(?, ?, ?, ?)`,
+        db.query(`INSERT INTO drinks(serial_number, drink_position, drink_name, drink_price) VALUES(?, ?, ?, ?)`,
             [serialNumber, drink.position, drink.name, drink.price], (err, result) => {
                 // 실패시 false 응답
                 if (err) {
