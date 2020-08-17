@@ -53,10 +53,19 @@ router.post('/drink/read', (req, res) => {
           response.drinks.push(drink);
         }
 
-        // 응답 및 출력
-        console.log('서버 응답 데이터 : ');
-        console.log(response);
-        res.json(response);
+        // 응답 데이터 존재 여부 검사
+        if (!String.isEmpty(response.drinks)) {
+          // 응답 및 출력
+          console.log('서버 응답 데이터 : ');
+          console.log(response);
+          res.json(response);
+        } else {
+          // 시리얼 넘버에 해당하는 데이터가 없다면 false 응답
+          res.json({ 
+            success : false,
+            msg : "The serial number isn't exist."
+          });
+        }
     });
   } else {
     // 시리얼 넘버를 받아오지 못했다면 false 응답
