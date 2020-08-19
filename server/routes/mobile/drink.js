@@ -131,7 +131,7 @@ router.post('/update', (req, res) => {
     // 클라이언트가 요청한 데이터가 있는지 검사
     if (!String.isEmpty(serialNumber)) {
         // 클라이언트가 전송한 "serialNumber" 가 있다면, 음료 정보 수정
-        db.query(`UPDATE drinks SET drink_name=?, drink_price=? drink_count=? WHERE serial_number=? AND drink_position=?;`,
+        db.query(`UPDATE drinks SET drink_name=?, drink_price=?, drink_count=? WHERE serial_number=? AND drink_position=?;`,
             [drink.name, drink.price, drink.maxCount, serialNumber, drink.position], (err, result) => {
                 // 실패시 false 응답
                 if (err) {
@@ -140,6 +140,7 @@ router.post('/update', (req, res) => {
                         success: false,
                         msg: err
                     });
+                    return;
                 }
 
                 // 성공시 true 응답
