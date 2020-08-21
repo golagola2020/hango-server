@@ -79,11 +79,7 @@ router.post('/read', (req, res) => {
 router.post('/create', (req, res) => {
     // 클라이언트가 요청한 데이터 저장
     const serialNumber = req.body.serialNumber,
-        drink = {
-            position: req.body.drink.position,
-            name: req.body.drink.name,
-            price: req.body.drink.price
-        };
+        drink = req.body.drink;
 
     // 클라이언트의 요청 데이터를 터미널에 출력
     console.log('클라이언트 요청 데이터 : ');
@@ -92,8 +88,8 @@ router.post('/create', (req, res) => {
     // 클라이언트가 요청한 데이터가 있는지 검사
     if (!String.isEmpty(serialNumber)) {
         // 클라이언트가 전송한 "serialNumber" 가 있다면, DB 등록
-        db.query(`INSERT INTO drinks(serial_number, drink_position, drink_name, drink_price) VALUES(?, ?, ?, ?)`,
-            [serialNumber, drink.position, drink.name, drink.price], (err, result) => {
+        db.query(`INSERT INTO drinks(serial_number, drink_position, drink_name, drink_price, drink_count) VALUES(?, ?, ?, ?)`,
+            [serialNumber, drink.position, drink.name, drink.price, drink.maxCount], (err, result) => {
                 // 실패시 false 응답
                 if (err) {
                     console.log(err);
