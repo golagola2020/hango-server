@@ -28,7 +28,7 @@ router.post('/read', (req, res) => {
             drinks: [],
         };
         // 음료 정보 조회
-        db.query(`SELECT drink_position, drink_name, drink_price, drink_count FROM drinks WHERE serial_number = ?;`,
+        db.query(`SELECT drink_position, drink_name, drink_price, drink_count, drink_max_count FROM drinks WHERE serial_number = ?;`,
             [serialNumber], (err, results) => {
                 // 실패시 "False" 응답
                 if (err) {
@@ -47,7 +47,8 @@ router.post('/read', (req, res) => {
                         position: result.drink_position,
                         name: result.drink_name,
                         price: result.drink_price,
-                        count: result.drink_count
+                        count: result.drink_count,
+                        maxCount : result.drink_max_count
                     }
                     // 자판기별 데이터를 Array에 삽입
                     response.drinks.push(drink);
@@ -88,8 +89,8 @@ router.post('/create', (req, res) => {
     // 클라이언트가 요청한 데이터가 있는지 검사
     if (!String.isEmpty(serialNumber)) {
         // 클라이언트가 전송한 "serialNumber" 가 있다면, DB 등록
-        db.query(`INSERT INTO drinks(serial_number, drink_position, drink_name, drink_price, drink_count) VALUES(?, ?, ?, ?)`,
-            [serialNumber, drink.position, drink.name, drink.price, drink.maxCount], (err, result) => {
+        db.query(`INSERT INTO drinks(serial_number, drink_position, drink_name, drink_price, drink_count, drink_max_count) VALUES(?, ?, ?, ?, ?)`,
+            [serialNumber, drink.position, drink.name, drink.price, drink.maxCount, drink.maxCount], (err, result) => {
                 // 실패시 false 응답
                 if (err) {
                     console.log(err);
@@ -127,8 +128,8 @@ router.post('/update', (req, res) => {
     // 클라이언트가 요청한 데이터가 있는지 검사
     if (!String.isEmpty(serialNumber)) {
         // 클라이언트가 전송한 "serialNumber" 가 있다면, 음료 정보 수정
-        db.query(`UPDATE drinks SET drink_name=?, drink_price=?, drink_count=? WHERE serial_number=? AND drink_position=?;`,
-            [drink.name, drink.price, drink.maxCount, serialNumber, drink.position], (err, result) => {
+        db.query(`UPDATE drinks SET drink_name=?, drink_price=?, drink_count=?, drink_max_count=? WHERE serial_number=? AND drink_position=?;`,
+            [drink.name, drink.price, drink.maxCount, drink.maxCount, serialNumber, drink.position], (err, result) => {
                 // 실패시 false 응답
                 if (err) {
                     console.log(err);
