@@ -37,6 +37,7 @@ router.post('/read', (req, res) => {
                         success: false,
                         msg: err
                     });
+                    return;
                 }
 
                 //  음료 정보 삽입
@@ -85,11 +86,11 @@ router.post('/create', (req, res) => {
     // 클라이언트의 요청 데이터를 터미널에 출력
     console.log('클라이언트 요청 데이터 : ');
     console.log(req.body);
-
+    
     // 클라이언트가 요청한 데이터가 있는지 검사
     if (!String.isEmpty(serialNumber)) {
         // 클라이언트가 전송한 "serialNumber" 가 있다면, DB 등록
-        db.query(`INSERT INTO drinks(serial_number, drink_position, drink_name, drink_price, drink_count, drink_max_count) VALUES(?, ?, ?, ?, ?)`,
+        db.query(`INSERT INTO drinks(serial_number, drink_position, drink_name, drink_price, drink_count, drink_max_count) VALUES(?, ?, ?, ?, ?, ?)`,
             [serialNumber, drink.position, drink.name, drink.price, drink.maxCount, drink.maxCount], (err, result) => {
                 // 실패시 false 응답
                 if (err) {
@@ -98,6 +99,7 @@ router.post('/create', (req, res) => {
                         success: false,
                         msg: err
                     });
+                    return;
                 }
 
                 // 성공시 true 응답
