@@ -21,7 +21,7 @@ router.post('/drink/read', (req, res) => {
   // 시리얼 넘버 존재 여부 검사
   if (!String.isEmpty(serialNumber)) {
     // 시리얼 넘버가 있다면 DB에서 음료수 정보를 불러온다.
-    db.query(`SELECT serial_number, drink_position, drink_name, drink_price FROM drinks WHERE serial_number = ?;`, 
+    db.query(`SELECT serial_number, drink_position, drink_name, drink_price, drink_count FROM drinks WHERE serial_number = ?;`, 
       [serialNumber], (err, results) => {
         // 실패시 false 응답
         if (err) {
@@ -46,7 +46,8 @@ router.post('/drink/read', (req, res) => {
           drink = {
             position : result.drink_position,
             name : result.drink_name,
-            price : result.drink_price
+            price : result.drink_price,
+            count : result.drink_count
           }
 
           // 음료 정보 삽입

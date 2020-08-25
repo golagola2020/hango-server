@@ -33,6 +33,7 @@ router.post('/login', (req, res) => {
                     success : false,
                     msg : err
                 });
+                return;
             }
             
             // DB에 해당하는 아이디가 없을 경우 실행
@@ -41,18 +42,21 @@ router.post('/login', (req, res) => {
                     success : false,
                     msg : "The ID does not exist."
                 });
+                return;
             }
 
             // 아이디와 패스워드 비교
-            if (userDB != false && userDB[0].user_id == user.id && userDB[0].user_passwd == user.passwd)
+            if (userDB != false && userDB[0].user_id == user.id && userDB[0].user_passwd == user.passwd) {
                 // 아이디 패스워드 일치시 True 응답
                 res.json({ success : true });
-            else {
+                return;
+            } else {
                 // 일치하지 않으면 False 응답
                 res.json({ 
                     success : false,
                     msg : "The ID and Password do not Match."
                 });
+                return;
             }
 
         });
@@ -62,6 +66,7 @@ router.post('/login', (req, res) => {
             success : false,
             msg : "The user datas of the server is empty."
         });
+        return;
     }
 });
 
