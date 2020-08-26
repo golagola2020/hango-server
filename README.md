@@ -3,9 +3,8 @@
 주의 : [Collaborating with issues and pull requests](https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests)을 정독할 것
 
 ### 시작하기에 앞서
-
-[hango-server](https://github.com/golagola2020/hango-server) 프로젝트를 실행시키기 위한 도구 및 프로그램 설치  
 ---
+[hango-server](https://github.com/golagola2020/hango-server) 프로젝트를 실행시키기 위한 도구 및 프로그램 설치  
    1. [Node](https://nodejs.org/ko/download/) 설치
    2. [MySQL](https://dev.mysql.com/downloads/installer/) 설치
 
@@ -34,7 +33,7 @@ $ git merge upstream/master
 ```
 
 ### 실행(로컬)
----
+
    1. 패키지 설치
    2. '.env' 파일 생성 후 DB 환경 변수 등록
    3. 실행
@@ -60,7 +59,7 @@ sudo node server.js
 ```
 
 ## 배포(발행)
----
+
 https://github.com/golagola2020/hango-server 에 push 권한이 있다면 :  
 ```
 $ git ch -b 'features to develop'
@@ -73,13 +72,13 @@ https://github.com/golagola2020/hango-server 에 push 권한이 없다면 :
    2. Pull Request 보내기 [Creating a pull request](https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request)
 
 ## 사용된 도구
----
+
 * [Node.js](https://nodejs.org/ko/about/) - 서버 프레임워크
 * [Express.js](https://expressjs.com/ko/) - 웹 프레임워크
 * [MySQL](https://www.mysql.com/about/) - 관계형 데이터베이스 관리시스템
 
 ## 의존성
----
+
 ```
 "dependencies": {
     "body-parser": "^1.19.0",
@@ -97,18 +96,18 @@ https://github.com/golagola2020/hango-server 에 push 권한이 없다면 :
 
 
 ## 기여하기
----
+
 [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) 를 읽으신 후 기여를 해주십시오. 자세한 Pull Request 절차와 행동 규칙을 확인하실 수 있습니다.
 
 ## 개발자
----
+
   - **박우림** [woorim960](https://github.com/woorim960) : 라즈베리파이와 모바일간 통신을 위한 서버
 
 
 [기여자 목록](https://github.com/golagola2020/hango-server/graphs/contributors)을 확인하여 이 프로젝트에 참가하신 분들을 보실 수 있습니다.
 
 ## 라이센스
----
+
 이 프로젝트는 MIT 허가서를 사용합니다 - [LICENSE.md](LICENSE.md) 파일에서 자세히 알아보세요.
 
 
