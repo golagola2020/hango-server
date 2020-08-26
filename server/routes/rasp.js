@@ -16,7 +16,6 @@ router.post('/drink/read', (req, res) => {
   // 클라이언트의 요청 데이터를 터미널에 출력
   console.log('클라이언트 요청 데이터 : ');
   console.log(req.body);
-  console.log(`고유번호 : ${serialNumber}`);
 
   // 시리얼 넘버 존재 여부 검사
   if (!String.isEmpty(serialNumber)) {
@@ -30,6 +29,7 @@ router.post('/drink/read', (req, res) => {
             success : false,
             msg : err
           });
+          return;
         }
 
         // 성공시 전송 데이터 선언
@@ -86,8 +86,6 @@ router.post('/drink/update', (req, res) => {
   // 클라이언트의 요청 데이터를 터미널에 출력
   console.log('클라이언트 요청 데이터 : ');
   console.log(req.body);
-  console.log(`고유번호 : ${serialNumber}`);
-  console.log(`판매 위치 : ${soldPosition}`);
 
   // 시리얼 넘버 존재 여부 검사
   if (!String.isEmpty(req.body)) {
@@ -101,6 +99,7 @@ router.post('/drink/update', (req, res) => {
             success : false,
             msg : err
           });
+          return;
         }
 
         // 현재 음료 개수에서 1개 제거
@@ -116,6 +115,7 @@ router.post('/drink/update', (req, res) => {
                 success : false,
                 msg : err
               });
+              return;
             }
             
             // 성공시 전송 데이터 선언

@@ -199,15 +199,13 @@ router.post('/refresh', (req, res) => {
             res.json({
                 success: true
             });
-            return;
         });
     } else {
         // 클라이언트가 전송한 데이터가 없다면 false 반환
         res.json({
             success: false,
-            msg: "The drink data of the server is empty."
+            msg: "The client request is empty."
         });
-        return;
     }
 });
 

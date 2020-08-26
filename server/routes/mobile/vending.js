@@ -37,6 +37,7 @@ router.post('/read', (req, res) => {
                         success: false,
                         msg: err
                     });
+                    return;
                 }
 
                 // 성공시 자판기 정보를 Object로 선언
@@ -107,6 +108,7 @@ router.post('/update', (req, res) => {
                         success: false,
                         msg: err
                     });
+                    return;
                 }
 
                 // 성공시 true 응답
@@ -143,6 +145,7 @@ router.post('/delete', (req, res) => {
                     success: false,
                     msg: err
                 });
+                return;
             }
 
             // 성공시 true 응답
