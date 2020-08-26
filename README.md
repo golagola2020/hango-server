@@ -1,33 +1,41 @@
-# 행고 (행복한 고민)
-> hango-server : 행고 웹서버
-
-시각장애인도 먹고 싶은 음료를 고민을 하도록 해주는 '골라골라' 팀의 '행고' 프로젝트
+# hango-server (행고 웹서버)
+> 주의 : [GitHub Pages](https://pages.github.com/)에 대해서 충분히 숙지할 것.  
+주의 : [Collaborating with issues and pull requests](https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests)을 정독할 것
 
 ## 시작하기
 
-이 지침을 따르시면 로컬 컴퓨터에서 개발과 테스트를 위한 프로젝트 사본을 실행시킬 수 있습니다. 배포하기 항목을 확인하여 실제 시스템에 프로젝트를 배포하는 방법을 알아보세요.
+이 지침을 따르시면 로컬 컴퓨터에서 개발과 테스트를 위한 프로젝트 사본을 실행시킬 수 있습니다. 배포 항목을 확인하여 실제 시스템에 프로젝트를 배포하는 방법을 알아보세요.
 
-### 시작하기에 앞서
+## 시작하기에 앞서
 
-프로젝트를 실행시키기 위한 도구 및 프로그렘을 나열하세요. 설치 방법도 같이 적어주셔도 됩니다.
+[hango-server](https://github.com/golagola2020/hango-server) 프로젝트를 실행시키기 위한 도구 및 프로그램을 설치해주세요.  
+   1. [Node](https://nodejs.org/ko/download/) 설치
+   2. [MySQL](https://dev.mysql.com/downloads/installer/) 설치
 
+### 설치
+https://github.com/golagola2020/hango-server 에 push 권한이 있다면 :  
+   1. git fetch or pull or clone
+   2. 패키지 설치
+   3. '.env' 파일 생성 후 DB 환경 변수 등록
 ```
-예시도 제공하세요
+# git clone
+$ git clone https://github.com/golagola2020/hango-server.git
+$ cd hango-server
+
+# 패키지 설치
+$ npm install
+
+# '.env' 파일 생성 후 DB 환경 변수 등록
+$ touch .env
+$ vi .env
 ```
-
-### 설치하기
-
-단계별 예제를 통하여 개발 환경을 구축하는 방법을 설명해 주세요.
-
-단계를 먼저 적어주세요
-
+이어서 '.env' 파일에 DB 환경 변수를 등록해주세요.
 ```
-예시도 함께 재공해 주세요
-```
-반복하세요
-
-```
-끝날때까지 적어주세요
+# ENV
+DB_DOMAIN="Your DB Host Domain"
+DB_USER="Your DB User Name"
+DB_PASSWORD="Your DB User Password"
+DB_NAME="Your DB Name"
 ```
 
 마무리로 시스템에서 데이터를 추출하는 방법이나 데모를 실행하는 방법을 설명해 주세요.
