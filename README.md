@@ -2,34 +2,50 @@
 > 주의 : [GitHub Pages](https://pages.github.com/)에 대해서 충분히 숙지할 것.  
 주의 : [Collaborating with issues and pull requests](https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests)을 정독할 것
 
-## 시작하기
+### 시작하기에 앞서
 
-이 지침을 따르시면 로컬 컴퓨터에서 개발과 테스트를 위한 프로젝트 사본을 실행시킬 수 있습니다. 배포 항목을 확인하여 실제 시스템에 프로젝트를 배포하는 방법을 알아보세요.
-
-## 시작하기에 앞서
-
-[hango-server](https://github.com/golagola2020/hango-server) 프로젝트를 실행시키기 위한 도구 및 프로그램을 설치해주세요.  
+[hango-server](https://github.com/golagola2020/hango-server) 프로젝트를 실행시키기 위한 도구 및 프로그램 설치  
    1. [Node](https://nodejs.org/ko/download/) 설치
    2. [MySQL](https://dev.mysql.com/downloads/installer/) 설치
 
 ### 설치
+
 https://github.com/golagola2020/hango-server 에 push 권한이 있다면 :  
    1. git fetch or pull or clone
-   2. 패키지 설치
-   3. '.env' 파일 생성 후 DB 환경 변수 등록
 ```
-# git clone
 $ git clone https://github.com/golagola2020/hango-server.git
 $ cd hango-server
+```
 
-# 패키지 설치
+https://github.com/golagola2020/hango-server 에 push 권한이 없다면 :  
+   1. https://github.com/golagola2020/hango-server 에서 ```Fork```버튼 클릭하고,
+   2. 포크 저장소 계정(maybe 개인 계정) 선택
+   3. git fetch or pull or clone
+   4. 포크 설정 [Configuring a remote for a fork](https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/configuring-a-remote-for-a-fork)
+   5. 포크 동기화 [Syncing a fork](https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/syncing-a-fork)
+```
+$ git clone https://github.com:YOUR_GITHUB_ACCOUNT/hango-server.git
+$ cd hango-server
+$ git remote add upstream https://github.com/golagola2020/hango-server.git
+$ git fetch upstream
+$ git checkout master
+$ git merge upstream/master
+```
+
+### 실행(로컬)
+
+   1. 패키지 설치
+   2. '.env' 파일 생성 후 DB 환경 변수 등록
+   3. 실행
+```
+# 1. 패키지 설치
 $ npm install
 
-# '.env' 파일 생성 후 DB 환경 변수 등록
+# 2. '.env' 파일 생성 후 DB 환경 변수 등록
 $ touch .env
 $ vi .env
 ```
-이어서 '.env' 파일에 DB 환경 변수를 등록해주세요.
+이어서 '.env' 파일에 DB 환경 변수 등록.
 ```
 # ENV
 DB_DOMAIN="Your DB Host Domain"
@@ -37,21 +53,47 @@ DB_USER="Your DB User Name"
 DB_PASSWORD="Your DB User Password"
 DB_NAME="Your DB Name"
 ```
+```
+# 3. 실행
+sudo node server.js
+```
 
-마무리로 시스템에서 데이터를 추출하는 방법이나 데모를 실행하는 방법을 설명해 주세요.
+## 배포(발행)
 
-## 배포
+https://github.com/golagola2020/hango-server 에 push 권한이 있다면 :  
+```
+$ git ch -b 'features to develop'
+$ git commit -m '[features to develop] message...'
+$ git push origin 'features to develop'
+```
 
-추가로 실제 시스템에 배포하는 방법을 노트해 두세요.
+https://github.com/golagola2020/hango-server 에 push 권한이 없다면 :
+   1. 포크 동기화 [Syncing a fork](https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/syncing-a-fork)
+   2. Pull Request 보내기 [Creating a pull request](https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request)
 
 ## 사용된 도구
 
 * [Node.js](https://nodejs.org/ko/about/) - 서버 프레임워크
 * [Express.js](https://expressjs.com/ko/) - 웹 프레임워크
-* [AWS EC2](https://aws.amazon.com/ko/ec2/) - 아마존 클라우드 서버
-* [AWS RDS](https://aws.amazon.com/ko/rds/) - 아마존 클라우드 관계형 데이터베이스
 * [MySQL](https://www.mysql.com/about/) - 관계형 데이터베이스 관리시스템
-* [MySQL Workbench](https://www.mysql.com/products/workbench/) - 관계형 데이터베이스 시각적 관리도구   
+
+## 의존성
+
+```
+"dependencies": {
+    "body-parser": "^1.19.0",
+    "dotenv": "^8.2.0",
+    "ejs": "^3.1.3",
+    "express": "^4.17.1",
+    "mysql": "^2.18.1"
+}
+```
+* [body-parser](https://github.com/expressjs/body-parser#readme)
+* [dotenv](https://github.com/motdotla/dotenv#readme)
+* [ejs](https://github.com/mde/ejs)
+* [express](https://github.com/expressjs/express)
+* [mysql](https://github.com/mysql)
+
 
 ## 기여하기
 
