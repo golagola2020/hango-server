@@ -55,7 +55,7 @@ DB_NAME="Your DB Name"
 ```
 ```
 # 3. 실행
-sudo node server.js
+$ sudo node server.js
 ```
 
 ## 배포(발행)
@@ -79,7 +79,7 @@ https://github.com/golagola2020/hango-server 에 push 권한이 없다면 :
 
 ## 의존성
 
-```
+```json
 "dependencies": {
     "body-parser": "^1.19.0",
     "dotenv": "^8.2.0",
