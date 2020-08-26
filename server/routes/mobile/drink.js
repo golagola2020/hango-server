@@ -156,5 +156,60 @@ router.post('/update', (req, res) => {
     }
 });
 
+// 음료 수정
+router.post('/refresh', (req, res) => {
+    // 클라이언트가 요청한 데이터 저장
+    const serialNumber = req.body.serialNumber,
+        drinks = req.body.drinks;
+
+    // 클라이언트의 요청 데이터를 터미널에 출력
+    console.log('클라이언트 요청 데이터 : ');
+    console.log(req.body);
+
+    // 클라이언트가 요청한 데이터가 있는지 검사
+    if (!String.isEmpty(req.body)) {
+        // 클라이언트가 전송한 데이터가 있다면, drink_max_count 초기화
+
+        // UPDATE 베이직 쿼리문 선언
+        querys = [
+            'UPDATE drinks SET drink_max_count=', 
+            ' WHERE serial_number=' + serialNumber + ' AND drink_position=', 
+            ';'
+        ];
+
+        // 실제 DB에 질의할 쿼리 생성
+        query = '';
+        for (let drink of drinks) {
+            query += querys[0] + drink.maxCount + querys[1] + drink.position +  querys[2];
+        }
+
+        // DB UPDATE
+        db.query(query, (err, result) => {
+            // 실패시 false 응답
+            if (err) {
+                console.log(err);
+                res.json({
+                    success: false,
+                    msg: err
+                });
+                return;
+            }
+
+            // 성공시 true 응답
+            res.json({
+                success: true
+            });
+            return;
+        });
+    } else {
+        // 클라이언트가 전송한 데이터가 없다면 false 반환
+        res.json({
+            success: false,
+            msg: "The drink data of the server is empty."
+        });
+        return;
+    }
+});
+
 // 모듈 내보내기
 module.exports = router;
