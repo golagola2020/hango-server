@@ -2,15 +2,17 @@
 > 주의 : [GitHub Pages](https://pages.github.com/)에 대해서 충분히 숙지할 것.  
 주의 : [Collaborating with issues and pull requests](https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests)을 정독할 것
 
-### 시작하기에 앞서
----
+## 시작하기에 앞서
+
 [hango-server](https://github.com/golagola2020/hango-server) 프로젝트를 실행시키기 위한 도구 및 프로그램 설치  
+---
    1. [Node](https://nodejs.org/ko/download/) 설치
    2. [MySQL](https://dev.mysql.com/downloads/installer/) 설치
 
-### 설치
----
+## 설치
+
 https://github.com/golagola2020/hango-server 에 push 권한이 있다면 :  
+---
    1. git fetch or pull or clone
 ```
 $ git clone https://github.com/golagola2020/hango-server.git
@@ -18,6 +20,7 @@ $ cd hango-server
 ```
 
 https://github.com/golagola2020/hango-server 에 push 권한이 없다면 :  
+---
    1. https://github.com/golagola2020/hango-server 에서 ```Fork```버튼 클릭하고,
    2. 포크 저장소 계정(maybe 개인 계정) 선택
    3. git fetch or pull or clone
@@ -32,7 +35,7 @@ $ git checkout master
 $ git merge upstream/master
 ```
 
-### 실행(로컬)
+## 실행(로컬)
 
    1. 패키지 설치
    2. '.env' 파일 생성 후 DB 환경 변수 등록
@@ -61,13 +64,15 @@ sudo node server.js
 ## 배포(발행)
 
 https://github.com/golagola2020/hango-server 에 push 권한이 있다면 :  
+---
 ```
 $ git ch -b 'features to develop'
 $ git commit -m '[features to develop] message...'
 $ git push origin 'features to develop'
 ```
 
-https://github.com/golagola2020/hango-server 에 push 권한이 없다면 :
+https://github.com/golagola2020/hango-server 에 push 권한이 없다면 :  
+---
    1. 포크 동기화 [Syncing a fork](https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/syncing-a-fork)
    2. Pull Request 보내기 [Creating a pull request](https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request)
 
