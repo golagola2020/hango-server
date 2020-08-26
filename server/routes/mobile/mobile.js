@@ -19,7 +19,7 @@ router.post('/login', (req, res) => {
     };
 
     // 클라이언트의 요청 데이터를 터미널에 출력
-    console.log('클라이언트 요청 데이터 : ');
+    console.log('클라이언트 요청 경로 : /mobile/login \n데이터 : ');
     console.log(req.body);
     
     // 클라이언트가 요청한 데이터가 있는지 검사
@@ -80,7 +80,7 @@ router.post('/signup', (req, res) => {
         };
     
     // 클라이언트의 요청 데이터를 터미널에 출력
-    console.log('클라이언트 요청 데이터 : ');
+    console.log('클라이언트 요청 경로 : /mobile/signup \n데이터 : ');
     console.log(req.body);
 
     // 클라이언트가 요청한 데이터가 있는지 검사
@@ -116,7 +116,7 @@ router.post('/user/read', (req, res) => {
     const userId = req.body.userId;
 
     // 클라이언트의 요청 데이터를 터미널에 출력
-    console.log('클라이언트 요청 데이터 : ');
+    console.log('클라이언트 요청 경로 : /mobile/user/read \n데이터 : ');
     console.log(req.body);
 
     // 클라이언트가 요청한 데이터가 있는지 검사
@@ -171,7 +171,7 @@ router.post('/user/update', (req, res) => {
     const user = req.body.user;
 
     // 클라이언트의 요청 데이터를 터미널에 출력
-    console.log('클라이언트 요청 데이터 : ');
+    console.log('클라이언트 요청 경로 : /mobile/user/update \n데이터 : ');
     console.log(req.body);
 
     // 클라이언트가 요청한 데이터가 있는지 검사
@@ -208,7 +208,7 @@ router.post('/user/delete', (req, res) => {
     const userId = req.body.userId;
 
     // 클라이언트의 요청 데이터를 터미널에 출력
-    console.log('클라이언트 요청 데이터 : ');
+    console.log('클라이언트 요청 경로 : /mobile/user/delete \n데이터 : ');
     console.log(req.body);
 
     // 클라이언트가 요청한 데이터가 있는지 검사

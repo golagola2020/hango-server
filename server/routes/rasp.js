@@ -14,7 +14,7 @@ router.post('/drink/read', (req, res) => {
   const serialNumber = req.body.serial_number;
 
   // 클라이언트의 요청 데이터를 터미널에 출력
-  console.log('클라이언트 요청 데이터 : ');
+  console.log('클라이언트 요청 경로 : /rasp/drink/read \n데이터 : ');
   console.log(req.body);
 
   // 시리얼 넘버 존재 여부 검사
@@ -84,7 +84,7 @@ router.post('/drink/update', (req, res) => {
     soldPosition = req.body.sold_position;
 
   // 클라이언트의 요청 데이터를 터미널에 출력
-  console.log('클라이언트 요청 데이터 : ');
+  console.log('클라이언트 요청 경로 : /rasp/drink/update \n데이터 : ');
   console.log(req.body);
 
   // 시리얼 넘버 존재 여부 검사

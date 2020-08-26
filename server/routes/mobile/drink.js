@@ -17,7 +17,7 @@ router.post('/read', (req, res) => {
     const serialNumber = req.body.serialNumber;
 
     // 클라이언트의 요청 데이터를 터미널에 출력
-    console.log('클라이언트 요청 데이터 : ');
+    console.log('클라이언트 요청 경로 : /mobile/drink/read \n데이터 : ');
     console.log(req.body);
 
     // 클라이언트가 요청한 데이터가 있는지 검사
@@ -84,7 +84,7 @@ router.post('/create', (req, res) => {
         drink = req.body.drink;
 
     // 클라이언트의 요청 데이터를 터미널에 출력
-    console.log('클라이언트 요청 데이터 : ');
+    console.log('클라이언트 요청 경로 : /mobile/drink/create \n데이터 : ');
     console.log(req.body);
     
     // 클라이언트가 요청한 데이터가 있는지 검사
@@ -124,7 +124,7 @@ router.post('/update', (req, res) => {
         drink = req.body.drink;
 
     // 클라이언트의 요청 데이터를 터미널에 출력
-    console.log('클라이언트 요청 데이터 : ');
+    console.log('클라이언트 요청 경로 : /mobile/drink/update \n데이터 : ');
     console.log(req.body);
 
     // 클라이언트가 요청한 데이터가 있는지 검사
@@ -163,7 +163,7 @@ router.post('/refresh', (req, res) => {
         drinks = req.body.drinks;
 
     // 클라이언트의 요청 데이터를 터미널에 출력
-    console.log('클라이언트 요청 데이터 : ');
+    console.log('클라이언트 요청 경로 : /mobile/drink/refresh \n데이터 : ');
     console.log(req.body);
 
     // 클라이언트가 요청한 데이터가 있는지 검사

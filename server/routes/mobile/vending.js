@@ -17,9 +17,8 @@ router.post('/read', (req, res) => {
     const userId = req.body.userId;
 
     // 클라이언트의 요청 데이터를 터미널에 출력
-    console.log('클라이언트 요청 데이터 : ');
+    console.log('클라이언트 요청 경로 : /mobile/vending/read \n데이터 : ');
     console.log(req.body);
-    console.log(`회원 아이디 : ${userId}`);
 
     // 클라이언트가 요청한 데이터가 있는지 검사
     if (!String.isEmpty(userId)) {
@@ -93,7 +92,7 @@ router.post('/update', (req, res) => {
         vending = req.body.vending;
     
     // 클라이언트의 요청 데이터를 터미널에 출력
-    console.log('클라이언트 요청 데이터 : ');
+    console.log('클라이언트 요청 경로 : /mobile/vending/update \n데이터 : ');
     console.log(req.body);
 
     // 클라이언트가 요청한 데이터가 있는지 검사
@@ -131,7 +130,7 @@ router.post('/delete', (req, res) => {
     const serialNumber = req.body.serialNumber;
 
     // 클라이언트의 요청 데이터를 터미널에 출력
-    console.log('클라이언트 요청 데이터 : ');
+    console.log('클라이언트 요청 경로 : /mobile/vending/delete \n데이터 : ');
     console.log(req.body);
 
     // 클라이언트가 요청한 데이터가 있는지 검사
