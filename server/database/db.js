@@ -11,7 +11,7 @@ const db = mysql.createConnection({
   database: process.env.DB_NAME         // 데이터 베이스 이름
 });
 
-// 연결 요청
+// // 연결 요청
 db.connect();
 
 // 외부와 연결시키기 위해 exports
