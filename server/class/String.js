@@ -4,13 +4,13 @@
 class String {
 
     // 빈 문자열 검사 함수
-    static isEmpty = function(value) { 
+    static isEmpty(value) { 
         if ( value == "" || value == null || value == undefined || ( value != null && typeof value == "object" && !Object.keys(value).length ) ) { 
             return true;
         } else { 
             return false;
         } 
-    };
+    }
 
 }
 
