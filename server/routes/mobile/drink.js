@@ -156,11 +156,10 @@ router.post('/update', (req, res) => {
     }
 });
 
-// 음료 수정
+// drink_count를 drink_max_count로 초기화 
 router.post('/refresh', (req, res) => {
     // 클라이언트가 요청한 데이터 저장
-    const serialNumber = req.body.serialNumber,
-        drinks = req.body.drinks;
+    const serialNumber = req.body.serialNumber;
 
     // 클라이언트의 요청 데이터를 터미널에 출력
     console.log('클라이언트 요청 경로 : /mobile/drink/refresh \n데이터 : ');
@@ -168,23 +167,10 @@ router.post('/refresh', (req, res) => {
 
     // 클라이언트가 요청한 데이터가 있는지 검사
     if (!String.isEmpty(req.body)) {
-        // 클라이언트가 전송한 데이터가 있다면, drink_max_count 초기화
-
-        // UPDATE 베이직 쿼리문 선언
-        querys = [
-            'UPDATE drinks SET drink_max_count=', 
-            ' WHERE serial_number=' + serialNumber + ' AND drink_position=', 
-            ';'
-        ];
-
-        // 실제 DB에 질의할 쿼리 생성
-        query = '';
-        for (let drink of drinks) {
-            query += querys[0] + drink.maxCount + querys[1] + drink.position +  querys[2];
-        }
-
-        // DB UPDATE
-        db.query(query, (err, result) => {
+        // 클라이언트가 전송한 데이터가 있다면, drink_count를 drink_max_count로 초기화
+        db.query(`UPDATE drinks
+        SET drink_count = drink_max_count
+        WHERE serial_number=?;`, [serialNumber], (err, result) => {
             // 실패시 false 응답
             if (err) {
                 console.log(err);
