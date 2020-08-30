@@ -33,7 +33,7 @@ $ git merge upstream/master
 ```
 
 ## 실행(로컬)
-> 데이터베이스 구현은 [/hango-server/server/database](https://github.com/golagola2020/hango-server/tree/master/server/database) 를 참고
+> 데이터베이스 구현은 [/hango-server/issues/38](https://github.com/golagola2020/hango-server/issues/38) 참고
 
    1. 패키지 설치
 ```
