@@ -33,30 +33,36 @@ $ git merge upstream/master
 ```
 
 ## 실행(로컬)
+> 데이터베이스 구현은 [/hango-server/issues/38](https://github.com/golagola2020/hango-server/issues/38) 참고
 
    1. 패키지 설치
-   2. '.env' 파일 생성 후 DB 환경 변수 등록
-   3. 실행
 ```
-# 1. 패키지 설치
 $ npm install
-
-# 2. '.env' 파일 생성 후 DB 환경 변수 등록
+```
+   2. '.env' 파일 생성
+```
 $ touch .env
 $ vi .env
 ```
-이어서 '.env' 파일에 DB 환경 변수 등록.
+   3. '.env' 파일에 DB 환경 변수 등록.
 ```
 # ENV
-DB_DOMAIN="Your DB Host Domain"
+DB_HOST="Your DB Host"
 DB_USER="Your DB User Name"
 DB_PASSWORD="Your DB User Password"
 DB_NAME="Your DB Name"
 ```
+   4. 실행
 ```
-# 3. 실행
 $ sudo node server.js
 ```
+
+#### 실행 예시
+<img width="670" alt="스크린샷 2020-08-30 오후 11 15 32" src="https://user-images.githubusercontent.com/56839474/91661469-44d7f400-eb17-11ea-95c6-e69746fd6029.png">
+
+#### 동작 확인
+> http://localhost 접속 후 아래 화면처럼 출력되면 잘 동작하는 것임.
+<img width="876" alt="스크린샷 2020-08-30 오후 11 22 54" src="https://user-images.githubusercontent.com/56839474/91661551-c596f000-eb17-11ea-9c87-d35a2d107142.png">
 
 ## 배포(발행)
 
