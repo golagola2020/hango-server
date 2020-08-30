@@ -48,7 +48,7 @@ $ vi .env
 이어서 '.env' 파일에 DB 환경 변수 등록.
 ```
 # ENV
-DB_DOMAIN="Your DB Host Domain"
+DB_HOST="Your DB Host"
 DB_USER="Your DB User Name"
 DB_PASSWORD="Your DB User Password"
 DB_NAME="Your DB Name"
