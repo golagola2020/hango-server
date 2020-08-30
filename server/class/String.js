@@ -11,7 +11,6 @@ class String {
             return false;
         } 
     }
-
 }
 
 // 외부로 반환

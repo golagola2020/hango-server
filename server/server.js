@@ -14,7 +14,6 @@ const PORT = process.env.PORT || 80;
 // 기본 앱 세팅
 app.set('views', './client/views');                     // 뷰 엔진의 기본 경로 세팅
 app.set('view engine', 'ejs');                          // 뷰 엔진은 ejs 사용
-app.use(express.static(`${__dirname}/client/public`));  // 프런트 개발 파일들의 정적 경로 세팅 => client/public
 app.use(bodyParser.json());                             // 클라이언트의 요청 데이터 중 json 객체를 파싱할 수 있게 하기 위함
 app.use(bodyParser.urlencoded({ extended: true }));     // body-parser의 기본 셋
 
