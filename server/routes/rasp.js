@@ -104,12 +104,12 @@ router.post('/drink/update', (req, res) => {
                 // 성공시 전송 데이터 선언
                 response.success = true;
               }
+
+              // 데이터 응답
+              Http.printResponse(response);
+              res.json(response);
           });    
         }
-
-        // 데이터 응답
-        Http.printResponse(response);
-        res.json(response);
     });
   } else {
     // 시리얼 넘버를 받아오지 못했다면 false 응답
