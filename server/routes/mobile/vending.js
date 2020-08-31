@@ -31,7 +31,7 @@ router.post('/read', (req, res) => {
             FROM users AS u
             JOIN vendings AS v
             ON u.user_id = v.user_id
-            WHERE u.user_id = 'rltn123';`,
+            WHERE u.user_id=?;`,
             [userId], (err, results) => {
                 if (err) {
                     // 실패시 "False" 응답
