@@ -15,7 +15,7 @@ router.get('/', (req, res) => {
 });
 
 // 로그인처리 요청 및 응답
-router.post('/', (req, res) => {
+router.post('/login', (req, res) => {
     // 클라이언트가 요청한 데이터 저장
     const manager = {
         id : req.body.id,

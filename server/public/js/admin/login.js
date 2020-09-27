@@ -25,6 +25,7 @@ function login() {
     .then(res => res.json())
     .then(manager => {
       if (manager.success) {
+        location.href = '/admin/main'
         alert('로그인에 성공하셨습니다.');
       } else {
         alert(manager.msg);
