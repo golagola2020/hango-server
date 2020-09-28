@@ -1,0 +1,89 @@
+@import "../reset.css";
+
+:root {
+  /* size */
+  --font-large: 24px;
+  --font-medium: 18px;
+
+  /* color */
+  --main-color: #9bcbea;
+  --main-bg-color: #f8f8f881;
+  --main-font-color: rgb(54, 54, 54);
+
+  --bg-left-color: #c7e9ffad;
+  --bg-right-color: rgba(171, 224, 226, 0.678);
+
+  --form-bg-color: #6e6e6e0c;
+}
+
+body {
+  height: 100vh;
+  margin: 0;
+  background: linear-gradient(90deg, var(--bg-left-color) 50%, var(--bg-right-color) 50%);
+  font-family: 'Nanum Gothic', sans-serif;
+  color: var(--main-font-color);
+}
+
+#login-form {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  width: 50vw;
+  margin: 25vh auto;
+  padding: 20px;
+  box-shadow: 4px 4px 7px 1px var(--main-color);
+  border-radius: 8px;
+  background-color: var(--form-bg-color);
+}
+
+#login-form h1 {
+  font-size: var(--font-large);
+  font-weight: 700;
+}
+
+#login-form #login-input {
+  display: flex;
+  flex-direction: column;
+  width: 40vw;
+  margin: 20px 5vw;
+  font-size: var(--font-medium);
+  font-weight: 500;
+}
+
+#login-form #login-input label {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+#login-form #login-input .input {
+  height: 40px;
+  margin-bottom: 20px;
+  padding-left: 8px;
+  border: 1px solid var(--main-color);
+  border-radius: 2px;
+}
+
+#login-form #btns {
+  display: flex;
+  justify-content: center;
+}
+
+#login-form #btns button {
+  width: 100px;
+  margin: 0 0 20px 0;
+  padding: 10px 5px;
+  font-size: var(--font-medium);
+  outline: none;
+  border: 1px solid var(--main-color);
+  border-radius: 4px;
+  background-color: var(--main-bg-color);
+}
+
+#login-form #btns button:hover {
+  cursor: pointer;
+  transform: scale(1.04);
+}
+
+#login-form #btns button:active {
+  transform: scale(1.00);
+}

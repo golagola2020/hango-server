@@ -1,6 +1,9 @@
 # dependencies
 **node_modules
 
+# files
+**.DS_Store
+
 # secure
 **.env
 
