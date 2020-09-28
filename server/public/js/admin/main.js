@@ -14,7 +14,7 @@ function createVending() {
   };
 
   if (user.id != '') {
-    fetch('/admin/vending/create', {
+    fetch('/admin/main/vending/create', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -25,8 +25,9 @@ function createVending() {
       .then(user => {
         if (user.success) {
           alert('자판기 등록에 성공하셨습니다.');
+          id.value = '';
         } else {
-          alert(user.msg);
+          alert('없는 정보입니다.');
         }
 
       });
