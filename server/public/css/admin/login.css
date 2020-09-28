@@ -1,21 +1,5 @@
 @import "../reset.css";
 
-:root {
-  /* size */
-  --font-large: 24px;
-  --font-medium: 18px;
-
-  /* color */
-  --main-color: #9bcbea;
-  --main-bg-color: #f8f8f881;
-  --main-font-color: rgb(54, 54, 54);
-
-  --bg-left-color: #c7e9ffad;
-  --bg-right-color: rgba(171, 224, 226, 0.678);
-
-  --form-bg-color: #6e6e6e0c;
-}
-
 body {
   height: 100vh;
   margin: 0;
