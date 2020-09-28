@@ -1,3 +1,21 @@
+/* 변수 선언 */
+:root {
+  /* size */
+  --font-large: 24px;
+  --font-medium: 18px;
+
+  /* color */
+  --main-color: #9bcbea;
+  --main-bg-color: #f8f8f881;
+  --main-font-color: rgb(54, 54, 54);
+
+  --bg-left-color: #c7e9ffad;
+  --bg-right-color: rgba(171, 224, 226, 0.678);
+
+  --form-bg-color: #6e6e6e0c;
+}
+
+/* 브라우저 스타일링 초기화 */
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
