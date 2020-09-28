@@ -83,19 +83,22 @@ router.post('/drink/update', (req, res) => {
   // 시리얼 넘버 존재 여부 검사
   if (!String.isEmpty(req.body)) {
     // 시리얼 넘버가 있다면 DB에서 음료수 정보를 불러온다.
-    db.query(`SELECT drink_count FROM drinks WHERE serial_number=? AND drink_position=?;`, 
-      [serialNumber, soldPosition], (err, drinkCounts) => {
+    db.query(`SELECT drink_price, drink_count, drink_max_count FROM drinks WHERE serial_number=? AND drink_position=?;`, 
+      [serialNumber, soldPosition], (err, datas) => {
         if (err) {
           // 실패시 false 응답
           response.success = false;
           response.msg = err;
         } else {
           // 현재 음료 개수에서 1개 제거
-          drinkCount = drinkCounts[0].drink_count - 1;
+          drinkCount = datas[0].drink_count - 1;
+          vendingSale = (datas[0].drink_max_count - drinkCount) * datas[0].drink_price;
 
           // 수정된 음료 개수 저장
-          db.query(`UPDATE drinks SET drink_count=? WHERE serial_number=? AND drink_position=?;`,
-            [drinkCount, serialNumber, soldPosition], (err2, results) => {
+          db.query(`UPDATE  vendings AS v, drinks AS d
+          SET  v.vending_sale = ?, d.drink_count = ?
+          WHERE  v.serial_number=? AND d.serial_number=? AND d.drink_position=?;`,
+            [vendingSale, drinkCount, serialNumber, serialNumber, soldPosition], (err2, results) => {
               if (err2) {
                 // 실패시 false 응답
                 response.success = false;
