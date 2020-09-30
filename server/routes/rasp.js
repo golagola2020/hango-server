@@ -70,7 +70,8 @@ router.post('/drink/read', (req, res) => {
 // 판매된 음료 위치 요청 및 응답 경로 => 음료수가 판매되면 DB에서 개수를 1개 차감하여 다시 저장한다.
 router.post('/drink/update', (req, res) => {
   // 시리얼 넘버를 받아온다.
-  const serialNumber = req.body.serial_number,
+  const userId = req.body.user_id,
+    serialNumber = req.body.serial_number,
     drink = req.body.drink;
 
   // 클라이언트의 요청 데이터를 터미널에 출력
@@ -92,8 +93,8 @@ router.post('/drink/update', (req, res) => {
           response.msg = err;
         } else {
           // 판매 내역 저장
-          db.query(`INSERT INTO sales(serial_number, drink_name, drink_price) VALUES(?, ?, ?);`,
-            [serialNumber, drink.name, drink.price], (err2, results) => {
+          db.query(`INSERT INTO sales(user_id, serial_number, drink_name, drink_price) VALUES(?, ?, ?, ?);`,
+            [userId, serialNumber, drink.name, drink.price], (err2, results) => {
               if (err2) {
                 // 실패시 false 응답
                 response.success = false;
