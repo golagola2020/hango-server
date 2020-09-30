@@ -71,7 +71,7 @@ router.post('/drink/read', (req, res) => {
 router.post('/drink/update', (req, res) => {
   // 시리얼 넘버를 받아온다.
   const serialNumber = req.body.serial_number,
-    soldPosition = req.body.sold_position;
+    drink = req.body.drink;
 
   // 클라이언트의 요청 데이터를 터미널에 출력
   console.log('클라이언트 요청 경로 : /rasp/drink/update \n데이터 : ');
@@ -80,31 +80,26 @@ router.post('/drink/update', (req, res) => {
   // 응답 객체 선언
   const response = {}
 
-  // 시리얼 넘버 존재 여부 검사
+  // 요청 데이터 존재 여부 검사
   if (!String.isEmpty(req.body)) {
-    // 시리얼 넘버가 있다면 DB에서 음료수 정보를 불러온다.
-    db.query(`SELECT drink_price, drink_count, drink_max_count FROM drinks WHERE serial_number=? AND drink_position=?;`, 
-      [serialNumber, soldPosition], (err, datas) => {
+    // 요청 데이터가 있다면 판매된 음료수 정보 1개 차감
+    db.query(`UPDATE drinks SET  drink_count = drink_count - 1
+    WHERE  serial_number=? AND drink_position=?;`,
+      [serialNumber, drink.soldPosition], (err, updates) => {
         if (err) {
           // 실패시 false 응답
           response.success = false;
           response.msg = err;
         } else {
-          // 현재 음료 개수에서 1개 제거
-          drinkCount = datas[0].drink_count - 1;
-          vendingSale = (datas[0].drink_max_count - drinkCount) * datas[0].drink_price;
-
-          // 수정된 음료 개수 저장
-          db.query(`UPDATE  vendings AS v, drinks AS d
-          SET  v.vending_sale = ?, d.drink_count = ?
-          WHERE  v.serial_number=? AND d.serial_number=? AND d.drink_position=?;`,
-            [vendingSale, drinkCount, serialNumber, serialNumber, soldPosition], (err2, results) => {
+          // 판매 내역 저장
+          db.query(`INSERT INTO sales(serial_number, drink_name, drink_price) VALUES(?, ?, ?);`,
+            [serialNumber, drink.name, drink.price], (err2, results) => {
               if (err2) {
                 // 실패시 false 응답
                 response.success = false;
                 response.msg = err2;
               } else {
-                // 성공시 전송 데이터 선언
+                // 성공시 true 응답
                 response.success = true;
               }
 
@@ -115,9 +110,9 @@ router.post('/drink/update', (req, res) => {
         }
     });
   } else {
-    // 시리얼 넘버를 받아오지 못했다면 false 응답
+    // 클라이언트 요청 데이터를 받아오지 못했다면 false 응답
     response.success = false;
-    response.msg = "The serial number of the server is empty.";
+    response.msg = "The client datas of the server is empty.";
 
     // 데이터 응답
     Http.printResponse(response);
