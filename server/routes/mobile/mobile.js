@@ -121,7 +121,7 @@ router.post('/user/read', (req, res) => {
 
     // 클라이언트가 요청한 데이터가 있는지 검사
     if (!String.isEmpty(userId)) {
-        // 클라이언트가 전송한 "userId" 가 있다면, DB에서 제거
+        // 클라이언트가 전송한 "userId" 가 있다면 조회
         db.query(`SELECT * FROM users WHERE user_id=?`, [userId], (err, result) => {
             // 실패시 "false" 응답
             if (err) {
@@ -166,7 +166,7 @@ router.post('/user/update', (req, res) => {
 
     // 클라이언트가 요청한 데이터가 있는지 검사
     if (!String.isEmpty(user)) {
-        // 클라이언트가 전송한 "userId" 가 있다면, DB에서 제거
+        // 클라이언트가 전송한 "userId" 가 있다면 수정
         db.query(`UPDATE users SET user_id=?, user_name=?, user_email=?, user_passwd=? WHERE user_id=?`, 
             [user.newId, user.name, user.email, user.newPasswd, user.id], (err, result) => {
                 if (err) {
@@ -216,6 +216,62 @@ router.post('/user/delete', (req, res) => {
             } else {
                 // 성공시 True 응답
                 response.success = true;
+            }
+
+            // 데이터 응답
+            Http.printResponse(response);
+            res.json(response);
+        });
+    } else {
+        // 클라이언트가 전송한 데이터가 없다면 false 반환
+        response.success = false;
+        response.msg = "The userId of the server is empty.";
+
+        // 데이터 응답
+        Http.printResponse(response);
+        res.json(response);
+    }
+});
+
+// 판매데이터 조회 요청 및 응답
+router.post('/stats/read', (req, res) => {
+    // 클라이언트가 요청한 데이터 저장
+    const userId = req.body.userId;
+
+    // 클라이언트의 요청 데이터를 터미널에 출력
+    console.log('클라이언트 요청 경로 : /mobile/stats/read \n데이터 : ');
+    console.log(req.body);
+
+    // 응답 객체 선언
+    const response = {}
+
+    // 클라이언트가 요청한 데이터가 있는지 검사
+    if (!String.isEmpty(userId)) {
+        // 클라이언트가 전송한 "userId" 가 있다면 판매데이터 조회
+        db.query(`SELECT * FROM sales WHERE user_id=?`, [userId], (err, results) => {
+            // 실패시 "false" 응답
+            if (err) {
+                response.success = false;
+                response.msg = err;
+            } else {
+                // 응답 데이터 생성
+                response.success = true;
+                response.sales = [];
+
+                // DB에서 받아온 데이터 전체 삽입
+                let sale = {};
+                for (let result of results) {
+                    // DB 데이터를 Object로 초기화
+                    sale = {
+                        serialNumber: result.serial_number,
+                        drinkName: result.drink_name,
+                        drinkPrice: result.drink_price,
+                        date: result.sale_date,
+                    }
+
+                    // 판매 데이터를 Array에 삽입
+                    response.sales.push(sale);
+                }
             }
 
             // 데이터 응답
