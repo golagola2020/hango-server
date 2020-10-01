@@ -34,7 +34,7 @@ function readVendings() {
     .catch(err => alert(err));
 }
 
-// 도서 상세 페이지 이동
+// 자판기 상세 페이지 이동
 function showVendingDetail(event) {
   const serialNumber = event.target.parentNode.childNodes[1].innerText;
   location.href = `/admin/vending/${serialNumber}`;
