@@ -1,21 +1,21 @@
-/* routes/admin/login.js */
+/* routes/admin/vending/main.js */
 
 // 라우팅을 위한 기본 모듈 포함
 const express = require('express'),
     router = express.Router(),
-    db = require('../../database/db.js');
+    db = require('../../../database/db.js');
 
 // 외부 클래스 포함
-const String = require('../../class/String.js'),
-    Http = require('../../class/Http.js');
+const String = require('../../../class/String.js'),
+    Http = require('../../../class/Http.js');
 
 // 로그인 페이지 렌더링
 router.get('/', (req, res) => {
-    res.render('admin/main');
+    res.render('admin/vending/main');
 });
 
 // 로그인처리 요청 및 응답
-router.post('/vending/create', (req, res) => {
+router.post('/create', (req, res) => {
     // 클라이언트가 요청한 데이터 저장
     const user = {
         id : req.body.id

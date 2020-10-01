@@ -1,4 +1,4 @@
-// public/js/admin/main.js
+// public/js/admin/vending/main.js
 
 'use strict';
 
@@ -14,7 +14,7 @@ function createVending() {
   };
 
   if (user.id != '') {
-    fetch('/admin/main/vending/create', {
+    fetch('/admin/vending/create', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
