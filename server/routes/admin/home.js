@@ -5,7 +5,7 @@ const express = require('express'),
     router = express.Router(),
     db = require('../../database/db.js');
 
-// 로그인 페이지 렌더링
+// admin 홈 렌더링
 router.get('/', (req, res) => {
     res.render('admin/home');
 });
