@@ -4,7 +4,6 @@ body {
   height: 100vh;
   margin: 0;
   background: linear-gradient(90deg, var(--bg-left-color) 50%, var(--bg-right-color) 50%);
-  font-family: 'Nanum Gothic', sans-serif;
   color: var(--main-font-color);
 }
 
@@ -12,8 +11,9 @@ body {
   display: flex;
   flex-direction: column;
   position: relative;
+  top: 25%;
+  margin: 0 auto 0 auto;
   width: 50vw;
-  margin: 25vh auto;
   padding: 20px;
   box-shadow: 4px 4px 7px 1px var(--main-color);
   border-radius: 8px;
