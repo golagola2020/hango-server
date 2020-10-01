@@ -31,7 +31,7 @@ router.post('/read', (req, res) => {
             // 성공시 자판기 정보를 Object로 선언
             response.success = true;
             response.vendings = [];
-            console.log(results)
+            
             // DB에서 받아온 데이터 전체 삽입
             let vending = {};
             for (let result of results) {
@@ -100,6 +100,49 @@ router.post('/create', (req, res) => {
         Http.printResponse(response);
         res.json(response);
     }
+});
+
+// 자판기 상세 페이지 렌더링
+router.get('/:serialNumber', (req, res) => {
+    res.render('admin/vending/detail', { serialNumber : req.params.serialNumber });
+});
+
+// 자판기 상세 페이지 정보 응답 API
+router.post('/:serialNumber', (req, res) => {
+    const serialNumber = req.params.serialNumber;
+
+    // 클라이언트의 요청 데이터를 터미널에 출력
+    console.log('클라이언트 요청 경로 : /admin/vending/:serialNumber \n요청 데이터 : ');
+    console.log(serialNumber)
+
+    // 응답 객체 선언
+    const response = {}
+
+    db.query(`SELECT user_id, vending_name, vending_description, 
+    date_format(vending_in_date, '%Y년 %m월 %d일 %H시 %i분 %s초') AS in_date,
+    date_format(vending_update_date, '%Y년 %m월 %d일 %H시 %i분 %s초') AS update_date
+    FROM vendings WHERE serial_number=?`, [serialNumber], (err, result) => {
+        if (err) {
+            // 자판기 등록이 실패하면 false 응답
+            response.success = false;
+            response.msg = err;
+        } else {
+            // 성공시 자판기 정보를 Object로 선언
+            response.success = true;
+            response.vending = {
+                serialNumber : serialNumber,
+                userId : result[0].user_id,
+                name : result[0].vending_name,
+                description : result[0].vending_description,
+                inDate : result[0].in_date,
+                updateDate : result[0].update_date
+            };
+        }
+
+        // 데이터 응답
+        Http.printResponse(response);
+        res.json(response);
+    });
 });
 
 // 모듈 내보내기
