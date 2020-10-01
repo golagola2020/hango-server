@@ -1,0 +1,42 @@
+<!-- client/views/admin/vending/main.ejs -->
+
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="/css/admin/vending/main.css">
+    <script type="module" src="/js/admin/vending/main.js" defer></script>
+
+    <title>Hango 관리자 시스템</title>
+</head>
+
+<body>
+  <h1>자판기 목록</h1>
+  
+  <!-- 자판기 목록 -->
+  <section id="vending-list-form">
+    <!-- 조회 테이블 -->
+    <table id="read-table">
+      <thead>
+          <tr id=field>
+              <th>시리얼번호</th>
+              <th>사용자 아이디</th>
+              <th>자판기 이름</th>
+              <th>등록일</th>
+          </tr>
+      </thead>
+
+      <tbody></tbody>
+    </table>
+  </section>
+
+  <!-- 버튼 -->
+  <article id="btns">
+    <button id="vending-create-btn">자판기 등록</button>
+  </article>
+</body>
+
+</html>

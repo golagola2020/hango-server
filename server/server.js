@@ -23,8 +23,11 @@ app.use(bodyParser.urlencoded({ extended: true }));     // body-parser의 기본
 // 라우팅
 app.use('/', require('./routes/home'));
 app.use('/admin/', require('./routes/admin/login'));
-app.use('/admin/main', require('./routes/admin/main'));
+app.use('/admin/home', require('./routes/admin/home'));
+app.use('/admin/vending', require('./routes/admin/vending/main'));
+
 app.use('/rasp', require('./routes/rasp'));
+
 app.use('/mobile', require('./routes/mobile/mobile'));
 app.use('/mobile/vending', require('./routes/mobile/vending'));
 app.use('/mobile/drink', require('./routes/mobile/drink'));
