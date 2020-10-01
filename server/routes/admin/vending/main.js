@@ -17,7 +17,7 @@ router.get('/', (req, res) => {
 // 자판기 목록 요청 밎 응답
 router.post('/read', (req, res) => {
     // 클라이언트의 요청 데이터를 터미널에 출력
-    console.log('클라이언트 요청 경로 : /admin/vending/read \n요청 데이터 없음');
+    console.log('클라이언트 조회 요청 경로 : /admin/vending/read \n요청 데이터 없음');
 
     // 응답 객체 선언
     const response = {}
@@ -67,7 +67,7 @@ router.post('/create', (req, res) => {
     };
 
     // 클라이언트의 요청 데이터를 터미널에 출력
-    console.log('클라이언트 요청 경로 : /admin/vending/create \n데이터 : ');
+    console.log('클라이언트 등록 요청 경로 : /admin/vending/create \n데이터 : ');
     console.log(req.body);
 
     // 응답 객체 선언
@@ -112,7 +112,7 @@ router.post('/:serialNumber', (req, res) => {
     const serialNumber = req.params.serialNumber;
 
     // 클라이언트의 요청 데이터를 터미널에 출력
-    console.log('클라이언트 요청 경로 : /admin/vending/:serialNumber \n요청 데이터 : ');
+    console.log('클라이언트 조회 요청 경로 : /admin/vending/:serialNumber \n요청 데이터 : ');
     console.log(serialNumber)
 
     // 응답 객체 선언
@@ -137,6 +137,33 @@ router.post('/:serialNumber', (req, res) => {
                 inDate : result[0].in_date,
                 updateDate : result[0].update_date
             };
+        }
+
+        // 데이터 응답
+        Http.printResponse(response);
+        res.json(response);
+    });
+});
+
+// 자판기 삭제 API
+router.delete('/:serialNumber', (req, res) => {
+    const serialNumber = req.params.serialNumber;
+
+    // 클라이언트의 요청 데이터를 터미널에 출력
+    console.log('클라이언트 삭제 요청 경로 : /admin/vending/:serialNumber \n요청 데이터 : ');
+    console.log(serialNumber)
+
+    // 응답 객체 선언
+    const response = {}
+
+    db.query(`DELETE FROM vendings WHERE serial_number=?;`, [serialNumber], (err, result) => {
+        if (err) {
+            // 자판기 등록이 실패하면 false 응답
+            response.success = false;
+            response.msg = err;
+        } else {
+            // 성공시 true 응답
+            response.success = true;
         }
 
         // 데이터 응답

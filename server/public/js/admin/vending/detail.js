@@ -38,8 +38,8 @@ function readVendingDetail() {
 }
 
 function deleteVending(event) {
-  fetch(`/admin/vending/${serialNumber}/delete`, {
-    method : 'POST',
+  fetch(`/admin/vending/${serialNumber}`, {
+    method : 'DELETE',
     headers : {
       'Content-Type' : 'application/json'
     }
@@ -47,9 +47,10 @@ function deleteVending(event) {
     .then(res => res.json())
     .then(result => {
       if (result.success) {
-        alert('정상적으로 삭제되었습니다.')
+        location.href = '/admin/vending'
+        alert('정상적으로 삭제되었습니다.');
       } else {
-        alert(result.msg)
+        alert(result.msg);
       }
     })
     .catch(err => alert(err));
