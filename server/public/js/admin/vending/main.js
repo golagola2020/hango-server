@@ -4,6 +4,7 @@
 
 // HTML 오브젝트 변수 선언
 const btnVendingCreate = document.querySelector('#vending-create-btn'),
+  btnBack = document.querySelector('#back-btn'),
   tbody = document.querySelector('#read-table tbody');
 
 // 자판기 읽어오는 함수
@@ -47,6 +48,10 @@ function init() {
 
   btnVendingCreate.addEventListener('click', function () {
     location.href = '/admin/vending/create';
+  });
+
+  btnBack.addEventListener('click', function() {
+    location.href = `/admin/home`;
   });
 }
 
