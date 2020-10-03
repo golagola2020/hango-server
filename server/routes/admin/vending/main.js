@@ -118,7 +118,7 @@ router.post('/:serialNumber', (req, res) => {
     // 응답 객체 선언
     const response = {}
 
-    db.query(`SELECT user_id, vending_name, vending_description, 
+    db.query(`SELECT user_id, vending_name, vending_description, vending_full_size,
     date_format(vending_in_date, '%Y년 %m월 %d일 %H시 %i분 %s초') AS in_date,
     date_format(vending_update_date, '%Y년 %m월 %d일 %H시 %i분 %s초') AS update_date
     FROM vendings WHERE serial_number=?`, [serialNumber], (err, result) => {
@@ -134,6 +134,7 @@ router.post('/:serialNumber', (req, res) => {
                 userId : result[0].user_id,
                 name : result[0].vending_name,
                 description : result[0].vending_description,
+                fullSize : result[0].vending_full_size,
                 inDate : result[0].in_date,
                 updateDate : result[0].update_date
             };
@@ -143,6 +144,71 @@ router.post('/:serialNumber', (req, res) => {
         Http.printResponse(response);
         res.json(response);
     });
+});
+
+// 자판기 상세 수정화면 렌더링
+router.get('/:serialNumber/update', (req, res) => {
+    const serialNumber = req.params.serialNumber;
+
+    // 클라이언트의 요청 데이터를 터미널에 출력
+    console.log('클라이언트 조회 요청 경로 : /admin/vending/:serialNumber/update \n요청 데이터 : ');
+    console.log(serialNumber)
+
+    db.query(`SELECT * FROM vendings WHERE serial_number=?`, [serialNumber], (err, vending) => {
+        if (err) {
+            // 실패시 false 응답
+            response.success = false;
+            response.msg = err;
+        } else {
+            // 성공시 true 응답
+            response = vending[0];
+        }
+
+        // 데이터 응답
+        Http.printResponse(response);
+        res.render('admin/vending/update', response);
+    });
+});
+
+// 자판기 상세 수정 API
+router.put('/:serialNumber/update', (req, res) => {
+    const serialNumber = req.params.serialNumber,
+        vending = req.body.vending;
+
+    // 클라이언트의 요청 데이터를 터미널에 출력
+    console.log('클라이언트 수정 요청 경로 : /admin/vending/:serialNumber/update \n요청 데이터 : ');
+    console.log(req.body)
+
+    // 응답 객체 선언
+    const response = {}
+
+    // 클라이언트가 요청한 데이터가 있는지 검사
+    if (!String.isEmpty(vending)) {
+        // 클라이언트가 전송한 "vending" 이 있다면, 자판기 정보 수정
+        db.query(`UPDATE vendings SET vending_name=?, vending_description=?, vending_full_size=?, vending_update_date=NOW() WHERE serial_number=?;`,
+            [vending.name, vending.description, vending.fullSize, serialNumber], (err, result) => {
+                if (err) {
+                    // 실패시 false 응답
+                    response.success = false;
+                    response.msg = err;
+                } else {
+                    // 성공시 true 응답
+                    response.success = true;
+                }
+
+                // 데이터 응답
+                Http.printResponse(response);
+                res.json(response);
+            });
+    } else {
+        // 클라이언트가 전송한 데이터가 없다면 false 반환
+        response.success = false;
+        response.msg = "The vending of the server is empty.";
+
+        // 데이터 응답
+        Http.printResponse(response);
+        res.json(response);
+    }
 });
 
 // 자판기 삭제 API
