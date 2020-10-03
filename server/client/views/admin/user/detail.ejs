@@ -1,0 +1,37 @@
+<!-- client/views/admin/user/detail.ejs -->
+
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="/css/admin/user/detail.css">
+    <script type="module" src="/js/admin/user/detail.js" defer></script>
+
+    <title>Hango 관리자 시스템</title>
+</head>
+
+<body>
+  <h1>사용자 상세 정보</h1>
+  <hidden value="<%= userId %>"></hidden>
+  
+  <!-- 사용자 상세 -->
+  <section id="user-detail-form">
+    <h1></h1>
+
+    <div class="text" id="name">이름 : <span></span></div>
+    <div class="text" id="email">이메일 : <span></span></div><br>
+    <div class="text" id="in-date">등록일 : <span></span></div>
+  </section>
+
+  <!-- 버튼 -->
+  <article id="btns">
+    <button id="back-btn">뒤로가기</button>
+    <button id="user-update-btn">수정</button>
+    <button id="user-delete-btn">삭제</button>
+  </article>
+</body>
+
+</html>

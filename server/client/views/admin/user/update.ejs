@@ -1,0 +1,41 @@
+<!-- client/views/admin/user/update.ejs -->
+
+
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="/css/admin/user/update.css">
+    <script type="module" src="/js/admin/user/update.js" defer></script>
+
+    <title>Hango 관리자 시스템</title>
+</head>
+
+<body>
+  <hidden value="<%= user_id %>"></hidden>
+  
+  <!-- 사용자 상세 -->
+  <section id="user-update-form">
+    <h1>사용자 수정</h1>
+
+    <article id="user-update-input">
+      <label for="id">아이디</label>
+      <input type="text" class="input" id="id" name="id" value="<%= user_id %>">
+      <label for="name">이름</label>
+      <input type="text" class="input" id="name" name="name" value="<%= user_name %>">
+      <label for="email">이메일</label>
+      <input type="text" class="input" id="email" name="email" value="<%= user_email %>"></input>
+    </article>
+
+    <!-- 버튼 -->
+    <article id="btns">
+      <button id="back-btn">뒤로가기</button>
+      <button id="user-update-btn">수정</button>
+    </article>
+  </section>
+</body>
+
+</html>
