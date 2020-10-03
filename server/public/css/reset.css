@@ -1,8 +1,8 @@
 /* 변수 선언 */
 :root {
   /* size */
-  --font-large: 24px;
-  --font-medium: 18px;
+  --font-large: 1.5em;
+  --font-medium: 1em;
 
   /* color */
   --main-color: #9bcbea;
