@@ -1,6 +1,9 @@
 @import "../reset.css";
 
 body {
+  display: flex;
+	align-items: center;
+	justify-content: center;
   height: 100vh;
   margin: 0;
   background: linear-gradient(90deg, var(--bg-left-color) 50%, var(--bg-right-color) 50%);
@@ -10,9 +13,6 @@ body {
 #login-form {
   display: flex;
   flex-direction: column;
-  position: relative;
-  top: 25%;
-  margin: 0 auto 0 auto;
   width: 50vw;
   padding: 20px;
   box-shadow: 4px 4px 7px 1px var(--main-color);
@@ -29,7 +29,7 @@ body {
   display: flex;
   flex-direction: column;
   width: 40vw;
-  margin: 20px 5vw;
+  margin: 5vh 5vw;
   font-size: var(--font-medium);
   font-weight: 500;
 }
@@ -41,7 +41,7 @@ body {
 
 #login-form #login-input .input {
   height: 40px;
-  margin-bottom: 20px;
+  margin-bottom: 2.5vh;
   padding-left: 8px;
   border: 1px solid var(--main-color);
   border-radius: 2px;
@@ -50,11 +50,11 @@ body {
 #login-form #btns {
   display: flex;
   justify-content: center;
+
 }
 
 #login-form #btns button {
   width: 100px;
-  margin: 0 0 20px 0;
   padding: 10px 5px;
   font-size: var(--font-medium);
   outline: none;
