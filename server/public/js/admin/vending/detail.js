@@ -18,6 +18,7 @@ function readVendingDetail() {
   })
     .then(res => res.json())
     .then(result => {
+      // 자판기 정보를 DB에서 읽어오는데 성공하면 브라우저에 띄우고, 실패하면 콘솔창에 오류 메시지 출력
       if (result.success) {
         const title = document.querySelector('#vending-detail-form h1'),
           textSerialNumber = document.querySelector('#serial-number span'),
@@ -27,14 +28,19 @@ function readVendingDetail() {
           textInDate = document.querySelector('#in-date span'),
           textUpdateDate = document.querySelector('#update-date span');
 
+        // DB 데이터 저장
         const vending = result.vending;
 
+        // 브라우저에 띄우기
         title.innerHTML = vending.name;
         textSerialNumber.innerHTML = vending.serialNumber;
         textUserId.innerHTML = vending.userId;
+        textDescription.innerHTML = vending.description;
         textFullSize.innerHTML = vending.fullSize;
         textInDate.innerHTML = vending.inDate;
         textUpdateDate.innerHTML = vending.updateDate;
+      } else {
+        console.log(result.msg);
       }
     })
     .catch(err => alert(err));
