@@ -25,6 +25,7 @@ app.use('/', require('./routes/home'));
 app.use('/admin/', require('./routes/admin/login'));
 app.use('/admin/home', require('./routes/admin/home'));
 app.use('/admin/vending', require('./routes/admin/vending/main'));
+app.use('/admin/user', require('./routes/admin/user/main'));
 
 app.use('/rasp', require('./routes/rasp'));
 

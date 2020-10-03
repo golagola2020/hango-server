@@ -1,0 +1,42 @@
+<!-- client/views/admin/user/main.ejs -->
+
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="/css/admin/user/main.css">
+    <script type="module" src="/js/admin/user/main.js" defer></script>
+
+    <title>Hango 관리자 시스템</title>
+</head>
+
+<body>
+  <h1>사용자 목록</h1>
+  
+  <!-- 사용자 목록 -->
+  <article id="user-list-form">
+    <!-- 조회 테이블 -->
+    <table id="read-table">
+      <thead>
+          <tr id=field>
+              <th>사용자 아이디</th>
+              <th>이름</th>
+              <th>이메일</th>
+              <th>등록일</th>
+          </tr>
+      </thead>
+
+      <tbody></tbody>
+    </table>
+  </article>
+
+  <!-- 버튼 -->
+  <article id="btns">
+    <button id="back-btn">뒤로가기</button>
+  </article>
+</body>
+
+</html>

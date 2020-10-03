@@ -12,7 +12,7 @@ function init() {
   });
 
   btnRight.addEventListener('click', function() {
-    alert('업데이트 중입니다.');
+    location.href = '/admin/user';
   });
 }
 
