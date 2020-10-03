@@ -3,7 +3,9 @@
 'use strict';
 
 // HTML 오브젝트 변수 선언
-const btnVendingDelete = document.querySelector('#vending-delete-btn'),
+const btnVendingUpdate = document.querySelector('#vending-update-btn'),
+  btnVendingDelete = document.querySelector('#vending-delete-btn'),
+  btnBack = document.querySelector('#back-btn'),
   serialNumber = document.querySelector('hidden').attributes.value.value;
 
 // 자판기 읽어오는 함수
@@ -21,6 +23,7 @@ function readVendingDetail() {
           textSerialNumber = document.querySelector('#serial-number span'),
           textUserId = document.querySelector('#user-id span'),
           textDescription = document.querySelector('#description span'),
+          textFullSize = document.querySelector('#full-size span'),
           textInDate = document.querySelector('#in-date span'),
           textUpdateDate = document.querySelector('#update-date span');
 
@@ -29,7 +32,7 @@ function readVendingDetail() {
         title.innerHTML = vending.name;
         textSerialNumber.innerHTML = vending.serialNumber;
         textUserId.innerHTML = vending.userId;
-        textDescription.innerHTML = vending.description;
+        textFullSize.innerHTML = vending.fullSize;
         textInDate.innerHTML = vending.inDate;
         textUpdateDate.innerHTML = vending.updateDate;
       }
@@ -37,7 +40,11 @@ function readVendingDetail() {
     .catch(err => alert(err));
 }
 
-function deleteVending(event) {
+function updateVending() {
+  location.href = `/admin/vending/${serialNumber}/update`
+}
+
+function deleteVending() {
   fetch(`/admin/vending/${serialNumber}`, {
     method : 'DELETE',
     headers : {
@@ -59,7 +66,11 @@ function deleteVending(event) {
 // 초기 실행 함수
 function init() {
   readVendingDetail(); // 자판기 읽어오는 함수
+  btnVendingUpdate.addEventListener('click', updateVending);
   btnVendingDelete.addEventListener('click', deleteVending);
+  btnBack.addEventListener('click', function() {
+    location.href = `/admin/vending/`;
+  });
 }
 
 init();
