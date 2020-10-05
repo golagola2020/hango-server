@@ -1,0 +1,86 @@
+@import "../../reset.css";
+
+:root {
+  /* size */
+  --title-font-size: 42px;
+}
+
+body {
+  height: 100vh;
+  margin: 0;
+  background: linear-gradient(90deg, var(--bg-left-color) 50%, var(--bg-right-color) 50%);
+  color: var(--main-font-color);
+}
+
+body>h1 {
+  position: relative;
+  top: 5%;
+  width: 80vw;
+  margin: 0 auto 0 auto;
+  padding: 20px;
+  box-shadow: 4px 4px 7px 1px var(--main-color);
+  border-radius: 8px;
+  background-color: var(--form-bg-color);
+  font-size: var(--font-large);
+  font-weight: 700;
+}
+
+/* 자판기 목록 박스 */
+#vending-detail-form {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  top: 7%;
+  width: 80vw;
+  max-height: 70vh;
+  overflow-y: scroll;
+  margin: 0 auto 0 auto;
+  padding: 20px;
+  box-shadow: 4px 4px 7px 1px var(--main-color);
+  border-radius: 8px;
+  background-color: var(--form-bg-color);
+}
+
+#vending-detail-form>h1 {
+  font-size: var(--title-font-size);
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+.text {
+  margin-top: 10px;
+  font-size: var(--font-medium);
+  font-weight: 600;
+}
+
+.text>span {
+  font-weight: 400;
+}
+
+
+#btns {
+  display: flex;
+  justify-content: center;
+  position: relative;
+  top: 10%;
+}
+
+#btns button {
+  width: 100px;
+  margin: 0 10px 20px 10px;
+  padding: 10px 5px;
+  font-size: var(--font-medium);
+  outline: none;
+  border: 1px solid var(--main-color);
+  border-radius: 4px;
+  background-color: var(--main-bg-color);
+}
+
+#btns button:hover {
+  cursor: pointer;
+  transform: scale(1.04);
+}
+
+#btns button:active {
+  transform: scale(1.00);
+}

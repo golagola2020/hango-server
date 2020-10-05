@@ -1,0 +1,59 @@
+<!-- client/views/admin/vending/main.ejs -->
+
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="/css/admin/vending/main.css">
+    <script type="module" src="/js/admin/vending/main.js" defer></script>
+
+    <title>Hango 관리자 시스템</title>
+</head>
+
+<body>
+  <!-- 헤더 -->
+  <header>
+    <h1>자판기 목록</h1>
+
+    <!-- 검색창 -->
+    <article id="search-form">
+      <select name="search-tab" id="search-tab">
+        <option value="whole">전체</option>
+        <option value="serial_number">시리얼 넘버</option>
+        <option value="user_id">사용자 아이디</option>
+        <option value="vending_name">자판기 이름</option>
+        <option value="vending_description">자판기 설명</option>
+      </select>
+
+      <input type="text" id="search-input" placeholder="검색">
+      <button id="search-btn">검색</button>
+  </header>
+  
+  <!-- 자판기 목록 -->
+  <article id="vending-list-form">
+    <!-- 조회 테이블 -->
+    <table id="read-table">
+      <thead>
+          <tr id=field>
+              <th>시리얼번호</th>
+              <th>사용자 아이디</th>
+              <th>자판기 이름</th>
+              <th>등록일</th>
+          </tr>
+      </thead>
+
+      <tbody></tbody>
+    </table>
+  </article>
+
+  <!-- 버튼 -->
+  <article class="btns">
+    <button id="back-btn">뒤로가기</button>
+    <button id="vending-create-btn">자판기 등록</button>
+  </article>
+</body>
+
+</html>

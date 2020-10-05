@@ -27,7 +27,7 @@ router.post('/read', (req, res) => {
     // 클라이언트가 요청한 데이터가 있는지 검사
     if (!String.isEmpty(userId)) {
         // 클라이언트가 전송한 "userId" 가 있다면, 유저 아이디에 따른 자판기 정보 검색 후 응답
-        db.query(`SELECT u.user_id, u.user_name, v.serial_number, v.vending_name, v.vending_description, v.vending_full_size 
+        db.query(`SELECT u.user_id, u.user_name, v.serial_number, v.vending_name, v.vending_description, v.vending_full_size
             FROM users AS u
             JOIN vendings AS v
             ON u.user_id = v.user_id

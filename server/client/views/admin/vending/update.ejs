@@ -1,0 +1,41 @@
+<!-- client/views/admin/vending/update.ejs -->
+
+
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="/css/admin/vending/update.css">
+    <script type="module" src="/js/admin/vending/update.js" defer></script>
+
+    <title>Hango 관리자 시스템</title>
+</head>
+
+<body>
+  <hidden value="<%= serial_number %>"></hidden>
+  
+  <!-- 자판기 상세 -->
+  <section id="vending-update-form">
+    <h1>자판기 수정</h1>
+
+    <article id="vending-update-input">
+      <label for="name">자판기 이름</label>
+      <input type="text" class="input" id="name" name="name" value="<%= vending_name %>">
+      <label for="description">설명</label>
+      <input type="text" class="input" id="description" name="description" value="<%= vending_description %>"></input>
+      <label for="full-size">최대 칸 수</label>
+      <input type="text" class="input" id="full-size" name="full-size" value="<%= vending_full_size %>">
+    </article>
+
+    <!-- 버튼 -->
+    <article id="btns">
+      <button id="back-btn">뒤로가기</button>
+      <button id="vending-update-btn">수정</button>
+    </article>
+  </section>
+</body>
+
+</html>

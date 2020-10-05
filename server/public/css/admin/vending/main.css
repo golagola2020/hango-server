@@ -1,0 +1,130 @@
+@import "../../reset.css";
+
+body {
+  height: 100vh;
+  margin: 0;
+  background: linear-gradient(90deg, var(--bg-left-color) 50%, var(--bg-right-color) 50%);
+  color: var(--main-font-color);
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  top: 5%;
+  width: 80vw;
+  margin: 0 auto 0 auto;
+  padding: 20px;
+  box-shadow: 4px 4px 7px 1px var(--main-color);
+  border-radius: 8px;
+  background-color: var(--form-bg-color);
+  font-size: var(--font-large);
+  font-weight: 700;
+}
+
+#search-form {
+  display: flex;
+  align-items: center;
+}
+
+#search-tab {
+  font-size: var(--font-small);
+  padding: 1px;
+}
+
+#search-tab:hover {
+  cursor: pointer;
+}
+
+#search-input {
+  margin-left: 4px;
+  font-size: var(--font-small);
+}
+
+#search-btn {
+  height: 95%;
+  margin-left: 4px;
+  padding: 2px px;
+  font-size: var(--font-small);
+  outline: none;
+  border: 1px solid var(--main-color);
+  border-radius: 2px;
+  background-color: var(--main-bg-color);
+}
+
+/* 자판기 목록 박스 */
+#vending-list-form {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  top: 7%;
+  width: 80vw;
+  max-height: 65vh;
+  overflow-y: scroll;
+  margin: 0 auto 0 auto;
+  padding: 20px;
+  box-shadow: 4px 4px 7px 1px var(--main-color);
+  border-radius: 8px;
+  background-color: var(--form-bg-color);
+}
+
+/* 테이블 */
+#read-table {
+  table-layout: fixed;
+  width: 100%;
+}
+
+/* 필드 */
+#read-table thead #field th{
+  padding: 10px;
+  font-size: var(--font-medium);
+  font-weight: 700;
+  border: 1px solid var(--main-color);
+  white-space: nowrap; 
+}
+
+/* 레코드 */
+#read-table tbody tr:hover {
+  cursor: pointer;
+  color: gray;
+}
+
+#read-table tbody tr:active {
+  transform: scale(0.99);
+}
+
+#read-table tbody td {
+  text-align: center;
+  padding: 10px;
+  border: 1px solid var(--main-color);
+  white-space: nowrap; 
+  overflow: hidden; 
+  text-overflow: ellipsis;
+}
+
+.btns {
+  display: flex;
+  justify-content: center;
+  position: relative;
+  top: 10%;
+}
+
+.btns button {
+  width: 100px;
+  margin: 0 10px 20px 10px;
+  padding: 10px 5px;
+  font-size: var(--font-medium);
+  outline: none;
+  border: 1px solid var(--main-color);
+  border-radius: 4px;
+  background-color: var(--main-bg-color);
+}
+
+button:hover {
+  cursor: pointer;
+  transform: scale(1.04);
+}
+
+button:active {
+  transform: scale(1.00);
+}

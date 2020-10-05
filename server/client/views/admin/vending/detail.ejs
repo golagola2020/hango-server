@@ -1,0 +1,40 @@
+<!-- client/views/admin/vending/detail.ejs -->
+
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="/css/admin/vending/detail.css">
+    <script type="module" src="/js/admin/vending/detail.js" defer></script>
+
+    <title>Hango 관리자 시스템</title>
+</head>
+
+<body>
+  <h1>자판기 상세 정보</h1>
+  <hidden value="<%= serialNumber %>"></hidden>
+  
+  <!-- 자판기 상세 -->
+  <section id="vending-detail-form">
+    <h1></h1>
+
+    <div class="text" id="serial-number">시리얼 넘버 : <span></span></div>
+    <div class="text" id="user-id">사용자 아이디 : <span></span></div>
+    <div class="text" id="description">설명 : <span></span></div>
+    <div class="text" id="full-size">최대 칸 수 : <span></span></div><br>
+    <div class="text" id="in-date">등록일 : <span></span></div>
+    <div class="text" id="update-date">수정일 : <span></span></div>
+  </section>
+
+  <!-- 버튼 -->
+  <article id="btns">
+    <button id="back-btn">뒤로가기</button>
+    <button id="vending-update-btn">수정</button>
+    <button id="vending-delete-btn">삭제</button>
+  </article>
+</body>
+
+</html>
