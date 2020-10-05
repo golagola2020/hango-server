@@ -102,14 +102,14 @@ header {
   text-overflow: ellipsis;
 }
 
-#btns {
+.btns {
   display: flex;
   justify-content: center;
   position: relative;
   top: 10%;
 }
 
-#btns button {
+.btns button {
   width: 100px;
   margin: 0 10px 20px 10px;
   padding: 10px 5px;
@@ -120,11 +120,11 @@ header {
   background-color: var(--main-bg-color);
 }
 
-#btns button:hover {
+button:hover {
   cursor: pointer;
   transform: scale(1.04);
 }
 
-#btns button:active {
+button:active {
   transform: scale(1.00);
 }
