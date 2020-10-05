@@ -2,7 +2,8 @@
 :root {
   /* size */
   --font-large: 1.5em;
-  --font-medium: 1em;
+	--font-medium: 1em;
+	--font-small: 0.6em;
 
   /* color */
   --main-color: #9bcbea;
