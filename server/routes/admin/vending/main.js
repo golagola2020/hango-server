@@ -54,6 +54,66 @@ router.post('/read', (req, res) => {
     });
 });
 
+// 자판기 검색 목록 요청 밎 응답
+router.post('/search', (req, res) => {
+    const search = req.body;
+    // 클라이언트의 요청 데이터를 터미널에 출력
+    console.log('클라이언트 검색 요청 경로 : /admin/vending/search \n요청 데이터 : ');
+    console.log(req.body);
+
+    // 응답 객체 선언
+    const response = {}
+
+    // 검색 쿼리 만들기
+    const query = (search.type == 'whole') ? 
+        `WHERE serial_number LIKE '%${search.text}%' OR user_id LIKE '%${search.text}%' OR vending_name LIKE '%${search.text}%' OR 
+        vending_description LIKE '%${search.text}%'` :
+        `WHERE ${search.type} LIKE '%${search.text}%'`;
+    
+    // 클라이언트가 요청한 데이터가 있는지 검사
+    if (!String.isEmpty(req.body)) {
+        db.query(`SELECT serial_number, user_id, vending_name, date_format(vending_in_date, '%Y년 %m월 %d일 %H시 %i분 %s초') AS date 
+        FROM vendings ${query}`, (err, results) => {
+            if (err) {
+                // 자판기 등록이 실패하면 false 응답
+                response.success = false;
+                response.msg = err;
+            } else {
+                // 성공시 자판기 정보를 Object로 선언
+                response.success = true;
+                response.vendings = [];
+                
+                // DB에서 받아온 데이터 전체 삽입
+                let vending = {};
+                for (let result of results) {
+                    // DB 데이터를 Object로 초기화
+                    vending = {
+                        serialNumber: result.serial_number,
+                        userId: result.user_id,
+                        name: result.vending_name,
+                        inDate: result.date,
+                    }
+
+                    // 자판기별 데이터를 Array에 삽입
+                    response.vendings.push(vending);
+                }
+            }
+
+            // 데이터 응답
+            Http.printResponse(response);
+            res.json(response);
+        });
+    } else {
+        // 클라이언트가 전송한 데이터가 없다면 false 반환
+        response.success = false;
+        response.msg = "The search datas of the server is empty.";
+
+        // 데이터 응답
+        Http.printResponse(response);
+        res.json(response);
+    }
+});
+
 // 자판기 등록 페이지 렌더링
 router.get('/create', (req, res) => {
     res.render('admin/vending/create');
