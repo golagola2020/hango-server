@@ -14,7 +14,23 @@
 </head>
 
 <body>
-  <h1>자판기 목록</h1>
+  <!-- 헤더 -->
+  <header>
+    <h1>자판기 목록</h1>
+
+    <!-- 검색창 -->
+    <article id="search-form">
+      <select name="search-tab" id="search-tab">
+        <option value="whole">전체</option>
+        <option value="serial_number">시리얼 넘버</option>
+        <option value="user_id">사용자 아이디</option>
+        <option value="vending_name">자판기 이름</option>
+        <option value="vending_description">자판기 설명</option>
+      </select>
+
+      <input type="text" id="search-input" placeholder="검색">
+      <button id="search-btn">검색</button>
+  </header>
   
   <!-- 자판기 목록 -->
   <article id="vending-list-form">
@@ -34,7 +50,7 @@
   </article>
 
   <!-- 버튼 -->
-  <article id="btns">
+  <article class="btns">
     <button id="back-btn">뒤로가기</button>
     <button id="vending-create-btn">자판기 등록</button>
   </article>
