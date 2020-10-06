@@ -32,6 +32,7 @@ app.use('/rasp', require('./routes/rasp'));
 app.use('/mobile', require('./routes/mobile/mobile'));
 app.use('/mobile/vending', require('./routes/mobile/vending'));
 app.use('/mobile/drink', require('./routes/mobile/drink'));
+app.use('/mobile/stats', require('./routes/mobile/stats'));
 
 // 서버 오픈
 app.listen(PORT, () => console.log(`서버가 ${PORT} 포트에서 정상 가동되었습니다.`));
