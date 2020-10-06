@@ -4,7 +4,8 @@
 const express = require('express'), // 웹 프레임워크
   dotenv = require('dotenv').config(), // 환경변수 관리용 모듈
   bodyParser = require('body-parser'),
-  favicon = require('serve-favicon'); // 파비콘 모듈
+  favicon = require('serve-favicon'), // 파비콘 모듈
+  crypto = require('crypto');
 
 // 기본 인스턴스 생성
 const app = express(); // express를 사용하기 위한 인스턴스 생성
