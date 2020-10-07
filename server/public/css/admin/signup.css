@@ -10,7 +10,7 @@ body {
   color: var(--main-font-color);
 }
 
-#login-form {
+#signup-form {
   display: flex;
   flex-direction: column;
   width: 50vw;
@@ -20,40 +20,40 @@ body {
   background-color: var(--form-bg-color);
 }
 
-#login-form h1 {
+#signup-form h1 {
   font-size: var(--font-large);
   font-weight: 700;
 }
 
-#login-form #login-input {
+#signup-form #signup-input {
   display: flex;
   flex-direction: column;
   width: 40vw;
-  margin: 5vh 5vw;
+  margin: 4vh 5vw;
   font-size: var(--font-medium);
   font-weight: 500;
 }
 
-#login-form #login-input label {
+#signup-form #signup-input label {
   margin-top: 10px;
   margin-bottom: 10px;
 }
 
-#login-form #login-input .input {
-  height: 40px;
-  margin-bottom: 2.5vh;
+#signup-form #signup-input .input {
+  height: 30px;
+  margin-bottom: 2.5px;
   padding-left: 8px;
   border: 1px solid var(--main-color);
   border-radius: 2px;
 }
 
-#login-form #btns {
+#signup-form #btns {
   display: flex;
   justify-content: center;
 
 }
 
-#login-form #btns button {
+#signup-form #btns button {
   width: 100px;
   margin: 0 10px 20px 10px;
   padding: 10px 5px;
@@ -64,11 +64,15 @@ body {
   background-color: var(--main-bg-color);
 }
 
-#login-form #btns button:hover {
+#signup-form #btns button:hover {
   cursor: pointer;
   transform: scale(1.04);
 }
 
-#login-form #btns button:active {
+#signup-form #btns button:active {
   transform: scale(1.00);
+}
+
+.placeholder::-webkit-input-placeholder {
+  color: #ff7967
 }

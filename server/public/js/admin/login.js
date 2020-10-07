@@ -3,7 +3,8 @@
 'use strict';
 
 // HTML 오브젝트 변수 선언
-const btnLogin = document.querySelector('#login-btn');
+const btnLogin = document.querySelector('#login-btn'),
+  btnSignup = document.querySelector('#signup-btn');
 
 // 로그인
 function login() {
@@ -36,6 +37,9 @@ function login() {
 
 function init() {
   btnLogin.addEventListener('click', login);
+  btnSignup.addEventListener('click', function() {
+    location.href = '/admin/signup';
+  });
 }
 
 init();
