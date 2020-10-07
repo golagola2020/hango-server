@@ -16,8 +16,8 @@ const String = require('./../../class/String.js'),
 router.post('/login', (req, res) => {
     // 클라이언트가 요청한 데이터 저장
     const user = {
-        id: req.body.id,
-        passwd: req.body.passwd
+        id: req.body.userId,
+        passwd: req.body.userPasswd
     };
 
     // 클라이언트의 요청 데이터를 터미널에 출력
@@ -106,11 +106,11 @@ router.post('/signup', (req, res) => {
             salt = buf.toString('hex');
 
             // 해쉬 만들기
-            crypto.pbkdf2(user.passwd, salt, 100000, 64, 'sha512', (err, key) => {
+            crypto.pbkdf2(user.userPasswd, salt, 100000, 64, 'sha512', (err, key) => {
                 passwd = key.toString('hex');
 
                 // DB 등록
-                db.query(`INSERT INTO users(user_id, user_name, user_email, user_passwd, user_salt) VALUES(?, ?, ?, ?, ?)`, [user.id, user.name, user.email, passwd, salt], (err, result) => {
+                db.query(`INSERT INTO users(user_id, user_name, user_email, user_passwd, user_salt) VALUES(?, ?, ?, ?, ?)`, [user.userId, user.userName, user.userEmail, passwd, salt], (err, result) => {
                     if (err) {
                         // 실패시 false 응답
                         response.success = false;
