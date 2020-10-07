@@ -1,0 +1,78 @@
+@import "../reset.css";
+
+body {
+  display: flex;
+	align-items: center;
+	justify-content: center;
+  height: 100vh;
+  margin: 0;
+  background: linear-gradient(90deg, var(--bg-left-color) 50%, var(--bg-right-color) 50%);
+  color: var(--main-font-color);
+}
+
+#signup-form {
+  display: flex;
+  flex-direction: column;
+  width: 50vw;
+  padding: 20px;
+  box-shadow: 4px 4px 7px 1px var(--main-color);
+  border-radius: 8px;
+  background-color: var(--form-bg-color);
+}
+
+#signup-form h1 {
+  font-size: var(--font-large);
+  font-weight: 700;
+}
+
+#signup-form #signup-input {
+  display: flex;
+  flex-direction: column;
+  width: 40vw;
+  margin: 4vh 5vw;
+  font-size: var(--font-medium);
+  font-weight: 500;
+}
+
+#signup-form #signup-input label {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+#signup-form #signup-input .input {
+  height: 30px;
+  margin-bottom: 2.5px;
+  padding-left: 8px;
+  border: 1px solid var(--main-color);
+  border-radius: 2px;
+}
+
+#signup-form #btns {
+  display: flex;
+  justify-content: center;
+
+}
+
+#signup-form #btns button {
+  width: 100px;
+  margin: 0 10px 20px 10px;
+  padding: 10px 5px;
+  font-size: var(--font-medium);
+  outline: none;
+  border: 1px solid var(--main-color);
+  border-radius: 4px;
+  background-color: var(--main-bg-color);
+}
+
+#signup-form #btns button:hover {
+  cursor: pointer;
+  transform: scale(1.04);
+}
+
+#signup-form #btns button:active {
+  transform: scale(1.00);
+}
+
+.placeholder::-webkit-input-placeholder {
+  color: #ff7967
+}
