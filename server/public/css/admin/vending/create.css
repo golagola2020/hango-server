@@ -2,11 +2,15 @@
 
 body {
   display: flex;
-	align-items: center;
-	justify-content: center;
+  align-items: center;
+  justify-content: center;
   height: 100vh;
   margin: 0;
-  background: linear-gradient(90deg, var(--bg-left-color) 50%, var(--bg-right-color) 50%);
+  background: linear-gradient(
+    90deg,
+    var(--bg-left-color) 50%,
+    var(--bg-right-color) 50%
+  );
   color: var(--main-font-color);
 }
 
@@ -69,5 +73,5 @@ body {
 }
 
 #vending-create-form #btns button:active {
-  transform: scale(1.00);
+  transform: scale(1);
 }

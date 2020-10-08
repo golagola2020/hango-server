@@ -8,11 +8,15 @@
 body {
   height: 100vh;
   margin: 0;
-  background: linear-gradient(90deg, var(--bg-left-color) 50%, var(--bg-right-color) 50%);
+  background: linear-gradient(
+    90deg,
+    var(--bg-left-color) 50%,
+    var(--bg-right-color) 50%
+  );
   color: var(--main-font-color);
 }
 
-body>h1 {
+body > h1 {
   position: relative;
   top: 5%;
   width: 80vw;
@@ -41,7 +45,7 @@ body>h1 {
   background-color: var(--form-bg-color);
 }
 
-#vending-detail-form>h1 {
+#vending-detail-form > h1 {
   font-size: var(--title-font-size);
   font-weight: 600;
   margin-bottom: 20px;
@@ -53,10 +57,9 @@ body>h1 {
   font-weight: 600;
 }
 
-.text>span {
+.text > span {
   font-weight: 400;
 }
-
 
 #btns {
   display: flex;
@@ -82,5 +85,5 @@ body>h1 {
 }
 
 #btns button:active {
-  transform: scale(1.00);
+  transform: scale(1);
 }

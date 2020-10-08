@@ -1,41 +1,40 @@
 // public/js/admin/login.js
 
-'use strict';
+"use strict";
 
 // HTML 오브젝트 변수 선언
-const btnLogin = document.querySelector('#login-btn');
+const btnLogin = document.querySelector("#login-btn");
 
 // 로그인
 function login() {
-  const id = document.querySelector('#id'),
-    passwd = document.querySelector('#pw');
+  const id = document.querySelector("#id"),
+    passwd = document.querySelector("#pw");
 
   const manager = {
-    id : id.value,
-    passwd : passwd.value
+    id: id.value,
+    passwd: passwd.value,
   };
 
-  fetch('/admin/login', {
-    method: 'POST',
+  fetch("/admin/login", {
+    method: "POST",
     headers: {
-      'Content-Type': 'application/json'
+      "Content-Type": "application/json",
     },
-    body: JSON.stringify(manager)
+    body: JSON.stringify(manager),
   })
-    .then(res => res.json())
-    .then(manager => {
+    .then((res) => res.json())
+    .then((manager) => {
       if (manager.success) {
-        location.href = '/admin/home'
-        alert('로그인에 성공하셨습니다.');
+        location.href = "/admin/home";
+        alert("로그인에 성공하셨습니다.");
       } else {
         alert(manager.msg);
       }
-
     });
 }
 
 function init() {
-  btnLogin.addEventListener('click', login);
+  btnLogin.addEventListener("click", login);
 }
 
 init();

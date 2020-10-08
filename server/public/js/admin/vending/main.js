@@ -1,26 +1,26 @@
 // public/js/admin/vending/main.js
 
-'use strict';
+"use strict";
 
 // HTML 오브젝트 변수 선언
-const btnVendingCreate = document.querySelector('#vending-create-btn'),
-  btnBack = document.querySelector('#back-btn'),
-  btnSearch = document.querySelector('#search-btn'),
-  tbody = document.querySelector('#read-table tbody');
+const btnVendingCreate = document.querySelector("#vending-create-btn"),
+  btnBack = document.querySelector("#back-btn"),
+  btnSearch = document.querySelector("#search-btn"),
+  tbody = document.querySelector("#read-table tbody");
 
 // 자판기 읽어오는 함수
 function readVendings() {
-  fetch('/admin/vending/read', {
-    method : 'POST',
-    headers : {
-      'Content-Type' : 'application/json'
-    }
+  fetch("/admin/vending/read", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
   })
-    .then(res => res.json())
-    .then(results => {
+    .then((res) => res.json())
+    .then((results) => {
       if (results.success) {
         const vendings = results.vendings;
-        let tr = '';
+        let tr = "";
         for (let i = 0; i < vendings.length; i++) {
           tr += `<tr>
               <td>${vendings[i].serialNumber}</td>
@@ -28,14 +28,14 @@ function readVendings() {
               <td>${vendings[i].name}</td>
               <td>${vendings[i].inDate}</td>
             `;
-          tr += '</tr>'
+          tr += "</tr>";
         }
         tbody.innerHTML = tr;
       } else {
         alert(results.msg);
       }
     })
-    .catch(err => alert(err));
+    .catch((err) => alert(err));
 }
 
 // 자판기 상세 페이지 이동
@@ -46,27 +46,27 @@ function showVendingDetail(event) {
 
 // 검색 데이터 조회
 function readSearchData(event) {
-  const tabSearch = document.querySelector('#search-tab'),
-    searchText = document.querySelector('#search-input').value;
+  const tabSearch = document.querySelector("#search-tab"),
+    searchText = document.querySelector("#search-input").value;
 
   const search = {
-    type : tabSearch.options[tabSearch.selectedIndex].value,
-    text : searchText
-  }
+    type: tabSearch.options[tabSearch.selectedIndex].value,
+    text: searchText,
+  };
 
   // 검색 조회 요청
   fetch(`/admin/vending/search`, {
-    method : 'POST',
-    headers : {
-      'Content-Type' : 'application/json'
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
     },
-    body: JSON.stringify(search)
+    body: JSON.stringify(search),
   })
-    .then(res => res.json())
-    .then(results => {
+    .then((res) => res.json())
+    .then((results) => {
       if (results.success) {
         const vendings = results.vendings;
-        let tr = '';
+        let tr = "";
         for (let i = 0; i < vendings.length; i++) {
           tr += `<tr>
               <td>${vendings[i].serialNumber}</td>
@@ -74,30 +74,30 @@ function readSearchData(event) {
               <td>${vendings[i].name}</td>
               <td>${vendings[i].inDate}</td>
             `;
-          tr += '</tr>'
+          tr += "</tr>";
         }
         tbody.innerHTML = tr;
       } else {
         alert(results.msg);
       }
     })
-    .catch(err => alert(err));
+    .catch((err) => alert(err));
 }
 
 // 초기 실행 함수
 function init() {
   readVendings(); // 자판기 읽어오는 함수
-  tbody.addEventListener('click', showVendingDetail);
+  tbody.addEventListener("click", showVendingDetail);
 
-  btnVendingCreate.addEventListener('click', function () {
-    location.href = '/admin/vending/create';
+  btnVendingCreate.addEventListener("click", function () {
+    location.href = "/admin/vending/create";
   });
 
-  btnBack.addEventListener('click', function() {
+  btnBack.addEventListener("click", function () {
     location.href = `/admin/home`;
   });
 
-  btnSearch.addEventListener('click', readSearchData);
+  btnSearch.addEventListener("click", readSearchData);
 }
 
 init();

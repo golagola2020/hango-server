@@ -3,7 +3,11 @@
 body {
   height: 100vh;
   margin: 0;
-  background: linear-gradient(90deg, var(--bg-left-color) 50%, var(--bg-right-color) 50%);
+  background: linear-gradient(
+    90deg,
+    var(--bg-left-color) 50%,
+    var(--bg-right-color) 50%
+  );
   color: var(--main-font-color);
 }
 
@@ -75,12 +79,12 @@ header {
 }
 
 /* 필드 */
-#read-table thead #field th{
+#read-table thead #field th {
   padding: 10px;
   font-size: var(--font-medium);
   font-weight: 700;
   border: 1px solid var(--main-color);
-  white-space: nowrap; 
+  white-space: nowrap;
 }
 
 /* 레코드 */
@@ -97,8 +101,8 @@ header {
   text-align: center;
   padding: 10px;
   border: 1px solid var(--main-color);
-  white-space: nowrap; 
-  overflow: hidden; 
+  white-space: nowrap;
+  overflow: hidden;
   text-overflow: ellipsis;
 }
 
@@ -126,5 +130,5 @@ button:hover {
 }
 
 button:active {
-  transform: scale(1.00);
+  transform: scale(1);
 }
