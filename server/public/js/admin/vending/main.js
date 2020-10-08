@@ -45,7 +45,7 @@ function showVendingDetail(event) {
 }
 
 // 검색 데이터 조회
-function readSearchData(event) {
+function readSearchData() {
   const tabSearch = document.querySelector("#search-tab"),
     searchText = document.querySelector("#search-input").value;
 

@@ -1,10 +1,7 @@
 /* routes/mobile.js */
 
-const { json } = require("body-parser");
-
 // 라우팅을 위한 기본 모듈 포함
 const express = require("express"),
-  app = express(),
   router = express.Router(),
   db = require("./../../database/db.js");
 
@@ -96,7 +93,7 @@ router.post("/update", (req, res) => {
     db.query(
       `UPDATE vendings SET vending_name=?, vending_description=?, vending_full_size=? WHERE serial_number=?;`,
       [vending.name, vending.description, vending.fullSize, serialNumber],
-      (err, result) => {
+      (err) => {
         if (err) {
           // 실패시 false 응답
           response.success = false;
@@ -140,7 +137,7 @@ router.post("/delete", (req, res) => {
     db.query(
       `DELETE FROM vendings WHERE serial_number=?;`,
       [serialNumber],
-      (err, result) => {
+      (err) => {
         if (err) {
           // 실패시 false 응답
           response.success = false;

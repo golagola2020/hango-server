@@ -1,10 +1,7 @@
 /* routes/mobile.js */
 
-const { json } = require("body-parser");
-
 // 라우팅을 위한 기본 모듈 포함
 const express = require("express"),
-  app = express(),
   router = express.Router(),
   db = require("./../../database/db.js");
 
@@ -98,7 +95,7 @@ router.post("/create", (req, res) => {
         drink.maxCount,
         drink.maxCount,
       ],
-      (err, result) => {
+      (err) => {
         if (err) {
           // 실패시 false 응답
           response.success = false;
@@ -150,7 +147,7 @@ router.post("/update", (req, res) => {
         serialNumber,
         drink.position,
       ],
-      (err, result) => {
+      (err) => {
         if (err) {
           // 실패시 false 응답
           response.success = false;
@@ -196,7 +193,7 @@ router.post("/refresh", (req, res) => {
         SET drink_count = drink_max_count
         WHERE serial_number=?;`,
       [serialNumber],
-      (err, result) => {
+      (err) => {
         if (err) {
           // 실패시 false 응답
           response.success = false;

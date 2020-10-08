@@ -181,6 +181,9 @@ router.get("/:userId/update", (req, res) => {
   );
   console.log(userId);
 
+  // 응답 객체 선언
+  let response = {};
+
   db.query(`SELECT * FROM users WHERE user_id=?`, [userId], (err, user) => {
     if (err) {
       // 실패시 false 응답
@@ -217,7 +220,7 @@ router.put("/:userId/update", (req, res) => {
     db.query(
       `UPDATE users SET user_id=?, user_name=?, user_email=? WHERE user_id=?;`,
       [user.id, user.name, user.email, userId],
-      (err, result) => {
+      (err) => {
         if (err) {
           // 실패시 false 응답
           response.success = false;
@@ -256,7 +259,7 @@ router.delete("/:userId", (req, res) => {
   // 응답 객체 선언
   const response = {};
 
-  db.query(`DELETE FROM users WHERE user_id=?;`, [userId], (err, result) => {
+  db.query(`DELETE FROM users WHERE user_id=?;`, [userId], (err) => {
     if (err) {
       // 유저 등록이 실패하면 false 응답
       response.success = false;

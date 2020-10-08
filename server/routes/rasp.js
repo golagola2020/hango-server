@@ -91,7 +91,7 @@ router.post("/drink/update", (req, res) => {
       `UPDATE drinks SET  drink_count = drink_count - 1
     WHERE  serial_number=? AND drink_position=?;`,
       [serialNumber, drink.soldPosition],
-      (err, updates) => {
+      (err) => {
         if (err) {
           // 실패시 false 응답
           response.success = false;
@@ -101,7 +101,7 @@ router.post("/drink/update", (req, res) => {
           db.query(
             `INSERT INTO sales(user_id, serial_number, drink_name, drink_price) VALUES(?, ?, ?, ?);`,
             [userId, serialNumber, drink.name, drink.price],
-            (err2, results) => {
+            (err2) => {
               if (err2) {
                 // 실패시 false 응답
                 response.success = false;

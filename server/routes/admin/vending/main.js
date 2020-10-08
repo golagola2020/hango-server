@@ -150,7 +150,7 @@ router.post("/create", (req, res) => {
     db.query(
       `INSERT INTO vendings(serial_number, user_id, vending_name) VALUES(concat(date_format(now(), '%Y%m%d%H%i%s'), cast( cast( rand()*1000 as unsigned) as char)), ?, serial_number);`,
       [user.id],
-      (err, userDB) => {
+      (err) => {
         if (err) {
           // 자판기 등록이 실패하면 false 응답
           response.success = false;
@@ -236,6 +236,9 @@ router.get("/:serialNumber/update", (req, res) => {
   );
   console.log(serialNumber);
 
+  // 응답 객체 선언
+  let response = {};
+
   db.query(
     `SELECT * FROM vendings WHERE serial_number=?`,
     [serialNumber],
@@ -276,7 +279,7 @@ router.put("/:serialNumber/update", (req, res) => {
     db.query(
       `UPDATE vendings SET vending_name=?, vending_description=?, vending_full_size=?, vending_update_date=NOW() WHERE serial_number=?;`,
       [vending.name, vending.description, vending.fullSize, serialNumber],
-      (err, result) => {
+      (err) => {
         if (err) {
           // 실패시 false 응답
           response.success = false;
@@ -318,7 +321,7 @@ router.delete("/:serialNumber", (req, res) => {
   db.query(
     `DELETE FROM vendings WHERE serial_number=?;`,
     [serialNumber],
-    (err, result) => {
+    (err) => {
       if (err) {
         // 자판기 등록이 실패하면 false 응답
         response.success = false;

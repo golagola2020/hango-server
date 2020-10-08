@@ -2,9 +2,11 @@
 
 // 기본 모듈 포함
 const express = require("express"), // 웹 프레임워크
-  dotenv = require("dotenv").config(), // 환경변수 관리용 모듈
   bodyParser = require("body-parser"),
   favicon = require("serve-favicon"); // 파비콘 모듈
+
+// eslint-disable-next-line no-unused-vars
+const dotenv = require("dotenv").config(); // 환경변수 관리용 모듈
 
 // 기본 인스턴스 생성
 const app = express(); // express를 사용하기 위한 인스턴스 생성

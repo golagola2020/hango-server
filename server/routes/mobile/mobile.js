@@ -1,7 +1,5 @@
 /* routes/mobile.js */
 
-const { json } = require("body-parser");
-
 // 라우팅을 위한 기본 모듈 포함
 const express = require("express"),
   router = express.Router(),
@@ -93,7 +91,7 @@ router.post("/signup", (req, res) => {
     db.query(
       `INSERT INTO users(user_id, user_name, user_email, user_passwd) VALUES(?, ?, ?, ?)`,
       [user.id, user.name, user.email, user.passwd],
-      (err, result) => {
+      (err) => {
         if (err) {
           // 실패시 false 응답
           response.success = false;
@@ -182,7 +180,7 @@ router.post("/user/update", (req, res) => {
     db.query(
       `UPDATE users SET user_id=?, user_name=?, user_email=?, user_passwd=? WHERE user_id=?`,
       [user.newId, user.name, user.email, user.newPasswd, user.id],
-      (err, result) => {
+      (err) => {
         if (err) {
           // 실패시 "false" 응답
           response.success = false;
@@ -223,7 +221,7 @@ router.post("/user/delete", (req, res) => {
   // 클라이언트가 요청한 데이터가 있는지 검사
   if (!String.isEmpty(userId)) {
     // 클라이언트가 전송한 "userId" 가 있다면, DB에서 제거
-    db.query(`DELETE FROM users WHERE user_id=?`, [userId], (err, result) => {
+    db.query(`DELETE FROM users WHERE user_id=?`, [userId], (err) => {
       if (err) {
         // 실패시 "false" 응답
         response.success = false;

@@ -1,7 +1,5 @@
 /* routes/mobile/stats.js */
 
-const { json } = require("body-parser");
-
 // 라우팅을 위한 기본 모듈 포함
 const express = require("express"),
   router = express.Router(),
@@ -119,6 +117,7 @@ router.post("/vending/read", (req, res) => {
           }
 
           // 중복 제거
+          // eslint-disable-next-line no-undef
           response.vendings.name = Array.from(new Set(response.vendings.name));
 
           // 데이터 삽입
@@ -192,6 +191,7 @@ router.post("/drink/read", (req, res) => {
           }
 
           // 중복 제거
+          // eslint-disable-next-line no-undef
           response.drinks.name = Array.from(new Set(response.drinks.name));
 
           // 데이터 삽입
