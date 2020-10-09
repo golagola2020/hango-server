@@ -27,15 +27,15 @@
     "lint-staged": "^10.4.0",
     "prettier": "2.1.2"
   },
-  "lint-staged": {
-    "*.js": [
-      "eslint src --fix",
-      "prettier --write"
-    ]
-  },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged"
+        "pre-commit": "lint-staged && yarn lint"
     }
+  },
+  "lint-staged": {
+    "*.js": [
+      "yarn pretty",
+      "git add"
+    ]
   }
 }
