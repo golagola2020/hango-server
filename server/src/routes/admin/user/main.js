@@ -1,41 +1,41 @@
 /* routes/admin/user/main.js */
 
 // 라우팅을 위한 기본 모듈 포함
-const express = require('express');
-  const router = express.Router();
-  const db = require('../../../database/db.js');
+const express = require('express')
+const router = express.Router()
+const db = require('../../../database/db.js')
 
 // 외부 클래스 포함
-const String = require('../../../class/String.js');
-  const Http = require('../../../class/Http.js');
+const String = require('../../../class/String.js')
+const Http = require('../../../class/Http.js')
 
 // 유저 메인 페이지 렌더링
 router.get('/', (req, res) => {
-  res.render('admin/user/main');
-});
+  res.render('admin/user/main')
+})
 
 // 유저 목록 요청 밎 응답
 router.post('/read', (req, res) => {
   // 클라이언트의 요청 데이터를 터미널에 출력
-  console.log('클라이언트 조회 요청 경로 : /admin/user/read \n요청 데이터 없음');
+  console.log('클라이언트 조회 요청 경로 : /admin/user/read \n요청 데이터 없음')
 
   // 응답 객체 선언
-  const response = {};
+  const response = {}
 
   db.query(
-    'SELECT user_id, user_name, user_email, date_format(user_in_date, \'%Y년 %m월 %d일 %H시 %i분 %s초\') AS date FROM users',
+    "SELECT user_id, user_name, user_email, date_format(user_in_date, '%Y년 %m월 %d일 %H시 %i분 %s초') AS date FROM users",
     (err, results) => {
       if (err) {
         // 유저 등록이 실패하면 false 응답
-        response.success = false;
-        response.msg = err;
+        response.success = false
+        response.msg = err
       } else {
         // 성공시 유저 정보를 Object로 선언
-        response.success = true;
-        response.users = [];
+        response.success = true
+        response.users = []
 
         // DB에서 받아온 데이터 전체 삽입
-        let user = {};
+        let user = {}
         for (const result of results) {
           // DB 데이터를 Object로 초기화
           user = {
@@ -43,35 +43,36 @@ router.post('/read', (req, res) => {
             name: result.user_name,
             email: result.user_email,
             inDate: result.date,
-          };
+          }
 
           // 유저별 데이터를 Array에 삽입
-          response.users.push(user);
+          response.users.push(user)
         }
       }
 
       // 데이터 응답
-      Http.printResponse(response);
-      res.json(response);
+      Http.printResponse(response)
+      res.json(response)
     },
-  );
-});
+  )
+})
 
 // 자판기 검색 목록 요청 밎 응답
 router.post('/search', (req, res) => {
-  const search = req.body;
+  const search = req.body
   // 클라이언트의 요청 데이터를 터미널에 출력
-  console.log('클라이언트 검색 요청 경로 : /admin/user/search \n요청 데이터 : ');
-  console.log(req.body);
+  console.log('클라이언트 검색 요청 경로 : /admin/user/search \n요청 데이터 : ')
+  console.log(req.body)
 
   // 응답 객체 선언
-  const response = {};
+  const response = {}
 
   // 검색 쿼리 만들기
-  const query =    search.type == 'whole'
+  const query =
+    search.type == 'whole'
       ? `WHERE user_id LIKE '%${search.text}%' OR user_name LIKE '%${search.text}%' OR 
         user_email LIKE '%${search.text}%'`
-      : `WHERE ${search.type} LIKE '%${search.text}%'`;
+      : `WHERE ${search.type} LIKE '%${search.text}%'`
 
   // 클라이언트가 요청한 데이터가 있는지 검사
   if (!String.isEmpty(req.body)) {
@@ -81,15 +82,15 @@ router.post('/search', (req, res) => {
       (err, results) => {
         if (err) {
           // 자판기 등록이 실패하면 false 응답
-          response.success = false;
-          response.msg = err;
+          response.success = false
+          response.msg = err
         } else {
           // 성공시 자판기 정보를 Object로 선언
-          response.success = true;
-          response.users = [];
+          response.success = true
+          response.users = []
 
           // DB에서 받아온 데이터 전체 삽입
-          let user = {};
+          let user = {}
           for (const result of results) {
             // DB 데이터를 Object로 초기화
             user = {
@@ -97,44 +98,44 @@ router.post('/search', (req, res) => {
               name: result.user_name,
               email: result.user_email,
               inDate: result.date,
-            };
+            }
 
             // 자판기별 데이터를 Array에 삽입
-            response.users.push(user);
+            response.users.push(user)
           }
         }
 
         // 데이터 응답
-        Http.printResponse(response);
-        res.json(response);
+        Http.printResponse(response)
+        res.json(response)
       },
-    );
+    )
   } else {
     // 클라이언트가 전송한 데이터가 없다면 false 반환
-    response.success = false;
-    response.msg = 'The search datas of the server is empty.';
+    response.success = false
+    response.msg = 'The search datas of the server is empty.'
 
     // 데이터 응답
-    Http.printResponse(response);
-    res.json(response);
+    Http.printResponse(response)
+    res.json(response)
   }
-});
+})
 
 // 유저 상세 페이지 렌더링
 router.get('/:userId', (req, res) => {
-  res.render('admin/user/detail', { userId: req.params.userId });
-});
+  res.render('admin/user/detail', {userId: req.params.userId})
+})
 
 // 유저 상세 페이지 정보 응답 API
 router.post('/:userId', (req, res) => {
-  const {userId} = req.params;
+  const {userId} = req.params
 
   // 클라이언트의 요청 데이터를 터미널에 출력
-  console.log('클라이언트 조회 요청 경로 : /admin/user/:userId \n요청 데이터 : ');
-  console.log(userId);
+  console.log('클라이언트 조회 요청 경로 : /admin/user/:userId \n요청 데이터 : ')
+  console.log(userId)
 
   // 응답 객체 선언
-  const response = {};
+  const response = {}
 
   db.query(
     `SELECT user_id, user_name, user_email,
@@ -144,64 +145,64 @@ router.post('/:userId', (req, res) => {
     (err, result) => {
       if (err) {
         // 유저 등록이 실패하면 false 응답
-        response.success = false;
-        response.msg = err;
+        response.success = false
+        response.msg = err
       } else {
         // 성공시 유저 정보를 Object로 선언
-        response.success = true;
+        response.success = true
         response.user = {
           userId,
           name: result[0].user_name,
           email: result[0].user_email,
           inDate: result[0].in_date,
-        };
+        }
       }
 
       // 데이터 응답
-      Http.printResponse(response);
-      res.json(response);
+      Http.printResponse(response)
+      res.json(response)
     },
-  );
-});
+  )
+})
 
 // 유저 상세 수정화면 렌더링
 router.get('/:userId/update', (req, res) => {
-  const {userId} = req.params;
+  const {userId} = req.params
 
   // 클라이언트의 요청 데이터를 터미널에 출력
-  console.log('클라이언트 조회 요청 경로 : /admin/user/:userId/update \n요청 데이터 : ');
-  console.log(userId);
+  console.log('클라이언트 조회 요청 경로 : /admin/user/:userId/update \n요청 데이터 : ')
+  console.log(userId)
 
   // 응답 객체 선언
-  let response = {};
+  let response = {}
 
   db.query('SELECT * FROM users WHERE user_id=?', [userId], (err, user) => {
     if (err) {
       // 실패시 false 응답
-      response.success = false;
-      response.msg = err;
+      response.success = false
+      response.msg = err
     } else {
       // 성공시 true 응답
-      response = user[0];
+      response = user[0]
     }
 
     // 데이터 응답
-    Http.printResponse(response);
-    res.render('admin/user/update', response);
-  });
-});
+    Http.printResponse(response)
+    res.render('admin/user/update', response)
+  })
+})
 
 // 유저 상세 수정 API
 router.put('/:userId/update', (req, res) => {
   const {userId} = req.params,
-    {user} = req.body;
+    {user} = req.body
 
   // 클라이언트의 요청 데이터를 터미널에 출력
-  console.log('클라이언트 수정 요청 경로 : /admin/user/:userId/update \n요청 데이터 : ');
-  console.log(req.body);
+  console.log('클라이언트 수정 요청 경로 : /admin/user/:userId/update \n요청 데이터 : ')
+  console.log(req.body)
 
   // 응답 객체 선언
-  const response = {};
+  const response = {}
 
   // 클라이언트가 요청한 데이터가 있는지 검사
   if (!String.isEmpty(user)) {
@@ -212,55 +213,55 @@ router.put('/:userId/update', (req, res) => {
       (err) => {
         if (err) {
           // 실패시 false 응답
-          response.success = false;
-          response.msg = err;
+          response.success = false
+          response.msg = err
         } else {
           // 성공시 true 응답
-          response.success = true;
+          response.success = true
         }
 
         // 데이터 응답
-        Http.printResponse(response);
-        res.json(response);
+        Http.printResponse(response)
+        res.json(response)
       },
-    );
+    )
   } else {
     // 클라이언트가 전송한 데이터가 없다면 false 반환
-    response.success = false;
-    response.msg = 'The user of the server is empty.';
+    response.success = false
+    response.msg = 'The user of the server is empty.'
 
     // 데이터 응답
-    Http.printResponse(response);
-    res.json(response);
+    Http.printResponse(response)
+    res.json(response)
   }
-});
+})
 
 // 유저 삭제 API
 router.delete('/:userId', (req, res) => {
-  const {userId} = req.params;
+  const {userId} = req.params
 
   // 클라이언트의 요청 데이터를 터미널에 출력
-  console.log('클라이언트 삭제 요청 경로 : /admin/user/:userId \n요청 데이터 : ');
-  console.log(userId);
+  console.log('클라이언트 삭제 요청 경로 : /admin/user/:userId \n요청 데이터 : ')
+  console.log(userId)
 
   // 응답 객체 선언
-  const response = {};
+  const response = {}
 
   db.query('DELETE FROM users WHERE user_id=?;', [userId], (err) => {
     if (err) {
       // 유저 등록이 실패하면 false 응답
-      response.success = false;
-      response.msg = err;
+      response.success = false
+      response.msg = err
     } else {
       // 성공시 true 응답
-      response.success = true;
+      response.success = true
     }
 
     // 데이터 응답
-    Http.printResponse(response);
-    res.json(response);
-  });
-});
+    Http.printResponse(response)
+    res.json(response)
+  })
+})
 
 // 모듈 내보내기
-module.exports = router;
+module.exports = router

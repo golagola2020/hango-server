@@ -10,11 +10,11 @@ class String {
       value == undefined ||
       (value != null && typeof value === 'object' && !Object.keys(value).length)
     ) {
-      return true;
+      return true
     }
-    return false;
+    return false
   }
 }
 
 // 외부로 반환
-module.exports = String;
+module.exports = String
