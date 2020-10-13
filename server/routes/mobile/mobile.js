@@ -65,36 +65,45 @@ router.post('/login', (req, res) => {
 // 회원가입 요청 및 응답
 router.post('/signup', (req, res) => {
     // 클라이언트가 요청한 데이터 저장
-    const user = {
-            name : req.body.userName,
-            id : req.body.userId,
-            email : req.body.userEmail,
-            passwd : req.body.userPasswd
-        };
-    
+    const user = req.body.user;
+
     // 클라이언트의 요청 데이터를 터미널에 출력
     console.log('클라이언트 요청 경로 : /mobile/signup \n데이터 : ');
-    console.log(req.body);
+    console.log(user.id);
 
     // 응답 객체 선언
     const response = {}
 
     // 클라이언트가 요청한 데이터가 있는지 검사
     if (!String.isEmpty(user.id)) {
-        // 클라이언트가 전송한 "userId" 가 있다면, DB 등록
-        db.query(`INSERT INTO users(user_id, user_name, user_email, user_passwd) VALUES(?, ?, ?, ?)`, [user.id, user.name, user.email, user.passwd], (err, result) => {
-            if (err) {
-                // 실패시 false 응답
-                response.success = false;
-                response.msg = err;
-            } else {
-                // 응답 데이터 생성
-                response.success = true;
-            }
+        // 클라이언트가 전송한 "userId" 가 있다면
+        let passwd = '',
+            salt = '';
 
-            // 데이터 응답
-            Http.printResponse(response);
-            res.json(response);
+        // 비밀번호 암호화 => 해쉬 암호만들기
+        crypto.randomBytes(64, (err, buf) => {
+            salt = buf.toString('hex');
+
+            // 해쉬 만들기
+            crypto.pbkdf2(user.passwd, salt, 100000, 64, 'sha512', (err, key) => {
+                passwd = key.toString('hex');
+
+                // DB 등록
+                db.query(`INSERT INTO users(user_id, user_name, user_email, user_passwd, user_salt) VALUES(?, ?, ?, ?, ?)`, [user.id, user.name, user.email, passwd, salt], (err, result) => {
+                    if (err) {
+                        // 실패시 false 응답
+                        response.success = false;
+                        response.msg = err;
+                    } else {
+                        // 응답 데이터 생성
+                        response.success = true;
+                    }
+
+                    // 데이터 응답
+                    Http.printResponse(response);
+                    res.json(response);
+                });
+            });
         });
     } else {
         // 클라이언트가 전송한 데이터가 없다면 false 반환
