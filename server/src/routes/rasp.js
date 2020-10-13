@@ -75,7 +75,11 @@ router.post('/drink/update', (req, res) => {
   // 시리얼 넘버를 받아온다.
   const userId = req.body.user_id
   const serialNumber = req.body.serial_number
-  const drink = req.body.drink
+  const drink = {
+    name: req.body.drink_name,
+    price: req.body.drink_price,
+    soldPosition: req.body.drink_sold_position,
+  }
 
   // 클라이언트의 요청 데이터를 터미널에 출력
   console.log('클라이언트 요청 경로 : /rasp/drink/update \n데이터 : ')
