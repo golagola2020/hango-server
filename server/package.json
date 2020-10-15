@@ -15,6 +15,7 @@
     "ejs": "^3.1.5",
     "express": "^4.17.1",
     "mysql": "^2.18.1",
+    "nodemailer": "^6.4.14",
     "serve-favicon": "^2.5.0"
   },
   "devDependencies": {
@@ -29,7 +30,7 @@
   },
   "husky": {
     "hooks": {
-        "pre-commit": "lint-staged && yarn lint"
+      "pre-commit": "lint-staged && yarn lint"
     }
   },
   "lint-staged": {

@@ -14,6 +14,15 @@ const pwCheck = document.querySelector('#pw-check')
 
 // 회원가입 가능 여부
 let isAvailable = true
+
+// input창에 경고메세지 출력
+function printWarningMsg(html, is_pw) {
+  html.placeholder = html.value === '' || is_pw === true ? '필수 입력 사항입니다.' : html.value
+  html.value = ''
+  html.classList.add('placeholder')
+  isAvailable = false
+}
+
 // 로그인
 function signup() {
   const manager = {
@@ -24,8 +33,8 @@ function signup() {
     pwCheck: pwCheck.value,
   }
 
-  if (manager.id.match(/^[a-z0-9_]{6,12}$/) === null) {
-    alert('아이디가 양식(영숫자 6-12자)에 벗어났습니다.')
+  if (manager.id.match(/^[a-z0-9_]{5,14}$/) === null) {
+    alert('아이디가 양식(영숫자 5-14자)에 벗어났습니다.')
     printWarningMsg(id)
   } else if (manager.name.match(/^[a-zA-Z가-힣\s]{0,20}$/) === null) {
     alert('이름이 양식(한영 20자 이내)에 벗어났거나 올바른 표기법이 아닙니다.')
@@ -81,11 +90,3 @@ function init() {
 }
 
 init()
-
-// input창에 경고메세지 출력
-function printWarningMsg(html, is_pw) {
-  html.placeholder = html.value === '' || is_pw === true ? '필수 입력 사항입니다.' : html.value
-  html.value = ''
-  html.classList.add('placeholder')
-  isAvailable = false
-}

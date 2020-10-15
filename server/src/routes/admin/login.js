@@ -5,6 +5,7 @@ const express = require('express')
 const router = express.Router()
 const db = require('../../database/db.js')
 const crypto = require('crypto')
+const nodemailer = require('nodemailer')
 
 // 외부 클래스 포함
 const String = require('../../class/String.js')
@@ -50,7 +51,7 @@ router.post('/login', (req, res) => {
       if (String.isEmpty(managerDB)) {
         // DB에 해당하는 아이디가 없을 경우 실행
         response.success = false
-        response.msg = 'The ID does not exist.'
+        response.msg = '존재하지 않는 아이디입니다.'
 
         // 데이터 응답
         Http.printResponse(response)
@@ -68,15 +69,20 @@ router.post('/login', (req, res) => {
 
             if (
               managerDB != false &&
-              managerDB[0].manager_id == manager.id &&
-              managerDB[0].manager_passwd == passwd
+              managerDB[0].manager_id === manager.id &&
+              managerDB[0].manager_passwd === passwd
             ) {
-              // 아이디 패스워드 일치시 True 응답
-              response.success = true
+              // 아이디 패스워드가 일치하고 Hango가 승인한 아이디일 경우 True 응답
+              if (managerDB[0].manager_approbation_flag === 1) {
+                response.success = true
+              } else {
+                response.success = false
+                response.msg = 'Hango의 승인이 필요합니다. 승인 후 이용바랍니다.'
+              }
             } else {
               // 일치하지 않으면 False 응답
               response.success = false
-              response.msg = 'The ID and Password do not Match.'
+              response.msg = '아이디와 비밀번호가 일치하지 않습니다.'
             }
 
             // 데이터 응답
@@ -89,7 +95,7 @@ router.post('/login', (req, res) => {
   } else {
     // 클라이언트가 전송한 데이터가 없다면 false 반환
     response.success = false
-    response.msg = 'The manager datas of the server is empty.'
+    response.msg = '클라이언트의 요청 데이터가 존재하지 않습니다.'
 
     // 데이터 응답
     Http.printResponse(response)
@@ -137,14 +143,49 @@ router.post('/signup', (req, res) => {
               // 실패시 false 응답
               response.success = false
               response.msg = err
-            } else {
-              // 응답 데이터 생성
-              response.success = true
-            }
 
-            // 데이터 응답
-            Http.printResponse(response)
-            res.json(response)
+              // 데이터 응답
+              Http.printResponse(response)
+              res.json(response)
+            } else {
+              // Hango 운영자에게 승인 요청 이메일 전송
+              const sendMail = async () => {
+                let transporter = nodemailer.createTransport({
+                  service: 'gmail',
+                  host: 'smtp.gmail.com',
+                  port: 587,
+                  secure: false,
+                  auth: {
+                    user: process.env.HANGO_MANAGER_EMAIL,
+                    pass: process.env.HANGO_MANAGER_PASSWORD,
+                  },
+                })
+
+                // send mail with defined transport object
+                let info = await transporter.sendMail({
+                  from: `"Hango Team" <${process.env.HANGO_MANAGER_EMAIL}>`,
+                  to: process.env.HANGO_MANAGER_EMAIL,
+                  subject: `Hango 운영자 승인 요청 from ${manager.email}`,
+                  html: `<b>이름</b> : ${manager.name}<br>
+                  <b>아이디</b> : ${manager.id}<br>
+                  <b>이메일</b> : ${manager.email}<br><br>
+                  새로운 운영자 승인 요청이 들어왔습니다.
+                  `,
+                })
+
+                // 메일 전송 코드 첫자리가 2이면 -> 메일이 정상적으로 전송됐다면
+                if (info.response[0] === '2') {
+                  response.success = true
+                  response.mailInfo = info
+
+                  // 데이터 응답
+                  Http.printResponse(response)
+                  res.json(response)
+                }
+              }
+
+              sendMail().catch(console.error)
+            }
           },
         )
       })
