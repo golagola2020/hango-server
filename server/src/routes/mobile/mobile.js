@@ -184,7 +184,7 @@ router.post('/user/read', (req, res) => {
 // 회원정보 수정 요청 및 응답
 router.post('/user/update', (req, res) => {
   // 클라이언트가 요청한 데이터 저장
-  const {user} = req.body
+  const user = req.body.user
 
   // 클라이언트의 요청 데이터를 터미널에 출력
   console.log('클라이언트 요청 경로 : /mobile/user/update \n데이터 : ')
@@ -196,24 +196,55 @@ router.post('/user/update', (req, res) => {
   // 클라이언트가 요청한 데이터가 있는지 검사
   if (!String.isEmpty(user)) {
     // 클라이언트가 전송한 "userId" 가 있다면 수정
-    db.query(
-      'UPDATE users SET user_id=?, user_name=?, user_email=?, user_passwd=? WHERE user_id=?',
-      [user.newId, user.name, user.email, user.newPasswd, user.id],
-      (err) => {
-        if (err) {
-          // 실패시 "false" 응답
-          response.success = false
-          response.msg = err
-        } else {
-          // 성공시 True 응답
-          response.success = true
-        }
+    let passwd = ''
+
+    // DB 조회 => 패스워드 저장시 salt와 함께 암호화하기 위함
+    db.query(`SELECT * FROM users WHERE user_id LIKE ?`, [user.id], (err1, userDB) => {
+      if (err1) {
+        // 실패시 false 응답
+        response.success = false
+        response.msg = err1
 
         // 데이터 응답
         Http.printResponse(response)
         res.json(response)
-      },
-    )
+      }
+
+      if (String.isEmpty(userDB)) {
+        // DB에 해당하는 아이디가 없을 경우 실행
+        response.success = false
+        response.msg = 'The ID does not exist.'
+
+        // 데이터 응답
+        Http.printResponse(response)
+        res.json(response)
+      } else {
+        // 비밀번호 해쉬 값 찾기
+        crypto.pbkdf2(user.newPasswd, userDB[0].user_salt, 100000, 64, 'sha512', (err2, key) => {
+          passwd = key.toString('hex')
+
+          // DB 업데이트
+          db.query(
+            'UPDATE users SET user_name=?, user_email=?, user_passwd=? WHERE user_id=?',
+            [user.name, user.email, passwd, user.id],
+            (err3) => {
+              if (err3) {
+                // 실패시 "false" 응답
+                response.success = false
+                response.msg = err3
+              } else {
+                // 성공시 True 응답
+                response.success = true
+              }
+
+              // 데이터 응답
+              Http.printResponse(response)
+              res.json(response)
+            },
+          )
+        })
+      }
+    })
   } else {
     // 클라이언트가 전송한 데이터가 없다면 false 반환
     response.success = false
