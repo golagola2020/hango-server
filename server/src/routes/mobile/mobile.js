@@ -296,5 +296,72 @@ router.post('/user/delete', (req, res) => {
   }
 })
 
+// 알림 API -> 자판기별 품절된 음료 정보 응답
+router.post('/notification', (req, res) => {
+  // 클라이언트가 요청한 데이터 저장
+  const userId = req.body.userId
+
+  // 클라이언트의 요청 데이터를 터미널에 출력
+  console.log('클라이언트 요청 경로 : /mobile/notification \n요청 데이터 : ')
+  console.log(req.body)
+
+  // 응답 객체 선언
+  const response = {}
+
+  // 클라이언트가 요청한 데이터가 있는지 검사
+  if (!String.isEmpty(userId)) {
+    // 클라이언트가 전송한 "userId" 가 있다면 조회
+    db.query(
+      `SELECT v.vending_name, d.drink_name
+    FROM drinks AS d
+    JOIN vendings AS v
+    ON v.serial_number = d.serial_number
+    WHERE v.user_id = ? AND d.drink_count <= 0;`,
+      [userId],
+      (err, results) => {
+        // 실패시 "false" 응답
+        if (err) {
+          response.success = false
+          response.msg = err
+        } else {
+          // 응답 데이터 생성
+          response.success = true
+          response.vending = {
+            names: [],
+            soldOuts: {},
+          }
+
+          // 데이터 삽입
+          for (const result of results) {
+            response.vending.names.push(result.vending_name)
+            response.vending.soldOuts[result.vending_name] = []
+          }
+
+          // 중복 제거
+          // eslint-disable-next-line no-undef
+          response.vending.names = Array.from(new Set(response.vending.names))
+
+          // 데이터 삽입
+          for (const result of results) {
+            response.vending.soldOuts[result.vending_name].push(result.drink_name)
+          }
+        }
+
+        // 데이터 응답
+        Http.printResponse(response)
+        res.json(response)
+      },
+    )
+  } else {
+    // 클라이언트가 전송한 데이터가 없다면 false 반환
+    response.success = false
+    response.msg = 'The userId of the server is empty.'
+
+    // 데이터 응답
+    Http.printResponse(response)
+    res.json(response)
+  }
+})
+
 // 모듈 내보내기
 module.exports = router
