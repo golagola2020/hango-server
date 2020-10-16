@@ -3,7 +3,11 @@
 // 기본 모듈 포함
 const express = require('express'), // 웹 프레임워크
   bodyParser = require('body-parser'),
-  favicon = require('serve-favicon') // 파비콘 모듈
+  favicon = require('serve-favicon'), // 파비콘 모듈
+  session = require('express-session'),
+  MySQLStore = require('express-mysql-session')(session),
+  passport = require('passport'),
+  flash = require('connect-flash')
 
 // eslint-disable-next-line no-unused-vars
 const dotenv = require('dotenv').config() // 환경변수 관리용 모듈
@@ -12,7 +16,41 @@ const dotenv = require('dotenv').config() // 환경변수 관리용 모듈
 const app = express() // express를 사용하기 위한 인스턴스 생성
 
 // 포트 설정
-const PORT = process.env.PORT || 80
+const PORT = process.env.PORT || 9700
+
+// MySQL에 세션을 저장하기 위한 설정
+app.use(
+  session({
+    secret: 'spemnv2395@#lsore*&@#oso3$%^#&#$@#$!',
+    resave: false,
+    saveUninitialized: true,
+    cookie: {
+      maxAge: 1000 * 60 * 60, // 유효시간 1시간
+    },
+    store: new MySQLStore({
+      host: process.env.DB_HOST,
+      port: 3306,
+      user: process.env.DB_USER,
+      password: process.env.DB_PASSWORD,
+      database: process.env.DB_NAME,
+    }),
+  }),
+)
+
+// 패스포트 미들웨어 등록
+app.use(flash())
+app.use(passport.initialize())
+app.use(passport.session())
+
+// 로그인 성공시 세션 저장
+passport.serializeUser(function (manager, done) {
+  done(null, manager)
+})
+
+// 저장된 세션 불러오기
+passport.deserializeUser(function (manager, done) {
+  done(null, manager)
+})
 
 // 기본 앱 세팅
 app.set('views', './src/client/views') // 뷰 엔진의 기본 경로 세팅

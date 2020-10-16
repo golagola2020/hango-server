@@ -9,8 +9,13 @@ const db = require('../../../database/db.js')
 const String = require('../../../class/String.js')
 const Http = require('../../../class/Http.js')
 
+const isAuthenticated = function (req, res, next) {
+  if (req.isAuthenticated()) return next()
+  res.redirect('/admin/')
+}
+
 // 자판기 메인 페이지 렌더링
-router.get('/', (req, res) => {
+router.get('/', isAuthenticated, (req, res) => {
   res.render('admin/vending/main')
 })
 
@@ -122,7 +127,7 @@ router.post('/search', (req, res) => {
 })
 
 // 자판기 등록 페이지 렌더링
-router.get('/create', (req, res) => {
+router.get('/create', isAuthenticated, (req, res) => {
   res.render('admin/vending/create')
 })
 
@@ -173,7 +178,7 @@ router.post('/create', (req, res) => {
 })
 
 // 자판기 상세 페이지 렌더링
-router.get('/:serialNumber', (req, res) => {
+router.get('/:serialNumber', isAuthenticated, (req, res) => {
   res.render('admin/vending/detail', {serialNumber: req.params.serialNumber})
 })
 
@@ -221,7 +226,7 @@ router.post('/:serialNumber', (req, res) => {
 })
 
 // 자판기 상세 수정화면 렌더링
-router.get('/:serialNumber/update', (req, res) => {
+router.get('/:serialNumber/update', isAuthenticated, (req, res) => {
   const {serialNumber} = req.params
 
   // 클라이언트의 요청 데이터를 터미널에 출력
