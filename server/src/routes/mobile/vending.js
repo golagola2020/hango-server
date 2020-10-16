@@ -27,7 +27,7 @@ router.post('/read', (req, res) => {
     db.query(
       `SELECT u.user_id, u.user_name, v.serial_number, v.vending_name, v.vending_description, v.vending_full_size
             FROM users AS u
-            JOIN vendings AS v
+            LEFT OUTER JOIN vendings AS v
             ON u.user_id = v.user_id
             WHERE u.user_id=?;`,
       [userId],
@@ -36,9 +36,10 @@ router.post('/read', (req, res) => {
           // 실패시 "False" 응답
           response.success = false
           response.msg = err
-        } else if (String.isEmpty(results)) {
+        } else if (results[0].vending_name === null) {
           // 등록된 자판기가 없는 경우
-          response.success = false
+          response.success = true
+          response.userName = results[0].user_name
           response.msg = '등록된 자판기가 존재하지 않습니다.'
         } else {
           // 성공시 자판기 정보를 Object로 선언
