@@ -12,7 +12,7 @@ const Http = require('./../../class/Http.js')
 // 모바일 메인화면 로딩시 요청 경로 => 자판기 정보 응답
 router.post('/read', (req, res) => {
   // 클라이언트가 요청한 데이터 저장
-  const {userId} = req.body
+  const userId = req.body.userId
 
   // 클라이언트의 요청 데이터를 터미널에 출력
   console.log('클라이언트 요청 경로 : /mobile/vending/read \n데이터 : ')
@@ -36,6 +36,10 @@ router.post('/read', (req, res) => {
           // 실패시 "False" 응답
           response.success = false
           response.msg = err
+        } else if (String.isEmpty(results)) {
+          // 등록된 자판기가 없는 경우
+          response.success = false
+          response.msg = '등록된 자판기가 존재하지 않습니다.'
         } else {
           // 성공시 자판기 정보를 Object로 선언
           response.success = true
@@ -66,7 +70,7 @@ router.post('/read', (req, res) => {
   } else {
     // 클라이언트가 전송한 데이터가 없다면 false 반환
     response.success = false
-    response.msg = 'The userId of the server is empty.'
+    response.msg = '클라이언트의 요청 데이터가 존재하지 않습니다.'
 
     // 데이터 응답
     Http.printResponse(response)
