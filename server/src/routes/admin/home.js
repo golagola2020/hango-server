@@ -5,8 +5,13 @@ const express = require('express')
 
 const router = express.Router()
 
+const isAuthenticated = function (req, res, next) {
+  if (req.isAuthenticated()) return next()
+  res.redirect('/admin/')
+}
+
 // admin 홈 렌더링
-router.get('/', (req, res) => {
+router.get('/', isAuthenticated, (req, res) => {
   res.render('admin/home')
 })
 

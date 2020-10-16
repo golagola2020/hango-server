@@ -7,101 +7,141 @@ const db = require('../../database/db.js')
 const crypto = require('crypto')
 const nodemailer = require('nodemailer')
 
+const passport = require('passport')
+const LocalStrategy = require('passport-local').Strategy
+
 // 외부 클래스 포함
 const String = require('../../class/String.js')
 const Http = require('../../class/Http.js')
 
-// 로그인 페이지 렌더링
-router.get('/', (req, res) => {
+const isAuthenticated = function (req, res, next) {
+  if (req.isAuthenticated()) return next()
   res.render('admin/login')
+}
+
+// 로그인 페이지 렌더링
+router.get('/', isAuthenticated, (req, res) => {
+  res.render('admin/home')
 })
 
 // 로그인처리 요청 및 응답
-router.post('/login', (req, res) => {
-  // 클라이언트가 요청한 데이터 저장
-  const manager = {
-    id: req.body.id,
-    passwd: req.body.passwd,
-  }
+router.post('/login', (req, res, next) => {
+  passport.authenticate('local', (err, manager, info) => {
+    if (err) {
+      return next(err)
+    }
 
-  // 클라이언트의 요청 데이터를 터미널에 출력
-  console.log('클라이언트 요청 경로 : /admin/login \n데이터 : ')
-  console.log(manager.id)
+    // 응답 객체 선언
+    const response = {}
 
-  // 응답 객체 선언
-  const response = {}
+    // 로그인 성공 여부 검사 -> 유저 정보가 있으면 로그인 성공
+    if (manager) {
+      // customCallback 사용시 req.logIn()메서드 필수
+      req.logIn(manager, (err) => {
+        if (err) {
+          return next(err)
+        }
+        response.success = true
+        return res.json(response)
+      })
+    } else {
+      // 로그인 실패
+      response.success = false
+      response.msg = info.message
+      res.json(response)
+    }
+  })(req, res, next)
+})
 
-  // 클라이언트가 요청한 데이터가 있는지 검사
-  if (!String.isEmpty(manager.id)) {
-    // 클라이언트가 전송한 "managerId" 가 있다면
-    let passwd = ''
-
-    // DB 검사 => 요청 아이디와 패스워드가 일치하는 데이터를 찾아 검사한다.
-    db.query(`SELECT * FROM managers WHERE manager_id LIKE ?`, [manager.id], (err, managerDB) => {
-      if (err) {
-        // 실패시 false 응답
-        response.success = false
-        response.msg = err
-
-        // 데이터 응답
-        Http.printResponse(response)
-        res.json(response)
+passport.use(
+  new LocalStrategy(
+    {
+      usernameField: 'id',
+      passwordField: 'passwd',
+      passReqToCallback: true, //인증을 수행하는 인증 함수로 HTTP request를 그대로  전달할지 여부를 결정한다
+    },
+    function (req, id, passwd, done) {
+      // 클라이언트가 요청한 데이터 저장
+      const manager = {
+        id: id,
+        passwd: passwd,
       }
 
-      if (String.isEmpty(managerDB)) {
-        // DB에 해당하는 아이디가 없을 경우 실행
-        response.success = false
-        response.msg = '존재하지 않는 아이디입니다.'
+      // 클라이언트의 요청 데이터를 터미널에 출력
+      console.log('클라이언트 요청 경로 : /admin/login \n데이터 : ')
+      console.log(manager.id)
 
-        // 데이터 응답
-        Http.printResponse(response)
-        res.json(response)
-      } else {
-        // 비밀번호 해쉬 값 찾기
-        crypto.pbkdf2(
-          manager.passwd,
-          managerDB[0].manager_salt,
-          100000,
-          64,
-          'sha512',
-          (err, key) => {
-            passwd = key.toString('hex')
+      // 클라이언트가 요청한 데이터가 있는지 검사
+      if (!String.isEmpty(manager.id)) {
+        // 클라이언트가 전송한 "managerId" 가 있다면
+        let passwd = ''
 
-            if (
-              managerDB != false &&
-              managerDB[0].manager_id === manager.id &&
-              managerDB[0].manager_passwd === passwd
-            ) {
-              // 아이디 패스워드가 일치하고 Hango가 승인한 아이디일 경우 True 응답
-              if (managerDB[0].manager_approbation_flag === 1) {
-                response.success = true
-              } else {
-                response.success = false
-                response.msg = 'Hango의 승인이 필요합니다. 승인 후 이용바랍니다.'
-              }
-            } else {
-              // 일치하지 않으면 False 응답
-              response.success = false
-              response.msg = '아이디와 비밀번호가 일치하지 않습니다.'
+        // DB 검사 => 요청 아이디와 패스워드가 일치하는 데이터를 찾아 검사한다.
+        db.query(
+          `SELECT * FROM managers WHERE manager_id LIKE ?`,
+          [manager.id],
+          (err, managerDB) => {
+            if (err) {
+              return done(null, false, {
+                message: err,
+              })
             }
 
-            // 데이터 응답
-            Http.printResponse(response)
-            res.json(response)
+            if (String.isEmpty(managerDB)) {
+              // DB에 해당하는 아이디가 없을 경우 실행
+              return done(null, false, {
+                message: '존재하지 않는 아이디입니다.',
+              })
+            } else {
+              // 비밀번호 해쉬 값 찾기
+              crypto.pbkdf2(
+                manager.passwd,
+                managerDB[0].manager_salt,
+                100000,
+                64,
+                'sha512',
+                (err, key) => {
+                  if (err) {
+                    return done(null, false, {
+                      message: err,
+                    })
+                  }
+                  passwd = key.toString('hex')
+
+                  if (
+                    managerDB != false &&
+                    managerDB[0].manager_id === manager.id &&
+                    managerDB[0].manager_passwd === passwd
+                  ) {
+                    // 아이디 패스워드가 일치하고 Hango가 승인한 아이디일 경우 manager 정보 응답
+                    if (managerDB[0].manager_approbation_flag === 1) {
+                      console.log(manager)
+                      return done(null, manager)
+                    } else {
+                      return done(null, false, {
+                        message: 'Hango의 승인이 필요합니다. 승인 후 이용바랍니다.',
+                      })
+                    }
+                  } else {
+                    // 일치하지 않으면 False 응답
+                    return done(null, false, {
+                      message: '아이디와 비밀번호가 일치하지 않습니다.',
+                    })
+                  }
+                },
+              )
+            }
           },
         )
+      } else {
+        // 클라이언트가 전송한 데이터가 없다면 false 반환
+        return done(null, false, {
+          message: '클라이언트의 요청 데이터가 존재하지 않습니다.',
+        })
       }
-    })
-  } else {
-    // 클라이언트가 전송한 데이터가 없다면 false 반환
-    response.success = false
-    response.msg = '클라이언트의 요청 데이터가 존재하지 않습니다.'
-
-    // 데이터 응답
-    Http.printResponse(response)
-    res.json(response)
-  }
-})
+    },
+  ),
+)
 
 // 회원가입 페이지 렌더링
 router.get('/signup', (req, res) => {
