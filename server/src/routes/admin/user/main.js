@@ -9,8 +9,13 @@ const db = require('../../../database/db.js')
 const String = require('../../../class/String.js')
 const Http = require('../../../class/Http.js')
 
+const isAuthenticated = function (req, res, next) {
+  if (req.isAuthenticated()) return next()
+  res.redirect('/admin/')
+}
+
 // 유저 메인 페이지 렌더링
-router.get('/', (req, res) => {
+router.get('/', isAuthenticated, (req, res) => {
   res.render('admin/user/main')
 })
 
@@ -122,7 +127,7 @@ router.post('/search', (req, res) => {
 })
 
 // 유저 상세 페이지 렌더링
-router.get('/:userId', (req, res) => {
+router.get('/:userId', isAuthenticated, (req, res) => {
   res.render('admin/user/detail', {userId: req.params.userId})
 })
 
@@ -166,7 +171,7 @@ router.post('/:userId', (req, res) => {
 })
 
 // 유저 상세 수정화면 렌더링
-router.get('/:userId/update', (req, res) => {
+router.get('/:userId/update', isAuthenticated, (req, res) => {
   const {userId} = req.params
 
   // 클라이언트의 요청 데이터를 터미널에 출력
