@@ -19,7 +19,7 @@ CREATE TABLE `users` (
 CREATE TABLE `vendings` (
   `serial_number` varchar(20) NOT NULL,
   `user_id` varchar(30) NOT NULL,
-  `vending_name` varchar(30) NOT NULL,
+  `vending_name` varchar(255) NOT NULL,
   `vending_description` varchar(255) NOT NULL DEFAULT '',
   `vending_full_size` tinyint(2) NOT NULL DEFAULT '10',
   `vending_in_date` datetime DEFAULT CURRENT_TIMESTAMP,
