@@ -2,6 +2,17 @@
 > 주의 : [GitHub Pages](https://pages.github.com/)에 대해서 충분히 숙지할 것.  
 주의 : [Collaborating with issues and pull requests](https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests)을 정독할 것
 
+## 안내
+#### 하드웨어
+   1. [아두이노 시작하기](https://github.com/golagola2020/hango-arduino)를 통해 사물을 감지하고, 라즈베리파이로 감지 데이터를 송신할 수 있습니다.
+   2. [라즈베리파이 시작하기](https://github.com/golagola2020/hango-raspberry-pi)를 통해 아두이노의 감지 데이터를 수신하고, 데이터를 가공하여 스피커로 출력할 수 있습니다.
+   
+#### 모바일
+   1. [안드로이드 시작하기](https://github.com/golagola2020/hango-mobile)를 통해 hango 자판기를 관리하고, 음료 잔량을 파악하는 등의 데이터를 제공받을 수 있습니다.
+   
+#### 웹서버
+   1. [웹서버 시작하기](https://github.com/golagola2020/hango-server)를 통해 hango-server와 hango-mysql을 구축하고, API 서버를 통해 클라이언트에게 데이터를 제공하며, 고객 관리 시스템을 이용할 수 있습니다.
+
 ## 시작하기에 앞서
 [hango-server](https://github.com/golagola2020/hango-server) 프로젝트를 실행시키기 위한 도구 및 프로그램 설치  
 > 도커로 개발환경을 구축하실 분은 [도커로 한 방에 끝내기](https://github.com/golagola2020/hango-server#도커로-한-방에-끝내기)를 참고해주세요.
@@ -132,7 +143,7 @@
 
 * https://github.com/golagola2020/hango-server 에 push 권한이 있다면 :  
 ```
-$ git ch -b 'features to develop'
+$ git checkout -b 'features to develop'
 $ git commit -m '[features to develop] message...'
 $ git push origin 'features to develop'
 ```
