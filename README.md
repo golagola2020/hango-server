@@ -35,6 +35,7 @@
    ```
 
 ## 실행(로컬)
+> 주의 : 먼저, [설치](https://github.com/golagola2020/hango-server#설치로컬)를 통해 hango-server를 설치해주십시오.   
 > 도커로 개발환경을 구축하실 분은 [도커로 한 방에 끝내기](https://github.com/golagola2020/hango-server#도커로-한-방에-끝내기)를 참고해주십시오.   
 > DB 초기 데이터셋은 [init.sql](https://github.com/golagola2020/hango-server/blob/master/db/init.sql)을 참고해주십시오.
 
@@ -48,18 +49,18 @@
    $ vi .env
    ```
    3. '.env' 파일에 환경 변수 등록.
-   > [여기](https://myaccount.google.com/lesssecureapps)에서 구글 이메일 계정의 액세스를 허용시켜주어야 합니다.    
-   > 해당 Gmail로 Hango 관리자 회원가입 승인 요청이 전달됩니다.
+      * [여기](https://myaccount.google.com/lesssecureapps)에서 구글 이메일 계정의 액세스를 허용시켜주어야 합니다.    
+      * 해당 Gmail로 Hango 관리자 회원가입 승인 요청이 전달됩니다.
    ```
    # 데이터베이스 환경변수
-   DB_HOST=데이터베이스-호스트명
-   DB_USER=데이터베이스-유저명
-   DB_PASSWORD=데이터베이스-비밀번호
-   DB_NAME=데이터베이스-이름
+   DB_HOST=데이터베이스_호스트명
+   DB_USER=데이터베이스_유저명
+   DB_PASSWORD=데이터베이스_비밀번호
+   DB_NAME=데이터베이스_이름
    
    # 고객관리시스템 회원가입시 승인요청 받을 구글 계정 환경변수
-   HANGO_MANAGER_EMAIL=시스템-관리자-구글-이메일      
-   HANGO_MANAGER_PASSWORD=시스템-관리자-구글-이메일-비밀번호
+   HANGO_MANAGER_EMAIL=시스템_관리자_구글_이메일      
+   HANGO_MANAGER_PASSWORD=시스템_관리자_구글_이메일_비밀번호
    ```
    4. 실행
    ```
@@ -67,7 +68,6 @@
    ```
    
 ### 도커로 한 방에 끝내기
-> 먼저, [설치](https://github.com/golagola2020/hango-server#설치로컬)를 통해 hango-server를 설치해주십시오.   
 > 주의 : 아래 명령은 hango-server의 Dockerfile이 있는 루트 경로에서 실행되어야 합니다.
 
 * 개인이 구축한 MySQL 서버가 있다면
@@ -76,14 +76,16 @@
    $ docker pull dnfla960/hango-server:latest
    ```
    2. 도커 컨테이너 실행
+      * [여기](https://myaccount.google.com/lesssecureapps)에서 구글 이메일 계정의 액세스를 허용시켜주어야 합니다.    
+      * 해당 Gmail로 Hango 관리자 회원가입 승인 요청이 전달됩니다.
    ```
    $ docker run -p 9700:9700 -d \
-   -e DB_HOST=데이터베이스-호스트명 \
-   -e DB_USER=데이터베이스-유저명 \
-   -e DB_PASSWORD=데이터베이스-비밀번호 \
-   -e DB_NAME=데이터베이스-이름 \
-   -e HANGO_MANAGER_EMAIL=시스템-관리자-구글-이메일 \
-   -e HANGO_MANAGER_PASSWORD=시스템-관리자-구글-이메일-비밀번호 \
+   -e DB_HOST=데이터베이스_호스트명 \
+   -e DB_USER=데이터베이스_유저명 \
+   -e DB_PASSWORD=데이터베이스_비밀번호 \
+   -e DB_NAME=데이터베이스_이름 \
+   -e HANGO_MANAGER_EMAIL=시스템_관리자_구글_이메일 \
+   -e HANGO_MANAGER_PASSWORD=시스템_관리자_구글_이메일_비밀번호 \
    dnfla960/hango-server:latest
    ```
    3. 실행중인 컨테이너의 로그 확인 -> 서버 출력 확인 ( -f 옵션은 로그를 지속적으로 확인하기 위함 )
@@ -92,13 +94,14 @@
    ```
 
 * MySQL까지 한 번에 구축하기
-   * 도커 컴포즈 실행 -> 현 로컬 저장소의 코드를 서버로하고, MySQL은 5.7버전으로 자동 설치된다.
-      MySQL 초기 데이터 셋이 구축되어 있어야 합니다.
+   * 도커 컴포즈 실행
+      * 현 로컬 저장소의 코드를 서버로하고, MySQL은 5.7버전으로 자동 설치됩니다.   
+      * MySQL 초기 데이터 셋이 구축되어 있어야 합니다.
    ```
    $ docker-compose up
    ```
    * hango-mysql에 접속하는 법
-      도커 컴포즈가 실행된 상태여야 합니다.
+      * 도커 컴포즈가 실행된 상태여야 합니다.
    ```
    $ docker exec -it hango-mysql bash
    
@@ -107,34 +110,36 @@
    
    mysql > "접속 완료"
    ```
+   
+   * docker-compose.yml 파일 수정하기
+      * [여기](https://myaccount.google.com/lesssecureapps)에서 구글 이메일 계정의 액세스를 허용시켜주어야 합니다.    
+      * 해당 Gmail로 Hango 관리자 회원가입 승인 요청이 전달됩니다.
+   ```
+   HANGO_MANAGER_EMAIL=시스템_관리자_구글_이메일
+   HANGO_MANAGER_PASSWORD=시스템_관리자_구글_이메일_비밀번호
+   ```
 
 * MySQl 초기 데이터 셋 구축하기
-> DB 초기 데이터셋은 [init.sql](https://github.com/golagola2020/hango-server/blob/master/db/init.sql)을 참고해주십시오.
+   * DB 초기 데이터셋은 [init.sql](https://github.com/golagola2020/hango-server/blob/master/db/init.sql)을 참고해주십시오.
 
 
 #### 동작 확인
-> http://localhost:9700 접속 후 아래 화면처럼 출력되면 잘 동작하는 것임.   
+> http://localhost:9700 접속 후 아래 화면처럼 출력되면 잘 동작하는 것임.    
 > 관리자 시스템 링크 : http://localhost:9700/admin 
 <img width="876" alt="스크린샷 2020-08-30 오후 11 22 54" src="https://user-images.githubusercontent.com/56839474/91661551-c596f000-eb17-11ea-9c87-d35a2d107142.png">
 
 ## 배포(발행)
 
-https://github.com/golagola2020/hango-server 에 push 권한이 있다면 :  
+* https://github.com/golagola2020/hango-server 에 push 권한이 있다면 :  
 ```
 $ git ch -b 'features to develop'
 $ git commit -m '[features to develop] message...'
 $ git push origin 'features to develop'
 ```
 
-https://github.com/golagola2020/hango-server 에 push 권한이 없다면 :  
+* https://github.com/golagola2020/hango-server 에 push 권한이 없다면 :  
    1. 포크 동기화 [Syncing a fork](https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/syncing-a-fork)
    2. Pull Request 보내기 [Creating a pull request](https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request)
-
-## 사용된 도구
-
-* [Node.js](https://nodejs.org/ko/about/) - 서버 프레임워크
-* [Express.js](https://expressjs.com/ko/) - 웹 프레임워크
-* [MySQL](https://www.mysql.com/about/) - 관계형 데이터베이스 관리시스템
 
 ## 의존성
 
@@ -168,8 +173,8 @@ https://github.com/golagola2020/hango-server 에 push 권한이 없다면 :
 ```
 
 ## 기여하기
-
-[CONTRIBUTING.md](https://github.com/golagola2020/hango-server/blob/master/CONTRIBUTING.md) 를 읽으신 후 기여를 해주십시오.   자세한 Pull Request 절차와 행동 규칙을 확인하실 수 있습니다.
+[CONTRIBUTING.md](https://github.com/golagola2020/hango-server/blob/master/CONTRIBUTING.md) 를 읽으신 후 기여를 해주십시오.     
+자세한 Pull Request 절차와 행동 규칙을 확인하실 수 있습니다.
 
 ## 개발자
 
