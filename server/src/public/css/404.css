@@ -1,0 +1,52 @@
+@import "reset.css";
+
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  margin: 0;
+  background: linear-gradient(
+    90deg,
+    var(--bg-left-color) 50%,
+    var(--bg-right-color) 50%
+  );
+  color: var(--main-font-color);
+}
+
+b {
+  font-weight: 600;
+}
+
+#form {
+  display: flex;
+  flex-direction: column;
+  width: 50vw;
+  padding: 20px;
+  box-shadow: 4px 4px 7px 1px var(--main-color);
+  border-radius: 8px;
+  background-color: var(--form-bg-color);
+}
+
+#form>h1 {
+  font-size: 50px;
+  font-weight: 700;
+  color: rgb(255, 96, 96);
+  margin-bottom: 10px;
+}
+
+#form h2 {
+  font-size: 18px;
+  font-weight: 500;
+}
+
+#form article>h1 {
+  font-size: var(--font-large);
+  font-weight: 700;
+  color: rgb(255, 96, 96);
+}
+
+div {
+  font-size: 13px;
+}
