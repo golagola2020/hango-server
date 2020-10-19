@@ -1,0 +1,7 @@
+FROM node:12
+MAINTAINER woorimprog@gmil.com
+
+WORKDIR /app
+
+ADD    compose/hango/start-dev.sh    /start-dev.sh
+RUN    chmod +x /*.sh

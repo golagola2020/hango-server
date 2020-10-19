@@ -12,25 +12,25 @@ const db = mysql.createConnection({
 })
 
 // mysql 연결. -> 연결이 끊어지면 재연결
-function handleDisconnect() {
-  db.connect(function (err) {
-    if (err) {
-      console.log('error when connecting to db:', err)
-      setTimeout(handleDisconnect, 2000)
-    }
-  })
+// function handleDisconnect() {
+//   db.connect(function (err) {
+//     if (err) {
+//       console.log('error when connecting to db:', err)
+//       setTimeout(handleDisconnect, 2000)
+//     }
+//   })
 
-  db.on('error', function (err) {
-    console.log('db error', err)
-    if (err.code === 'PROTOCOL_CONNECTION_LOST') {
-      return handleDisconnect()
-    } else {
-      throw err
-    }
-  })
-}
+//   db.on('error', function (err) {
+//     console.log('db error', err)
+//     if (err.code === 'PROTOCOL_CONNECTION_LOST') {
+//       return handleDisconnect()
+//     } else {
+//       throw err
+//     }
+//   })
+// }
 
-handleDisconnect()
-
+// handleDisconnect()
+db.connect()
 // 외부와 연결시키기 위해 exports
 module.exports = db
