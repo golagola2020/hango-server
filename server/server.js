@@ -74,5 +74,10 @@ app.use('/mobile/vending', require('./src/routes/mobile/vending'))
 app.use('/mobile/drink', require('./src/routes/mobile/drink'))
 app.use('/mobile/stats', require('./src/routes/mobile/stats'))
 
+// 404 렌더링
+app.get('*', (req, res) => {
+  res.render('404')
+})
+
 // 서버 오픈
 app.listen(PORT, () => console.log(`서버가 ${PORT} 포트에서 정상 가동되었습니다.`))
