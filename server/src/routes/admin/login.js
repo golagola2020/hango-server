@@ -182,7 +182,7 @@ router.post('/signup', (req, res) => {
             if (err) {
               // 실패시 false 응답
               response.success = false
-              response.msg = err
+              response.msg = '이미 존재하는 아이디입니다.'
 
               // 데이터 응답
               Http.printResponse(response)
@@ -221,10 +221,17 @@ router.post('/signup', (req, res) => {
                   // 데이터 응답
                   Http.printResponse(response)
                   res.json(response)
+                } else {
+                  response.success = false
+                  response.msg = info.message
+
+                  // 데이터 응답
+                  Http.printResponse(response)
+                  res.json(response)
                 }
               }
 
-              sendMail().catch(console.error)
+              sendMail().catch((err) => console.log(err))
             }
           },
         )

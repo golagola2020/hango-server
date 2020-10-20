@@ -75,7 +75,7 @@ function signup() {
           location.href = '/admin'
           alert('관리자 등록이 완료 되었습니다.')
         } else {
-          alert('이미 존재하는 아이디입니다.')
+          alert(result.msg)
         }
       })
       .catch((err) => alert(err))
