@@ -1,3 +1,12 @@
+# ETC
 node_modules
 npm-debug.log
 .DS_Store
+
+# 깃허브 설정파일
+.git
+.gitgub
+.gitignore
+CONTRIBUTING.md
+LICENSE
+README.md
