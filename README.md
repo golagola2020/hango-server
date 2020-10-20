@@ -106,8 +106,7 @@
 
 * MySQL까지 한 번에 구축하기
    * 도커 컴포즈 실행
-      * 현 로컬 저장소의 코드를 서버로하고, MySQL은 5.7버전으로 자동 설치됩니다.   
-      * MySQL 초기 데이터 셋이 구축되어 있어야 합니다.
+      * 현 로컬 저장소의 코드를 서버로하고, MySQL은 5.7버전으로 자동 설치되며 초기 데이터 셋도 자동으로 구축됩니다.
    ```
    $ docker-compose up
    ```
@@ -129,10 +128,6 @@
    HANGO_MANAGER_EMAIL=시스템_관리자_구글_이메일
    HANGO_MANAGER_PASSWORD=시스템_관리자_구글_이메일_비밀번호
    ```
-
-* MySQl 초기 데이터 셋 구축하기
-   * DB 초기 데이터셋은 [init.sql](https://github.com/golagola2020/hango-server/blob/master/db/init.sql)을 참고해주십시오.
-
 
 #### 동작 확인
 > http://localhost:9700 접속 후 아래 화면처럼 출력되면 잘 동작하는 것임.    
