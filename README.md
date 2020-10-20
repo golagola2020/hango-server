@@ -82,9 +82,9 @@
 > 주의 : 아래 명령은 hango-server의 Dockerfile이 있는 루트 경로에서 실행되어야 합니다.
 
 * 개인이 구축한 MySQL 서버가 있다면
-   1. [dnfla960/hango-server:latest](https://hub.docker.com/repository/docker/dnfla960/hango-server) 도커 이미지 PULL
+   1. [dnfla960/hango-server:TAG(버전)](https://hub.docker.com/repository/docker/dnfla960/hango-server) 도커 이미지 PULL
    ```
-   $ docker pull dnfla960/hango-server:latest
+   $ docker pull dnfla960/hango-server:TAG
    ```
    2. 도커 컨테이너 실행
       * [여기](https://myaccount.google.com/lesssecureapps)에서 구글 이메일 계정의 액세스를 허용시켜주어야 합니다.    
@@ -97,7 +97,7 @@
    -e DB_NAME=데이터베이스_이름 \
    -e HANGO_MANAGER_EMAIL=시스템_관리자_구글_이메일 \
    -e HANGO_MANAGER_PASSWORD=시스템_관리자_구글_이메일_비밀번호 \
-   dnfla960/hango-server:latest
+   dnfla960/hango-server:TAG
    ```
    3. 실행중인 컨테이너의 로그 확인 -> 서버 출력 확인 ( -f 옵션은 로그를 지속적으로 확인하기 위함 )
    ```
