@@ -150,6 +150,10 @@ $ git push origin 'features to develop'
    1. 포크 동기화 [Syncing a fork](https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/syncing-a-fork)
    2. Pull Request 보내기 [Creating a pull request](https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request)
 
+## 개발 환경
+* [Node](https://nodejs.org/ko/)  : v12
+* [MySQL](https://www.mysql.com/downloads/) : v5.7
+
 ## 의존성
 
 ```json
