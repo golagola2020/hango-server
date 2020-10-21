@@ -1,6 +1,6 @@
 {
   "name": "hango",
-  "version": "1.3.2",
+  "version": "1.4.0",
   "main": "server.js",
   "license": "Apache 2.0",
   "scripts": {
