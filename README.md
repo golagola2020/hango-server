@@ -106,6 +106,13 @@
    ```
 
 * MySQL까지 한 번에 구축하기
+   * docker-compose.yml 파일 수정하기
+      * [여기](https://myaccount.google.com/lesssecureapps)에서 구글 이메일 계정의 액세스를 허용시켜주어야 합니다.    
+      * 해당 Gmail로 Hango 관리자 회원가입 승인 요청이 전달됩니다.
+   ```
+   HANGO_MANAGER_EMAIL=시스템_관리자_구글_이메일
+   HANGO_MANAGER_PASSWORD=시스템_관리자_구글_이메일_비밀번호
+   ```
    * 도커 컴포즈 실행
       * 현 로컬 저장소의 코드를 서버로하고, MySQL은 5.7버전으로 자동 설치되며 초기 데이터 셋도 자동으로 구축됩니다.
    ```
@@ -121,19 +128,14 @@
    
    mysql > "접속 완료"
    ```
-   
-   * docker-compose.yml 파일 수정하기
-      * [여기](https://myaccount.google.com/lesssecureapps)에서 구글 이메일 계정의 액세스를 허용시켜주어야 합니다.    
-      * 해당 Gmail로 Hango 관리자 회원가입 승인 요청이 전달됩니다.
-   ```
-   HANGO_MANAGER_EMAIL=시스템_관리자_구글_이메일
-   HANGO_MANAGER_PASSWORD=시스템_관리자_구글_이메일_비밀번호
-   ```
 
 #### 동작 확인
 > http://localhost:9700 접속 후 아래 화면처럼 출력되면 잘 동작하는 것임.    
 > 관리자 시스템 링크 : http://localhost:9700/admin 
 <img width="876" alt="스크린샷 2020-08-30 오후 11 22 54" src="https://user-images.githubusercontent.com/56839474/91661551-c596f000-eb17-11ea-9c87-d35a2d107142.png">
+
+#### 데모(Guide)
+[![Watch the video](https://user-images.githubusercontent.com/56839474/96735832-ef251700-13f6-11eb-97d8-51584e32405f.jpg)](https://youtu.be/FdCmPXyCjIo)
 
 ## 배포(발행)
 
