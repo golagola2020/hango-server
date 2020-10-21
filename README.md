@@ -52,6 +52,7 @@
 
    1. 패키지 설치
    ```
+   $ cd server
    $ npm install
    ```
    2. '.env' 파일 생성
