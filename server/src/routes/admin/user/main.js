@@ -128,7 +128,8 @@ router.post('/search', (req, res) => {
 
 // 유저 상세 페이지 렌더링
 router.get('/:userId', isAuthenticated, (req, res) => {
-  res.render('admin/user/detail', {userId: req.params.userId})
+  const userId = req.params.userId
+  res.render('admin/user/detail', {userId: userId})
 })
 
 // 유저 상세 페이지 정보 응답 API
@@ -149,9 +150,12 @@ router.post('/:userId', (req, res) => {
     [userId],
     (err, result) => {
       if (err) {
-        // 유저 등록이 실패하면 false 응답
+        // 유저 조회 실패하면 false 응답
         response.success = false
         response.msg = err
+      } else if (String.isEmpty(result)) {
+        response.success = false
+        response.msg = '잘못된 요청입니다.'
       } else {
         // 성공시 유저 정보를 Object로 선언
         response.success = true

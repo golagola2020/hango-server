@@ -40,7 +40,7 @@ function readVendingDetail() {
         textInDate.innerHTML = vending.inDate
         textUpdateDate.innerHTML = vending.updateDate
       } else {
-        console.log(result.msg)
+        location.href = `/vending/unknown`
       }
     })
     .catch((err) => alert(err))

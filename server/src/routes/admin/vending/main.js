@@ -204,6 +204,9 @@ router.post('/:serialNumber', (req, res) => {
         // 자판기 등록이 실패하면 false 응답
         response.success = false
         response.msg = err
+      } else if (String.isEmpty(result)) {
+        response.success = false
+        response.msg = '잘못된 요청입니다.'
       } else {
         // 성공시 자판기 정보를 Object로 선언
         response.success = true

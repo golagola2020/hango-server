@@ -34,7 +34,7 @@ function readUserDetail() {
         textEmail.innerHTML = user.email
         textInDate.innerHTML = user.inDate
       } else {
-        console.log(result.msg)
+        location.href = `/admin/unknown`
       }
     })
     .catch((err) => alert(err))
