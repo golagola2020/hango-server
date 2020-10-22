@@ -231,7 +231,22 @@ router.post('/signup', (req, res) => {
                 }
               }
 
-              sendMail().catch((err) => console.log(err))
+              sendMail().catch((err) => {
+                // 환경 변수 에러발생시 처리
+                if (err instanceof Error) {
+                  db.query('DELETE FROM managers WHERE manager_id = ?', [manager.id], () => {
+                    const msg = `'HANGO_MANAGER_EMAIL' 환경변수 처리 중 에러 발생`
+                    console.error(`${msg}\n${err}`)
+
+                    response.success = false
+                    response.msg = msg
+
+                    // 데이터 응답
+                    Http.printResponse(response)
+                    res.json(response)
+                  })
+                }
+              })
             }
           },
         )
