@@ -134,8 +134,8 @@
 > 관리자 시스템 링크 : http://localhost:9700/admin 
 <img width="876" alt="스크린샷 2020-08-30 오후 11 22 54" src="https://user-images.githubusercontent.com/56839474/91661551-c596f000-eb17-11ea-9c87-d35a2d107142.png">
 
-## 데모(Guide)
-[![Watch the video](https://user-images.githubusercontent.com/56839474/96735832-ef251700-13f6-11eb-97d8-51584e32405f.jpg)](https://youtu.be/FdCmPXyCjIo)
+## 가이드 데모
+[![Watch the video](https://user-images.githubusercontent.com/56839474/96984438-6bd10600-155b-11eb-89b2-b1c8cfe63e79.png)](https://youtu.be/FdCmPXyCjIo)
 
 ## 배포(발행)
 
